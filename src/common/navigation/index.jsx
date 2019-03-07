@@ -1,26 +1,30 @@
-import React,{Component} from 'react';
+import React, {Component} from 'react';
 import {Button} from "antd";
 import {connect} from 'react-redux'
-import Routers  from '../../router/router'
+import Routers from '../../router/router'
 
 
+// @connect(state=>({
+//     state
+// }))
 
-@connect(state=>({
-
-}))
-class Navigation extends Component{
-
-    constructor(props) {
-        super(props);
-        this.state = [
+class Navigation extends Component {
+    state = {
+        navList:[
             {
-                name:'首页',
-                path:'home',
-                component:Routers
+                name: '首页',
+                path: 'home',
+                component: Routers
             }
-        ];
-    }
+        ]
 
+    };
+    componentDidMount() {
+        this.setState({
+            navList:this.props.navList
+        });
+        console.log('this.',this.props.navList);
+    }
 
     render() {
         return (
@@ -31,4 +35,7 @@ class Navigation extends Component{
     }
 }
 
-export default Navigation;
+
+export default  connect(state=>({
+    navList:state
+}))(Navigation);
