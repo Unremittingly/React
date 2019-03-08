@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import Navigation from '../navigation'
 import Sidebar from '../sidebar'
-
+import './index..scss'
 
 
 class Layout extends Component{
