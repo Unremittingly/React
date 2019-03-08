@@ -1,10 +1,14 @@
 import React,{Component} from 'react'
+import './index..scss'
 
 class Sidebar extends Component{
     render() {
         return (
-            <div>
-                sidebar
+            <div className='sidebar'>
+                <div className='sidebar-item'>item1</div>
+                <div className='sidebar-item'>item1</div>
+                <div className='sidebar-item'>item1</div>
+                <div className='sidebar-item'>item1</div>
             </div>
         )
     }

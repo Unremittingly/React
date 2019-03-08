@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import {Button} from "antd";
 import {connect} from 'react-redux'
+import {Link} from "react-router-dom"
 import Routers from '../../router/router'
+
+import './index..scss'
 
 
 // @connect(state=>({
@@ -10,7 +13,7 @@ import Routers from '../../router/router'
 
 class Navigation extends Component {
     state = {
-        navList:[
+        navList: [
             {
                 name: '首页',
                 path: 'home',
@@ -19,23 +22,29 @@ class Navigation extends Component {
         ]
 
     };
+
     componentDidMount() {
         this.setState({
-            navList:this.props.navList
+            navList: this.props.navList
         });
-        console.log('this.',this.props.navList);
+        console.log('this.', this.props.navList);
     }
 
+
     render() {
+        const listItems = this.props.navList.map((item) => {
+            return <Link to={item.path} key={item.id}>{item.name}</Link>;
+        });
+
         return (
             <div className="navigation">
-                <Button type="primary">首页</Button>
+                {listItems}
             </div>
         )
     }
 }
 
 
-export default  connect(state=>({
-    navList:state
+export default connect(state => ({
+    navList: state.common
 }))(Navigation);

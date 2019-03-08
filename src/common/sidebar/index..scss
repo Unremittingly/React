@@ -1,0 +1,22 @@
+.sidebar{
+
+  height: 80vh;
+  width: 20vw;
+  margin-top: 20vh;
+  margin-left: 10px;
+  border: 1px solid #eee;
+  box-shadow: 0 0 2px 2px #eee;
+
+  .sidebar-item{
+    padding: 10px 40px;
+    cursor: pointer;
+    font-size: 18px;
+    text-align: center;
+
+
+    &:hover{
+      color: #fff;
+      background: red;
+    }
+  }
+}

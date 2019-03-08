@@ -6,15 +6,16 @@ import Sidebar from '../sidebar'
 
 class Layout extends Component{
 
+
     render() {
         return (
             <div className="layout">
                 <Navigation/>
-
+                <div className='contain'>
+                    {this.props.name}
+                </div>
                 <Sidebar/>
             </div>
-
-
         )
     }
 }

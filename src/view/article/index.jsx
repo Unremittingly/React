@@ -1,16 +1,16 @@
-import React,{Component} from 'react'
+import React,{Component} from 'react';
 import Layout from '../../common/layout'
-class Application extends Component{
+
+class Article extends Component{
 
     render() {
         return (
             <div>
                 <Layout/>
-                个人中心
+                文章
             </div>
         )
     }
 }
 
-export default Application;
-
+export default Article
