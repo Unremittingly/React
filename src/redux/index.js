@@ -1,8 +1,10 @@
-import {createStore} from 'redux';
+import {createStore,combineReducers} from 'redux';
+
+import userInfo from './userInfo/reduce';
+import common from './common/reduce';
+import login from './login/reduce';
 
 
-
-import Home from '../view/home'
 
 
 
@@ -18,21 +20,15 @@ const operation = (state = 10, action) => {
 
 
 
-const navList = ()=>{
-  let list = [];
 
-  list.push({
-      name:'首页',
-      path:'/',
-      component:Home,
-  });
+const rootReduce = combineReducers({
+    userInfo,
+    login,
+    common,
 
+});
 
-  return list;
-};
-
-
-const store = createStore(navList);
+const store = createStore(rootReduce);
 
 
 
