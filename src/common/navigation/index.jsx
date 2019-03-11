@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
-import {Button} from "antd";
 import {connect} from 'react-redux'
 import {Link} from "react-router-dom"
 import Routers from '../../router/router'
-
 import './index..scss'
 
 

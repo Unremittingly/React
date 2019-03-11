@@ -5,6 +5,7 @@ class Sidebar extends Component{
     render() {
         return (
             <div className='sidebar'>
+                <div className='via'><img src='' alt='via'/></div>
                 <div className='sidebar-item'>item1</div>
                 <div className='sidebar-item'>item1</div>
                 <div className='sidebar-item'>item1</div>

@@ -6,6 +6,18 @@
   border: 1px solid #eee;
   box-shadow: 0 0 2px 2px #eee;
 
+  .via{
+    text-align: center;
+
+    img{
+      display: inline-block;
+      height: 100px;
+      width: 100px;
+      border: 1px solid #eee;
+      border-radius: 100px;
+    }
+  }
+
   .sidebar-item{
     padding: 10px 40px;
     cursor: pointer;

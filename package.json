@@ -2,6 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.3.0",
     "antd": "^3.14.1",
