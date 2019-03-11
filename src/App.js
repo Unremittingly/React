@@ -21,7 +21,6 @@ class App extends Component {
             routers.push( <Route key={item.path} path={item.path} component={item.component}/>);
         });
 
-        console.log('routers',routers);
         return routers;
     }
     render() {

@@ -3,6 +3,7 @@ import login from '../view/login'
 import application from '../view/application'
 import notFound from '../view/notFound'
 import article from '../view/article'
+import test from  '../view/test'
 
 export default {
     path: '/',
@@ -13,6 +14,7 @@ export default {
         {path: '/info', component: application},
         {path: '/home', component: home},
         {path: '/article', component: article},
+        {path:'/test',component:test},
         {path: '*', component: notFound}
     ]
 }

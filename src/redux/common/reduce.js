@@ -1,6 +1,7 @@
 import Home from "../../view/home";
 import Article from "../../view/article"
 import UserInfo from "../../view/application"
+import Test from '../../view/test'
 
 
 const navList = ()=>{
@@ -22,13 +23,13 @@ const navList = ()=>{
             name:'个人中心',
             path:'/info',
             component:UserInfo
+        },
+        {
+            id:4,
+            name:'test',
+            path:'/test',
+            component:Test
         }
-        // {
-        //     id:4,
-        //     name:'404',
-        //     path:'/404',
-        //     component:notFound
-        // }
     ];
 };
 

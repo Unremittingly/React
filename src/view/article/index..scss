@@ -1,0 +1,29 @@
+
+.article{
+
+  text-align: center;
+  .title{
+    font-size: 2rem;
+
+    span{
+      margin: 0 1rem;
+    }
+
+    .text{
+      margin-left: 15rem;
+    }
+    .time,.tag{
+      font-size: 1.2rem;
+      color: red;
+    }
+
+  }
+
+  .content{
+    margin-top: 2rem;
+    padding: 0 2rem;
+    text-align: left;
+    font-size: 1.6rem;
+
+  }
+}
