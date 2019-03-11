@@ -1,17 +1,17 @@
-import React,{Component} from 'react'
+import React, {Component} from 'react'
 import Layout from '../../common/layout'
 
-class NotFound extends Component{
+class NotFound extends Component {
 
     state = {
-      name:'404'
+        name: '404',
+        code: 0
     };
 
     render() {
         return (
             <div>
-                <Layout {...this.state.name} />
-                <div className='contain'>404 not found</div>
+                <Layout {...this.state} >404 not found</Layout>
             </div>
         );
     }
