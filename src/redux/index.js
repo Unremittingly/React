@@ -5,7 +5,7 @@ import common from './common/reduce';
 import login from './login/reduce';
 
 import test from  './test/reduce';
-
+const { composeWithDevTools } = require('redux-devtools-extension');
 
 const rootReduce = combineReducers({
     userInfo,
@@ -15,6 +15,6 @@ const rootReduce = combineReducers({
 
 });
 
-const store = createStore(rootReduce);
+const store = createStore(rootReduce,composeWithDevTools());
 
 export default store;

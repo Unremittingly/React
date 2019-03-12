@@ -8,7 +8,6 @@ import 'antd/dist/antd.css'
 class App extends Component {
     constructor(props) {
         super(props);
-        this.baseUrl = '/';
     }
 
 
@@ -16,11 +15,9 @@ class App extends Component {
         let routers = [];
 
         routers.push(<Route exact  key={Routers.path} path={Routers.path} component={Routers.component} />);
-
         Routers.childRoutes.forEach(function (item) {
             routers.push( <Route key={item.path} path={item.path} component={item.component}/>);
         });
-
         return routers;
     }
     render() {
