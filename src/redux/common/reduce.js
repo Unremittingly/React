@@ -2,6 +2,7 @@ import Home from "../../view/home";
 import Article from "../../view/article"
 import UserInfo from "../../view/application"
 import Test from '../../view/test'
+import Example from "../../view/example";
 
 
 const navList = ()=>{
@@ -29,6 +30,12 @@ const navList = ()=>{
             name:'test',
             path:'/test',
             component:Test
+        },
+        {
+            id:5,
+            name:'实例',
+            path:'/example',
+            component:Example
         }
     ];
 };

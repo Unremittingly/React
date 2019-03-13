@@ -4,6 +4,7 @@ import application from '../view/application'
 import notFound from '../view/notFound'
 import article from '../view/article'
 import test from  '../view/test'
+import example from '../view/example'
 
 export default {
     path: '/',
@@ -15,6 +16,7 @@ export default {
         {path: '/home', component: home},
         {path: '/article', component: article},
         {path:'/test',component:test},
+        {path:'/example',component:example},
         {path: '*', component: notFound}
     ]
 }
