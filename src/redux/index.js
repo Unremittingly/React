@@ -12,7 +12,6 @@ const rootReduce = combineReducers({
     login,
     common,
     test
-
 });
 
 const store = createStore(rootReduce,composeWithDevTools());

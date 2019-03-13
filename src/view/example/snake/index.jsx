@@ -61,7 +61,7 @@ class Snake_0 extends Component{
             // window.requestAnimationFrame(function () {
             //     startAnimate(snake);
             // });
-            if ((directionType - type) % 2 != 0) {
+            if ((directionType - type) % 2 !== 0) {
                 directionType = type;
                 getSpeed(type);
             }
@@ -236,6 +236,8 @@ class Snake_0 extends Component{
                         speedY = 20;
                         this.y = this.y + 20;
                         break;
+                    default:
+                        break
                 }
 
                 this.draw();
@@ -267,6 +269,8 @@ class Snake_0 extends Component{
                     speedX = 0;
                     speedY = 20;
                     break;
+                default:
+                    break
             }
         }
 
@@ -281,7 +285,7 @@ class Snake_0 extends Component{
             }
 
             getInteger(number) {
-                if (number % 20 == 0) {
+                if (number % 20 === 0) {
 
                     return number;
                 } else {
@@ -293,7 +297,7 @@ class Snake_0 extends Component{
                 let isSnakeLoc = false;
                 for (let i = 0; i < snakes.length; i++) {
                     let snake = snakes[i];
-                    if ((snake.x == this.x) && (this.y == snake.y)) {
+                    if ((snake.x === this.x) && (this.y === snake.y)) {
                         isSnakeLoc = true;
                         break;
                     }
@@ -343,6 +347,8 @@ class Snake_0 extends Component{
                     // stopAnimate();
                     startAnimate(3);
                     break;
+                default:
+                    break;
             }
         };
 
@@ -350,7 +356,6 @@ class Snake_0 extends Component{
         this.startAnimate = startAnimate;
     }
     componentDidMount() {
-        console.log('11');
 
         this.init();
     }

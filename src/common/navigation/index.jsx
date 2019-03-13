@@ -4,18 +4,8 @@ import {Link} from "react-router-dom"
 import Routers from '../../router/router'
 import './index..scss'
 
-
-
-
-// @connect(state=>({
-//     state
-// }))
-
 class Navigation extends Component {
-    constructor(props) {
-        super(props);
 
-    }
 
     state = {
         navList: [
@@ -32,8 +22,6 @@ class Navigation extends Component {
         this.setState({
             navList: this.props.navList
         });
-        console.log('sss',this.props.store);
-        console.log('this.', this.props.navList);
     }
 
 

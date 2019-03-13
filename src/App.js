@@ -6,9 +6,6 @@ import 'antd/dist/antd.css'
 
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-    }
 
 
     renderRouters(){

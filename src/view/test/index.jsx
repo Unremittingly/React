@@ -3,48 +3,51 @@ import Layout from '../../common/layout'
 import {Button} from "antd";
 import {add, minus} from "../../redux/test/action";
 import {connect} from "react-redux";
-import mapDispatchToProps from "react-redux/es/connect/mapDispatchToProps";
+
+
 
 /*******
  * 测试（学习）redux的dispatch分发任务给reduce 然后改变store值
  */
+
 class Test extends Component {
-
-    constructor(props) {
-        super(props);
-
-    }
 
     state = {
         name: '404',
         code: 0
     };
-    dispatch(type){
-        const store = this.props;
-        if(type==1){
-            store.dispatch(add())
-        }else{
-            store.dispatch(minus())
-        }
 
-    }
 
     render() {
-
 
         return (
             <div>
                 <Layout {...this.state} >
-                    <div>total:{}</div>
-                    <Button type="primary" htmlType="button" onClick={()=>this.dispatch(1)}>add</Button>
-                    <Button  type="primary" htmlType="button" onClick={()=>this.dispatch(2)}>minus</Button>
+                    <div>total:{parseInt(this.props.count)}</div>
+                    <Button type="primary" htmlType="button" onClick={() => this.props.add()}>add</Button>
+                    <Button type="primary" htmlType="button" onClick={() => this.props.minus()}>minus</Button>
                 </Layout>
             </div>
         );
     }
 }
 
-export default connect(state => ({
-    navList: state.common,
-    state
-}))(Test);
+//映射state状态到组件
+const mapStateToProps = (state)=>{
+    return {
+        count:state.test
+    }
+};
+//映射dispatch分发函数到组件
+const mapDispatchToProps = (dispatch) => {
+    return {
+        add: () => {
+            dispatch(add());
+        },
+        minus: () => {
+            dispatch(minus());
+        },
+    }
+};
+
+export default connect( mapStateToProps,mapDispatchToProps)(Test);
