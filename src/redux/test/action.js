@@ -1,8 +1,8 @@
 
 export const add = ()=>{
-    return {type:'add'}
+    return {type:'ADD'}
 };
 
 export const minus = ()=>{
-    return {type: 'minus'}
+    return {type: 'MINUS'}
 };

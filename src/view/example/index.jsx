@@ -4,19 +4,20 @@ import Snake from './snake'
 import Item from './template/item'
 
 class  Example extends Component{
-    state =[
+    state ={
+        list:[
         {
             name:'snake',
             gitUrl:'https://github.com/Unremittingly/web/tree/master/canvas/snake',
             component:<Snake/>
         }
-    ];
+    ]};
     render() {
         return (
             <div className="example">
                 <Layout>
-                    {this.state.map((item)=>{
-                        return <Item name={item.name} gitUrl={item.gitUrl}>{item.component}</Item>;
+                    {this.state.list.map((item)=>{
+                        return <Item key={item.name} name={item.name} gitUrl={item.gitUrl}>{item.component}</Item>;
                     })}
 
                 </Layout>

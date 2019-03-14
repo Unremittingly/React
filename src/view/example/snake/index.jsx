@@ -365,7 +365,7 @@ class Snake_0 extends Component{
             <div className="snake">
                 <canvas id="snake" width="800" height="600" />
 
-                <Button htmlType="" type="primary" onClick={()=>{
+                <Button htmlType="button" type="primary" onClick={()=>{
                     this.startAnimate(3);
                 }}>尝试一下</Button>
                 <div className="score">分数:
