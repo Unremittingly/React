@@ -27,7 +27,7 @@ class Article extends Component {
     componentDidMount() {
         this.props.getList();
 
-        for (let i = 0; i < 23; i++) {
+        for (let i = 0; i < 10; i++) {
             this.state.listData.push({
                 href: 'http://ant.design',
                 title: `ant design part ${i}`,
