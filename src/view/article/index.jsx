@@ -44,7 +44,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getList: () => {
-            getArticles('./test',{user:'username',pwd:'123456'},dispatch);
+            getArticles('http://localhost:3009/article',{user:'username',pwd:'123456'},dispatch);
             // dispatch(getList("username", "123456"));
         }
     }
