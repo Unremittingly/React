@@ -8,15 +8,16 @@ import 'antd/dist/antd.css'
 class App extends Component {
 
 
-    renderRouters(){
+    renderRouters() {
         let routers = [];
 
-        routers.push(<Route exact  key={Routers.path} path={Routers.path} component={Routers.component} />);
+        routers.push(<Route exact key={Routers.path} path={Routers.path} component={Routers.component}/>);
         Routers.childRoutes.forEach(function (item) {
-            routers.push( <Route key={item.path} path={item.path} component={item.component}/>);
+            routers.push(<Route key={item.path} path={item.path} component={item.component}/>);
         });
         return routers;
     }
+
     render() {
         const children = this.renderRouters();
         return (<BrowserRouter><Switch>

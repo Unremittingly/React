@@ -1,4 +1,3 @@
-import axios from 'axios'
 import {GET_LIST, EDIT_ARTICLE, DELETE_ARTICLE} from "./constant";
 
 

@@ -15,6 +15,7 @@ app.all('*', function (req, res, next) {
 
 app.get('/article', function (req, res, next) {
     //加载页面
+    //todo 数据库操作获取数据
     res.send(
         {
             data: 'article',
