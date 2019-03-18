@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import Layout from "../../common/layout"
+import Filter from "./component/filter"
 import "./index..scss"
 import {connect} from "react-redux";
 
@@ -46,8 +47,7 @@ class Article extends Component {
                 <Layout {...this.props.state}  >
                     <div className="article">
                         <span >redux测试：{this.props.test.data}</span>
-
-
+                        <Filter/>
                         <List
                             itemLayout="vertical"
                             size="large"
