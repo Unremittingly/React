@@ -17,14 +17,14 @@ class App extends Component {
         routers.push(<Route exact key={Routers.path} path={Routers.path} component={Routers.component}/>);
         Routers.childRoutes.forEach(function (item) {
             if(item.auth){
-                console.log('111');
+                //带登录权限的route
                 routers.push(<AuthRoute key={item.path} path={item.path} component={item.component}/>);
             }else{
                 routers.push(<Route key={item.path} path={item.path} component={item.component}/>);
             }
 
         });
-        //带登录权限的route
+
         return routers;
     }
 
