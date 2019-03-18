@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 
+const Api = require('./article');
+
 
 //设置跨域请求头  一个中间件设置跨域
 app.all('*', function (req, res, next) {
@@ -12,17 +14,14 @@ app.all('*', function (req, res, next) {
     next();
 });
 
+//article list api
+try {
+    Api.article(app);
+}catch (e) {
+    console.log('article list 任务失败',e);
+}
 
-app.get('/article', function (req, res, next) {
-    //加载页面
-    //todo 数据库操作获取数据
-    res.send(
-        {
-            data: 'article',
-            isSuccess: true
-        });
-    next();
-});
+
 
 app.all('*', function (req, res, next) {
 

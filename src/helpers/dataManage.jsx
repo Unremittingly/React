@@ -8,7 +8,7 @@ export const getArticles =  (url,params,dispatch)=>{
         console.log('res',res);
         if (res.status === 200){
             dispatch(getList({
-                data:res.data.data,
+                data:res.data.test,
                 state:false
             }));
         } else if(res.status === 404){
