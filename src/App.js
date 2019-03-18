@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import './App.css';
 import Routers from './router/router'
 import 'antd/dist/antd.css'
+import AuthRoute from './router/authRoute'
 
 
 
@@ -15,8 +16,15 @@ class App extends Component {
 
         routers.push(<Route exact key={Routers.path} path={Routers.path} component={Routers.component}/>);
         Routers.childRoutes.forEach(function (item) {
-            routers.push(<Route key={item.path} path={item.path} component={item.component}/>);
+            if(item.auth){
+                console.log('111');
+                routers.push(<AuthRoute key={item.path} path={item.path} component={item.component}/>);
+            }else{
+                routers.push(<Route key={item.path} path={item.path} component={item.component}/>);
+            }
+
         });
+        //带登录权限的route
         return routers;
     }
 

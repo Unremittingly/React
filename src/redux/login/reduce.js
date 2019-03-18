@@ -1,5 +1,6 @@
 let state = {
-    popIsShow: false
+    popIsShow: false,
+    isLogin:false
 };
 const login = () => {
     return state

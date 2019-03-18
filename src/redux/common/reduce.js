@@ -5,37 +5,38 @@ import Test from '../../view/test'
 import Example from "../../view/example";
 
 
-const navList = ()=>{
-    return  [
+const navList = () => {
+    return [
         {
-            id:1,
-            name:'首页',
-            path:'/',
-            component:Home,
+            id: 1,
+            name: '首页',
+            path: '/',
+            component: Home,
         },
         {
-            id:2,
-            name:'文章管理',
-            path:'/article',
-            component:Article
+            id: 2,
+            name: '文章管理',
+            path: '/article',
+            component: Article
         },
         {
-            id:3,
-            name:'个人中心',
-            path:'/info',
-            component:UserInfo
+            id: 3,
+            name: '个人中心',
+            path: '/info',
+            component: UserInfo,
+            auth: true
         },
         {
-            id:4,
-            name:'test',
-            path:'/test',
-            component:Test
+            id: 4,
+            name: 'test',
+            path: '/test',
+            component: Test
         },
         {
-            id:5,
-            name:'实例',
-            path:'/example',
-            component:Example
+            id: 5,
+            name: '实例',
+            path: '/example',
+            component: Example
         }
     ];
 };

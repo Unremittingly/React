@@ -27,7 +27,15 @@ class Navigation extends Component {
 
     render() {
         const listItems = this.props.navList.map((item) => {
-            return <Link to={item.path} key={item.id}>{item.name}</Link>;
+            if (!item.auth) {
+                return <Link to={item.path} key={item.id}>{item.name}</Link>;
+            } else {
+                //    需要login权限的
+                if (this.props.isLogin) {
+                    return <Link to={item.path} key={item.id}>{item.name}</Link>;
+                }
+            }
+
         });
 
         return (
@@ -41,5 +49,5 @@ class Navigation extends Component {
 
 export default connect(state => ({
     navList: state.common,
-    state
+    isLogin: state.login.isLogin
 }))(Navigation);
