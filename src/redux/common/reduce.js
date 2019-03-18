@@ -1,5 +1,6 @@
 import Home from "../../view/home";
 import Article from "../../view/article"
+import edit from '../../view/article/edit'
 import UserInfo from "../../view/application"
 import Test from '../../view/test'
 import Example from "../../view/example";
@@ -20,20 +21,28 @@ const navList = () => {
             component: Article
         },
         {
-            id: 3,
+            id:3,
+            name:'文章编辑',
+            path:'/edit',
+            component:edit,
+            auth:true
+
+        },
+        {
+            id: 4,
             name: '个人中心',
             path: '/info',
             component: UserInfo,
             auth: true
         },
         {
-            id: 4,
+            id: 5,
             name: 'test',
             path: '/test',
             component: Test
         },
         {
-            id: 5,
+            id: 6,
             name: '实例',
             path: '/example',
             component: Example

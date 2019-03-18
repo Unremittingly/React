@@ -1,0 +1,24 @@
+
+.article-edit{
+  display: flex;
+  height: 100%;
+  justify-content: space-around;
+
+  .edit-left{
+    width: 50%;
+    height: 100%;
+
+    textarea{
+      height: 90%;
+      color: #fff;
+      background: #000;
+
+    }
+  }
+  .edit-right{
+    width: 50%;
+    height: 100%;
+    padding: 0 10px;
+  }
+}
+
