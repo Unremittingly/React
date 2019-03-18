@@ -27,15 +27,19 @@ class Article extends Component {
 
     componentDidMount() {
         this.props.getList();
-
+        let listData = [];
         for (let i = 0; i < 10; i++) {
-            this.state.listData.push({
+            listData.push({
                 href: 'http://ant.design',
                 title: `ant design part ${i}`,
                 avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
                 description: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
             });
         }
+
+        this.setState({
+            listData
+        })
     }
 
     render() {
