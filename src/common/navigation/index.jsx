@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import {Link} from "react-router-dom"
 import Routers from '../../router/router'
+import Login from '../component/login'
+
 import './index..scss'
 
 class Navigation extends Component {
@@ -22,6 +24,7 @@ class Navigation extends Component {
         this.setState({
             navList: this.props.navList
         });
+        console.log('this.',this.props);
     }
 
 
@@ -39,8 +42,11 @@ class Navigation extends Component {
         });
 
         return (
-            <div className="navigation">
-                {listItems}
+            <div>
+                <Login/>
+                <div className="navigation">
+                    {listItems}
+                </div>
             </div>
         )
     }
@@ -49,5 +55,5 @@ class Navigation extends Component {
 
 export default connect(state => ({
     navList: state.common,
-    isLogin: state.login.isLogin
+    isLogin: state.userInfo.isLogin
 }))(Navigation);

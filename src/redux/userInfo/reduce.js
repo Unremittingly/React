@@ -1,20 +1,15 @@
-import {GET_USER_INFO,LOGIN_IN,LOGIN_OUT} from "./constant";
+import {GET_USER_INFO,LOGIN_IN,LOGIN_OUT,VERIFY_INFO} from "./constant";
 
-let loginState = {
-    isLogin: false,
-    userName:'test',
-    pwd:'123456'
-};
-const userInfo = (state,action)=>{
+const userInfo = (state={isLogin:false},action)=>{
     switch (action.type) {
         case GET_USER_INFO:
-            return {...state,data:action.data?action.data:loginState};
+            return {...state,data:action.data};
         case LOGIN_IN:
-            return {...state,data:action.data?action.data:loginState,status:action.status};
+            return {...state,isLogin:true};
         case LOGIN_OUT:
-            return {...state,status:action.status};
+            return {...state,isLogin:false};
         default:
-            return {...state,data:loginState}
+            return {...state}
     }
 };
 

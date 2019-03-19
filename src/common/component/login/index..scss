@@ -1,0 +1,19 @@
+
+.login-info{
+  position: absolute;
+  top: 20px;
+  left: 10px;
+
+
+  span{
+    cursor: pointer;
+    &:hover{
+      color: red;
+    }
+  }
+
+  .login-btn{
+    margin: 0 10px;
+
+  }
+}

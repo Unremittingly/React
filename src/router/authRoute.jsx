@@ -12,7 +12,7 @@ class AuthRoute extends Component{
 
 const mapStateToProps = (state)=>{
     return {
-        isLogin:state.login.isLogin
+        isLogin:state.userInfo.isLogin
     }
 };
 

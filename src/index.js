@@ -5,9 +5,10 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import {Provider} from 'react-redux'
-import store from './redux'
+import {store,persistor} from './redux'
+import {PersistGate} from 'redux-persist/es/integration/react'
 function render(){
-    return ReactDOM.render(<Provider store={store}><App/></Provider>, document.getElementById('root'));
+    return ReactDOM.render(<Provider store={store}><PersistGate persistor={persistor}><App/></PersistGate></Provider>, document.getElementById('root'));
 }
 render();
 store.subscribe(render);//添加侦察器  能够在状态发生变化的时候让他自动响应

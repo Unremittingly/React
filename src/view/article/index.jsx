@@ -62,7 +62,6 @@ class Article extends Component {
                                 pageSize: 2,
                             }}
                             dataSource={listData}
-                            // footer={<div><b>ant design</b> footer part</div>}
                             renderItem={item => (
                                 <List.Item
                                     key={item.title}

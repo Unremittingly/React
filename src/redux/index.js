@@ -2,20 +2,37 @@ import {createStore,combineReducers} from 'redux';
 
 import userInfo from './userInfo/reduce';
 import common from './common/reduce';
-import login from './login/reduce';
 import article from './article/reduce'
 
 import test from  './test/reduce';
+import {persistReducer ,persistStore} from 'redux-persist';
+import storageSession from "redux-persist/es/storage/session";
 const { composeWithDevTools } = require('redux-devtools-extension');
 
+
+// import storage from 'redux-persist/es/storage'
+
+// const storageConfig = {
+//     key: 'root', // 必须有的
+//     storage, // storage is now required
+//     blacklist: [] // reducer 里不持久化的数据
+// };
+
+
+
+const userConfig = {
+    key: 'userInfo',
+    storage: storageSession,
+};
+
 const rootReduce = combineReducers({
-    userInfo,
-    login,
+    userInfo:persistReducer(userConfig,userInfo),
     common,
     test,
     article
 });
 
-const store = createStore(rootReduce,composeWithDevTools());
+// const store = createStore(rootReduce,composeWithDevTools());
+export const store = createStore(rootReduce,composeWithDevTools());
+export const persistor = persistStore(store);
 
-export default store;

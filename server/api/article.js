@@ -22,4 +22,13 @@ const article  =  (app)=>  {
     })
 };
 
+const editArticle = (app)=>{
+    app.get('/edit',function (req,res,next) {
+        sqlOptions.update('',function () {
+
+        })
+    })
+};
+
+exports.editArticle = editArticle;
 exports.article = article;
