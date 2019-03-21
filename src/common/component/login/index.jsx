@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import {connect} from "react-redux";
 import {Modal, Input} from "antd";
 import './index..scss'
-import {loginIn,loginOut} from "../../../redux/userInfo/action";
+import {loginOut} from "../../../redux/userInfo/action";
+import {login} from "../../../helpers/dataManage";
 
 
 class Login extends Component {
@@ -33,17 +34,16 @@ class Login extends Component {
     handleOk() {
         let userName = this.userInput.state.value;
         let password = this.pwdInput.state.value;
-        this.setState({
-            isPopShow: false,
-            userName,
-            password
-        });
+        let that = this;
+
         this.props.loginIn({
             userName,
             password
         }, () => {
-            this.setState({
-                className: "hidden"
+            that.setState({
+                isPopShow: false,
+                userName,
+                password
             });
         });
         console.log('this', this.props);
@@ -60,7 +60,7 @@ class Login extends Component {
         return (
             <div>
                 <Input placeholder="用户名" ref={input => this.userInput = input} defaultValue={this.state.userName}/>
-                <Input placeholder="密码" ref={input => this.pwdInput = input} defaultValue={this.state.password}/>
+                <Input placeholder="密码" type="password" ref={input => this.pwdInput = input} defaultValue={this.state.password}/>
             </div>
         )
     }
@@ -81,13 +81,16 @@ class Login extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch, state) => {
+const mapDispatchToProps = (dispatch) => {
 
     return {
         loginIn: (info, f = () => {
         }) => {
-            dispatch(loginIn());
-            f();
+            login('http://localhost:3009/login',info,dispatch,function (isOk) {
+                if(isOk){
+                    f();
+                }
+            });
         },
         loginOut:(f=()=>{})=>{
             dispatch(loginOut());

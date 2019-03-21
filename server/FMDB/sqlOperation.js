@@ -12,44 +12,12 @@ const connectMysql = function (option) {
         port: '3306',
         user: 'root',
         password: 'fcymwg&M%8r_',
-        database: 'test'
+        database: 'personage'
     };
     opt =  Object.assign(opt,option);
     connection = mysql.createConnection(opt);
     connection.connect();
     return connection;
-};
-/*****
- * 添加数据  独有   没啥用
- * @param data
- * @param operation
- */
-const addData = function (data, operation) {
-    if (connection) {
-        let right = data.right;
-        let time = getTime() / 1000;
-        let value = '';
-        let same_id = Math.random() * 1000;
-        for (let i = 0; i < right.length; i++) {
-            let obj = right[i];
-            obj.src = obj.src.substring(0, 200);
-            value += '("' + obj.desc + '",' + time + ',' + obj.index + ',' + same_id + ',"' + obj.src + '"),'
-        }
-        value = value.substring(0, value.length - 1);
-        let sql = 'INSERT INTO info(name,cur_time,cur_rank,same_id,url) VALUES' + value;
-        connection.query(sql, function (error, result) {
-            if (error) {
-                console.log('数据添加失败', error);
-            } else {
-                console.log('result', result);
-            }
-        })
-
-    } else {
-        connectMysql();
-        addData(data);
-    }
-
 };
 /*****
  * 查询数据
@@ -236,7 +204,6 @@ const close = function(){
     }
 };
 
-exports.addData = addData;
 exports.connectSql = connectMysql;
 exports.getTime = getTime;
 exports.selectAll = selectAll;
