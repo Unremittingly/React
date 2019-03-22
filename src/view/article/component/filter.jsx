@@ -34,10 +34,12 @@ class Filter extends Component {
                     defaultValue={moment(this.state.time, this.state.dateType)}
                     onChange={this.dataChange.bind(this)}/></span>
                 <span className="filter-type">文章类型</span>
-                <span className="filter-type"><Select defaultValue="lucy">
+                <span className="filter-type">
+                    <Select defaultValue="lucy">
                     <Option value="lucy">文章类型1</Option>
                     <Option value="lucy1">文章类型</Option>
-                </Select></span>
+                    </Select>
+                </span>
                 <span className="filter-search"><Input.Search size="default" defaultValue={this.state.str} placeholder="请输入搜索内容" enterButton="search"/></span>
             </div>
         )

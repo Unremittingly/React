@@ -1,9 +1,13 @@
 
 .article-edit{
-  display: flex;
+  width: 70vw;
   height: 100%;
-  justify-content: space-around;
 
+  .markdown{
+    display: flex;
+    justify-content: space-around;
+    height: 100%;
+  }
   .edit-left{
     width: 50%;
     height: 100%;
@@ -19,6 +23,23 @@
     width: 50%;
     height: 100%;
     padding: 0 10px;
+    overflow: auto;
   }
 }
 
+.optGroup{
+  display: flex;
+  justify-content: left;
+  margin: 10px;
+}
+
+.submit-btn{
+  margin-bottom: 20px;
+  margin-left: 40%;
+}
+
+
+ .ant-tabs-content {
+  height:100%
+
+}

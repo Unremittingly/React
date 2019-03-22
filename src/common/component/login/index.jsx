@@ -49,8 +49,8 @@ class Login extends Component {
                 password
             });
         });
-        console.log('this', this.props);
-        console.log('1111222', this.props.pState);
+        // console.log('this', this.props);
+        // console.log('1111222', this.props.pState);
 
     }
 
@@ -89,11 +89,17 @@ const mapDispatchToProps = (dispatch) => {
     return {
         loginIn: (info, f = () => {
         }) => {
-            login('http://localhost:3009/login',info,dispatch,function (isOk) {
-                if(isOk){
+            //使用Generator  和yield 模式来将异步变成同步
+            let l = login('http://localhost:3009/login',info,dispatch);
+            console.log('1', l.next().value.then(function () {
+                //因为第一次返回的是一个promise 这里需要再写一次next()
+                let result = l.next().value.data;
+                if(result.isOk){
                     f();
                 }
-            });
+                console.log('result',result);
+            }),);
+
         },
         loginOut:(f=()=>{})=>{
             dispatch(loginOut());

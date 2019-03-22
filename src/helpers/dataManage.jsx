@@ -21,32 +21,31 @@ export const getArticles = (url, params, dispatch) => {
     });
 };
 
-export const login = (url, param, dispatch, callback) => {
+export const login = function* (url, param, dispatch)  {
 
+    let result ={};
 
-    axios.post(url, qs.stringify(param), {
+    yield axios.post(url, qs.stringify(param), {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
     }).then(function (res) {
         if (res.status === 200) {
-            console.log('res', res);
+            // console.log('res', res);
             if (res.data.isOk) {
                 dispatch(loginIn(param));
-                callback(res.data.isOk);
             } else {
-                callback(res.data.isOk);
                 console.log('账号或密码错误');
             }
-
+            result = res;
         } else {
             console.log('error');
         }
     }).catch(function (e) {
         console.log('未知错误', e);
-    })
+    });
 
-
+    yield result;
 };
 
 export const getToken = () => {
