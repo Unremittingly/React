@@ -5,8 +5,9 @@ const article  =  (app)=>  {
         //加载页面
         //todo 数据库操作获取数据
 
-        let sql = 'SELECT * from info';
+        let sql = 'SELECT * from article';
         let r = res;
+        console.log('req',req.query);
         sqlOptions.operationData(sql, function (result) {
             // console.log('res',res);
             r.send(

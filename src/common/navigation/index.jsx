@@ -45,7 +45,7 @@ class Navigation extends Component {
 
         return (
             <div>
-                <Login/>
+                <Login test={123}/>
                 <div className="navigation">
                     {listItems}
                 </div>

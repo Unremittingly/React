@@ -5,6 +5,9 @@ import './index..scss'
 import {loginOut} from "../../../redux/userInfo/action";
 import {login} from "../../../helpers/dataManage";
 
+import PropType from 'prop-types'
+
+//使用proptype检测类型
 
 class Login extends Component {
 
@@ -105,5 +108,7 @@ const mapStateToProps = (state) => {
         pState: state
     }
 };
-
+Login.propTypes = {
+    test: PropType.number
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
