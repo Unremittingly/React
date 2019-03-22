@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import ReactMarkdown from 'react-markdown'
 import {Input, Tabs, Button, Select} from "antd";
 import Layout from "../../common/layout";
-import './edit..scss'
+import './edit..scss';
+import {saveArticle} from "../../helpers/dataManage";
 
 
 import E from 'wangeditor'
@@ -16,10 +17,19 @@ class Edit extends Component {
         super(props);
         //推荐绑定事件函数写在构造方法里面
         this.tabChange = this.tabChange.bind(this);
+        this.selectHandle = this.selectHandle.bind(this);
+        this.submitHandle = this.submitHandle.bind(this);
+
+
+
     }
 
     state = {
-        str: '## 标题 title   \n  文本内容'
+        str: '## 标题 title   \n  文本内容',
+        title:'',
+        content:'',
+        type:1,
+        time:'1970-01-01'
     };
 
     textChange(e) {
@@ -120,15 +130,35 @@ class Edit extends Component {
     tabChange(key) {
         console.log('key', key);
     }
+    selectHandle(value){
+        console.log('vule',value);
+        this.setState({
+            type:value
+        })
+    }
+    submitHandle(){
+        console.log('json',this.editor.txt.getJSON());
+        console.log('test',this.editor.txt.text());
+        console.log('test',this.editor.txt.html());
+        let content = this.editor.txt.html();
 
+        let data = {
+            content:content.replace(/\"/g,'\\"'),//转义一下双引号
+            title:this.titleInput.state.value,
+            type:this.state.type,
+            time:parseInt((new Date().getTime())/1000)
+        };
 
+        saveArticle('http://localhost:3009/saveArticle',data);
+
+    }
     render() {
         return (
             <Layout>
                 <div className="article-edit">
                     <Tabs defaultActiveKey="1" style={{height: '100%'}} onChange={this.tabChange}>
                         <TabPane tab="富文本编辑器" key="1">
-                            <Input placeholder="标题"/>
+                            <Input ref={input => this.titleInput = input} placeholder="标题"/>
                             <div ref='editorElem' style={{textAlign: 'left'}}/>
                         </TabPane>
                         <TabPane tab="markDown编辑器" key="2">
@@ -143,12 +173,12 @@ class Edit extends Component {
                     </Tabs>
                 </div>
                 <div className="optGroup">
-                    <Select defaultValue="lucy">
-                        <Option value="lucy">文章类型1</Option>
-                        <Option value="lucy1">文章类型</Option>
+                    <Select defaultValue="lucy" onSelect={this.selectHandle} value="1">
+                        <Option value="1">前端</Option>
+                        <Option value="2">后端</Option>
                     </Select>
                 </div>
-                <Button  className="submit-btn" htmlType="button" type="primary">提交</Button>
+                <Button  className="submit-btn" htmlType="button" type="primary" onClick={this.submitHandle}>提交</Button>
             </Layout>
         )
     }

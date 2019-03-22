@@ -33,6 +33,12 @@ try {
 }
 
 
+try {
+    article.saveArticle(app);
+}catch (e) {
+    console.log('save Article 失败',e);
+}
+
 
 
 app.listen(3009, () => console.log('Example app listening on port 3009!'));

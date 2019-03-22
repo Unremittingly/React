@@ -138,24 +138,25 @@ function getTime() {
  * @param sql SQL语句
  * @returns {boolean}
  */
-const insertData =  function(sql){
+const insertData =  function(sql,callback){
     let isSuccess = false;
     if(connection){
         let defaultSql = sql||'';
         if(defaultSql){
             connection.query(defaultSql,function (error,result) {
                 if(error){
-                    console.log('数据插入失败');
+                    console.log('数据插入失败',error);
                     isSuccess = false;
                 }else{
                     console.log('数据插入成功',result);
                     isSuccess = true;
                 }
+                callback(isSuccess);
             })
         }
     }else{
         connectMysql();
-        isSuccess =  insertData(sql);
+        isSuccess =  insertData(sql,callback);
     }
     return isSuccess;
 };

@@ -19,6 +19,11 @@ const IconText = ({ type, text }) => (
 );
 
 class Article extends Component {
+    constructor(props) {
+        super(props);
+        this.html1 = ' <p><span style="font-weight: bold">放大发放</span>&nbsp; tst</p>';
+    }
+
     state = {
         name: "404",
         code: 3,
@@ -50,6 +55,7 @@ class Article extends Component {
             <div className="article-list">
                 <Layout {...this.props.state}  >
                     <div className="article">
+                        <div dangerouslySetInnerHTML={{ __html: this.html1 }}/>
                         <span >redux测试：{this.props.test.data}</span>
                         <Filter/>
                         <List

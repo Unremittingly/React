@@ -21,6 +21,19 @@ export const getArticles = (url, params, dispatch) => {
     });
 };
 
+export const saveArticle = (url, params,)=>{
+    axios.post(url,qs.stringify(params)).then(function (res) {
+        if(res.status === 200){
+            if(res.data.isSuccess){
+                console.log('插入成功');
+            }else{
+                console.log('插入失败');
+            }
+
+        }
+    })
+};
+
 export const login = function* (url, param, dispatch)  {
 
     let result ={};
