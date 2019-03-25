@@ -3,14 +3,18 @@ import {getList} from '../redux/article/action'
 import {loginIn} from "../redux/userInfo/action";
 import qs from 'qs';
 
-export const getArticles = (url, params, dispatch) => {
+export const getArticles = (url, params, dispatch,callBack) => {
     axios.get(url,{params:params}).then(function (res) {
         console.log('res', res);
         if (res.status === 200) {
             dispatch(getList({
-                data: res.data.test,
+                data: res.data,
                 state: false
             }));
+            if(callBack){
+                callBack(res.data);
+            }
+
         } else if (res.status === 404) {
             console.log('not found');
         }

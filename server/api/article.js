@@ -33,13 +33,14 @@ const editArticle = (app) => {
 
 const saveArticle = (app) => {
     app.post('/saveArticle', function (req, res, next) {
-        // console.log('req.body', req.body);
+        console.log('req.body', req.body);
         let title = req.body.title;
         let content = req.body.content;
         let time = req.body.time;
         let type = req.body.type;
-        let value = '("' + title + '","' + type + '","' + time + '","' + content + '")';
-        let sql = 'INSERT INTO article(title,type,time,content) VALUES' + value;
+        let desc = req.body.desc;
+        let value = '("' + title + '","' + type + '","' + time + '","' + content + '","'+desc+'")';
+        let sql = 'INSERT INTO article(title,type,time,content,description) VALUES' + value;
         sqlOptions.insertData(sql, function (isSuccess) {
             console.log('isSuccess', isSuccess);
             res.send({

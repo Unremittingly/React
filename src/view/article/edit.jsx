@@ -141,12 +141,14 @@ class Edit extends Component {
         console.log('test',this.editor.txt.text());
         console.log('test',this.editor.txt.html());
         let content = this.editor.txt.html();
+        let desc = this.editor.txt.text();
 
         let data = {
             content:content.replace(/\"/g,'\\"'),//转义一下双引号
             title:this.titleInput.state.value,
             type:this.state.type,
-            time:parseInt((new Date().getTime())/1000)
+            time:parseInt((new Date().getTime())/1000),
+            desc
         };
 
         saveArticle('http://localhost:3009/saveArticle',data);

@@ -2,7 +2,7 @@ import {GET_LIST, EDIT_ARTICLE, DELETE_ARTICLE} from "./constant";
 
 const operationReduce = (state, action) => {
     // console.log('state',action);
-    let res = action.data;
+    let res = action.data?action.data.data:[];
     switch (action.type) {
         case GET_LIST:
             return {...state, data: res.data, type: GET_LIST, state: res.state};
@@ -11,7 +11,7 @@ const operationReduce = (state, action) => {
         case EDIT_ARTICLE:
             return {...state, type: EDIT_ARTICLE, state: res.state};
         default:
-            return {...state,data:'default'}
+            return {...state,data:res.data?res.data:[]}
     }
 
 };
