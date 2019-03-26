@@ -94,8 +94,11 @@ const mapDispatchToProps = (dispatch) => {
             console.log('1', l.next().value.then(function () {
                 //因为第一次返回的是一个promise 这里需要再写一次next()
                 let result = l.next().value.data;
-                if(result.isOk){
+                if(result && result.isOk){
                     f();
+                }
+                if(!result){
+                    console.log('未知错误');
                 }
                 console.log('result',result);
             }),);

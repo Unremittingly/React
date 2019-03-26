@@ -127,9 +127,6 @@ class Edit extends Component {
         };
         editor.create()
     }
-    tabChange(key) {
-        console.log('key', key);
-    }
     selectHandle(value){
         console.log('vule',value);
         this.setState({
@@ -144,7 +141,7 @@ class Edit extends Component {
         let desc = this.editor.txt.text();
 
         let data = {
-            content:content.replace(/\"/g,'\\"'),//转义一下双引号
+            content:content.replace(/\"/g,'\\"'),//转义一下双引号 以方便存入数据库
             title:this.titleInput.state.value,
             type:this.state.type,
             time:parseInt((new Date().getTime())/1000),
@@ -152,6 +149,9 @@ class Edit extends Component {
         };
 
         saveArticle('http://localhost:3009/saveArticle',data);
+
+    }
+    tabChange(){
 
     }
     render() {
