@@ -180,6 +180,7 @@ class Edit extends Component {
                     <Select defaultValue="lucy" onSelect={this.selectHandle} value="1">
                         <Option value="1">前端</Option>
                         <Option value="2">后端</Option>
+                        <Option value="3">数据库</Option>
                     </Select>
                 </div>
                 <Button  className="submit-btn" htmlType="button" type="primary" onClick={this.submitHandle}>提交</Button>

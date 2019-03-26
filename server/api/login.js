@@ -1,5 +1,6 @@
 
 const sqlOptions = require('../FMDB/sqlOperation');
+const md5 = require('md5');
 const loginIn = (app)=>{
 
 
@@ -10,14 +11,10 @@ const loginIn = (app)=>{
         let password = params.password;
         sqlOptions.selectAll('admin',function (result) {
             let isOk = false;
-            if(userName == result[0].username && password==result[0].pwd){
+            if(userName == result[0].username && md5(password)==result[0].pwd){
                 isOk = true;
             }
             res.send({
-                oldInfo:{
-                    userName,
-                    password
-                },
                 data:result,
                 isOk//是否验证成功
             });

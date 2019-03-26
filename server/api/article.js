@@ -32,7 +32,7 @@ const editArticle = (app) => {
 
 const saveArticle = (app) => {
     app.post('/saveArticle', function (req, res, next) {
-        console.log('req.body', req.body);
+        // console.log('req.body', req.body);
         let title = req.body.title;
         let content = req.body.content;
         let time = req.body.time;
