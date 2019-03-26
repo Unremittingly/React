@@ -3,14 +3,17 @@ import {getList} from '../redux/article/action'
 import {loginIn} from "../redux/userInfo/action";
 import qs from 'qs';
 
-export const getArticles = (url, params, dispatch,callBack) => {
+export const getArticles = (url, params,callBack) => {
     axios.get(url,{params:params}).then(function (res) {
         console.log('res', res);
         if (res.status === 200) {
-            dispatch(getList({
-                data: res.data,
-                state: false
-            }));
+            // if(dispatch){
+            //     dispatch(getList({
+            //         data: res.data,
+            //         state: false
+            //     }));
+            // }
+
             if(callBack){
                 callBack(res.data);
             }

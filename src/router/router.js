@@ -5,6 +5,7 @@ import article from '../view/article'
 import edit from '../view/article/edit'
 import test from '../view/test'
 import example from '../view/example'
+import detail from '../view/article/detail'
 
 export default {
     path: '/',
@@ -15,6 +16,7 @@ export default {
         {path: '/home', component: home, auth: false},
         {path: '/article', component: article, auth: false},
         {path: '/edit', component: edit, auth: true},
+        {path: '/detail', component: detail, auth: false},
         {path: '/test', component: test, auth: false},
         {path: '/example', component: example, auth: false},
         {path: '*', component: notFound, auth: false}

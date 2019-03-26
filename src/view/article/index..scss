@@ -26,4 +26,14 @@
     font-size: 1.6rem;
 
   }
+
+
+
+  .ant-list{
+    width: 84%;
+    margin-left: 8%;
+  }
+  .ant-list-item:hover{
+    transform: scale(1.05);
+  }
 }

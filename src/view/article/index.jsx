@@ -26,46 +26,21 @@ class Article extends Component {
     state = {
         name: "404",
         code: 3,
-        listData: this.props.resData
+        listData: []//这个页面独有的文章list
     };
 
-    componentWillMount() {
-
-    }
-
-    updateData() {
-
-        let list = [];
-        console.log('resData.', this.props.resData);
-
-        // this.setState({
-        //     listData:this.props.resData
-        // });
-        this.props.resData.forEach((value) => {
-            // value.description = value['description'];
-            value['avatar']='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png';
-            list.unshift(value);
-        });
-        return list;
-    }
 
     componentDidMount() {
-        this.props.getList();
+        // this.props.getList();
 
+        getArticles('http://localhost:3009/article', {user: 'username', pwd: '123456'},
+            (data) => {
+                console.log('data', data);
+                this.setState({
+                    listData: data.data
+                });
+            });
         console.log('didMount');
-        // let listData = [];
-        // for (let i = 0; i < 10; i++) {
-        //     listData.push({
-        //         href: 'http://ant.design',
-        //         title: `ant design part ${i}`,
-        //         avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-        //         description: ' Ant Design, a design language for background applications, is refined by Ant UEDTeam.',
-        //     });
-        // }
-        //
-        // this.setState({
-        //     listData
-        // })
     }
 
     render() {
@@ -74,7 +49,7 @@ class Article extends Component {
 
         // listData = listData.length>0 ? listData :this.state.listData;
 
-        console.log('state',this.props.state1);
+        // console.log('state',this.props.state1);
         return (
             <div className="article-list">
                 <Layout {...this.props.state}  >
@@ -104,7 +79,7 @@ class Article extends Component {
                                         description={item.description}
 
                                     />
-                                    <div dangerouslySetInnerHTML={{__html: item.content}} />
+                                    <div dangerouslySetInnerHTML={{__html: item.content}}/>
                                 </List.Item>
                             )}
                         />,
@@ -121,23 +96,18 @@ const mapStateToProps = (state) => {
     return {
         test: state.article.data,
         resData: state.article.data,
-        state1:state
+        state1: state
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getList: function () {
-
-            let that = this;
-            getArticles('http://localhost:3009/article', {user: 'username', pwd: '123456'}, dispatch,
-                (data)=>{
-                    that.setState({
-                    listData:data
-                })
-                });
-            // dispatch(getList("username", "123456"));
-        }
+        // getList: function () {
+        //
+        //     let that = this;
+        //
+        //     // dispatch(getList("username", "123456"));
+        // }
     }
 };
 
