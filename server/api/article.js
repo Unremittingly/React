@@ -7,7 +7,6 @@ const article = (app) => {
 
         let sql = 'SELECT * from article';
         let r = res;
-        console.log('req', req.query);
         sqlOptions.operationData(sql, function (result) {
             // console.log('res',res);
             r.send(
@@ -52,6 +51,21 @@ const saveArticle = (app) => {
     })
 };
 
+const getArticleForId = (app)=>{
+    app.post('/getArticle', function (req, res, next) {
+        // console.log('req.body', req.body);
+        let id = req.body.id;
+        sqlOptions.selectForId(id,'article',function (data) {
+            res.send({
+                isSuccess:true,
+                data:data
+            })
+        })
+
+    })
+};
+
 exports.editArticle = editArticle;
 exports.article = article;
 exports.saveArticle = saveArticle;
+exports.getArticleForId = getArticleForId;

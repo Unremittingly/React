@@ -6,7 +6,6 @@ import {connect} from "react-redux";
 import {getArticles} from '../../helpers/dataManage'
 import {List, Avatar, Icon} from 'antd';
 
-
 const IconText = ({type, text}) => (
     <span>
     <Icon type={type} style={{marginRight: 8}}/>
@@ -15,11 +14,6 @@ const IconText = ({type, text}) => (
 );
 
 class Article extends Component {
-    constructor(props) {
-        super(props);
-
-    }
-
     state = {
         name: "404",
         code: 3,
@@ -35,11 +29,10 @@ class Article extends Component {
                     listData: data.data
                 });
             });
-        console.log('didMount');
     }
 
     clickHandle(id) {
-        console.log('id', id);
+        this.props.history.push("/article/detail/"+id);
     }
 
     render() {

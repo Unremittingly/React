@@ -18,9 +18,9 @@ class App extends Component {
         Routers.childRoutes.forEach(function (item) {
             if(item.auth){
                 //带登录权限的route
-                routers.push(<AuthRoute key={item.path} path={item.path} component={item.component}/>);
+                routers.push(<AuthRoute key={item.path} exact path={item.path} component={item.component}/>);
             }else{
-                routers.push(<Route key={item.path} path={item.path} component={item.component}/>);
+                routers.push(<Route key={item.path} exact  path={item.path} component={item.component}/>);
             }
 
         });

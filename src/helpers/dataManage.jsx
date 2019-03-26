@@ -1,5 +1,4 @@
 import axios from 'axios'
-import {getList} from '../redux/article/action'
 import {loginIn} from "../redux/userInfo/action";
 import qs from 'qs';
 
@@ -74,6 +73,23 @@ export const getToken = () => {
 
 export const getTags = () => {
 
+};
+
+
+export const getArticleForId = (url,params,callback)=>{
+    axios.post(url,qs.stringify(params)).then(function (res) {
+        if(res.status === 200){
+            if(res.data.isSuccess){
+                console.log('查询成功',res.data);
+                if(callback){
+                    callback(res.data.data)
+                }
+            }else{
+                console.log('插入失败');
+            }
+
+        }
+    })
 };
 
 

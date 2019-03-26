@@ -35,7 +35,7 @@ class Navigation extends Component {
             } else {
                 //    需要login权限的
                 if (this.props.isLogin) {
-                    return <Link to={item.path} key={item.id}>{item.name}</Link>;
+                    return <Link to={item.path}  key={item.id}>{item.name}</Link>;
                 }else{
                     return '';
                 }

@@ -40,5 +40,12 @@ try {
 }
 
 
+try {
+    article.getArticleForId(app);
+}catch (e) {
+    console.log('get Article 失败',e);
+}
+
+
 
 app.listen(3009, () => console.log('Example app listening on port 3009!'));

@@ -1,34 +1,29 @@
-import React,{Component} from 'react'
+import React, {Component} from 'react'
 import Layout from '../../common/layout'
-import {getArticles} from "../../helpers/dataManage";
+import {getArticleForId} from "../../helpers/dataManage";
 
-class Detail extends Component{
+class Detail extends Component {
 
-    state={
-        listData:[]
+    state = {
+        data: {},
+        params: this.props.match.params
     };
 
     componentDidMount() {
-        getArticles('http://localhost:3009/article', {user: 'username', pwd: '123456'},
+        getArticleForId('http://localhost:3009/getArticle', {id: this.state.params.id},
             (data) => {
-                console.log('data', data);
                 this.setState({
-                    listData: data.data
+                    data
                 });
             });
     }
 
     render() {
-        let item = this.state.listData[0] ?this.state.listData[0]:{
-            title:'test标题',
-            content:'内容'
-        };
         return (
             <Layout>
                 <div className="article-detail">
-                    <div className="title">{item.title}</div>
-
-                    <div dangerouslySetInnerHTML={{__html: item.content}}/>
+                    <div className="title">{this.state.data.title}</div>
+                    <div dangerouslySetInnerHTML={{__html: this.state.data.content}}/>
                 </div>
             </Layout>
 
