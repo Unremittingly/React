@@ -140,6 +140,8 @@ class Edit extends Component {
         let content = this.editor.txt.html();
         let desc = this.editor.txt.text();
 
+
+        //todo  需要处理特殊字符转义问题
         let data = {
             content:content.replace(/\"/g,'\\"'),//转义一下双引号 以方便存入数据库
             title:this.titleInput.state.value,
