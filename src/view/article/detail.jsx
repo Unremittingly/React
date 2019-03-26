@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Layout from '../../common/layout'
 import {getArticleForId} from "../../helpers/dataManage";
+import './detail..css'
 
 class Detail extends Component {
 
@@ -23,7 +24,7 @@ class Detail extends Component {
             <Layout>
                 <div className="article-detail">
                     <div className="title">{this.state.data.title}</div>
-                    <div dangerouslySetInnerHTML={{__html: this.state.data.content}}/>
+                    <div className="content" dangerouslySetInnerHTML={{__html: this.state.data.content}}/>
                 </div>
             </Layout>
 
