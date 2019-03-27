@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "main": "hello.js",
   "scripts": {
-    "start": "node api/index"
+    "start": "node index"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "express": "^4.16.4",
+    "formidable": "^1.2.1",
     "iconv-lite": "^0.4.24",
     "md5": "^2.2.1",
     "mysql": "^2.16.0",

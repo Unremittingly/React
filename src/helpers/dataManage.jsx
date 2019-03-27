@@ -2,8 +2,8 @@ import axios from 'axios'
 import {loginIn} from "../redux/userInfo/action";
 import qs from 'qs';
 
-export const getArticles = (url, params,callBack) => {
-    axios.get(url,{params:params}).then(function (res) {
+export const getArticles = (url, params, callBack) => {
+    axios.get(url, {params: params}).then(function (res) {
         console.log('res', res);
         if (res.status === 200) {
             // if(dispatch){
@@ -13,7 +13,7 @@ export const getArticles = (url, params,callBack) => {
             //     }));
             // }
 
-            if(callBack){
+            if (callBack) {
                 callBack(res.data);
             }
 
@@ -27,12 +27,12 @@ export const getArticles = (url, params,callBack) => {
     });
 };
 
-export const saveArticle = (url, params,)=>{
-    axios.post(url,qs.stringify(params)).then(function (res) {
-        if(res.status === 200){
-            if(res.data.isSuccess){
+export const saveArticle = (url, params,) => {
+    axios.post(url, qs.stringify(params)).then(function (res) {
+        if (res.status === 200) {
+            if (res.data.isSuccess) {
                 console.log('插入成功');
-            }else{
+            } else {
                 console.log('插入失败');
             }
 
@@ -40,9 +40,9 @@ export const saveArticle = (url, params,)=>{
     })
 };
 
-export const login = function* (url, param, dispatch)  {
+export const login = function* (url, param, dispatch) {
 
-    let result ={};
+    let result = {};
 
     yield axios.post(url, qs.stringify(param), {
         headers: {
@@ -75,16 +75,36 @@ export const getTags = () => {
 
 };
 
+export const postUrl = function* (url, params) {
+    let result = {};
+    yield axios.post(url, qs.stringify(params), {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function (res) {
+        if (res.status === 200) {
+            if (res.data.isSuccess) {
+                console.log('操作成功');
+                result = res;
+            } else {
+                console.log('操作失败');
+            }
 
-export const getArticleForId = (url,params,callback)=>{
-    axios.post(url,qs.stringify(params)).then(function (res) {
-        if(res.status === 200){
-            if(res.data.isSuccess){
-                console.log('查询成功',res.data);
-                if(callback){
+        }
+    });
+    yield result;
+};
+
+
+export const getArticleForId = (url, params, callback) => {
+    axios.post(url, qs.stringify(params)).then(function (res) {
+        if (res.status === 200) {
+            if (res.data.isSuccess) {
+                console.log('查询成功', res.data);
+                if (callback) {
                     callback(res.data.data)
                 }
-            }else{
+            } else {
                 console.log('插入失败');
             }
 

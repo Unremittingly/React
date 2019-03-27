@@ -5,7 +5,6 @@ import Layout from "../../common/layout";
 import './edit..scss';
 import {saveArticle} from "../../helpers/dataManage";
 
-
 import E from 'wangeditor'
 
 const TabPane = Tabs.TabPane;
@@ -21,15 +20,14 @@ class Edit extends Component {
         this.submitHandle = this.submitHandle.bind(this);
 
 
-
     }
 
     state = {
         str: '## 标题 title   \n  文本内容',
-        title:'',
-        content:'',
-        type:1,
-        time:'1970-01-01'
+        title: '',
+        content: '',
+        type: 1,
+        time: '1970-01-01'
     };
 
     textChange(e) {
@@ -45,42 +43,16 @@ class Edit extends Component {
 
     //富文本编辑器
     initEditor() {
-        const elem = this.refs.editorElem;
-        const editor = new E(elem);
+        let editor = new E('#editorElem');
+        let uploadUrl = 'http://localhost:3009/uploadImg';
 
-        this.editor = editor;
 
-        editor.customConfig.zIndex = 100;
-        //上传图片的目录
-        let uploadPicUrl = '/fileclient-management/api/uploadpic';
-        editor.customConfig.uploadImgServer = uploadPicUrl;
-        // 限制一次最多上传 1 张图片
-        editor.customConfig.uploadImgMaxLength = 1;
-        editor.customConfig.customUploadImg = function (files, insert) {
-            // files 是 input 中选中的文件列表
-            console.log(files);
-            if (files[0]) {
-                //时间戳
-                const formData = new Date().getTime();
-                formData.append('file', files[0], 'cover.jpg');
-                fetch(uploadPicUrl, {
-                    method: 'POST',
-                    body: formData
-                }).then((res) => {
-                    return res.json();
-                }).then((res) => {
-                    const data = res.resultData;
-                    if (data) {
-                        // 上传代码返回结果之后，将图片插入到编辑器中
-                        insert(data.resourceUrl);
-                    } else {
-                        console.log(data.msg);
-                    }
-                })
-            } else {
-                console.log('请上传图片');
-            }
+        editor.customConfig.onchange = (html) => {
+            this.editorContent = html
         };
+
+
+//配置menus可以选择显示哪些菜单栏
         editor.customConfig.menus = [
             'head', // 标题
             'bold', // 粗体
@@ -125,37 +97,74 @@ class Edit extends Component {
             '上传': 'Upload',
             '创建': 'init'
         };
+
+        editor.customConfig.showLinkImg = false;
+        editor.customConfig = {
+            debug: true,//开启debug调试
+            uploadImgServer: uploadUrl,//配置上传图片的接口api
+            uploadImgMaxSize: 5 * 1024 * 1024,//图片大小限制为 5M
+            uploadImgMaxLength: 10,// 限制一次最多上传 10 张图片
+            uploadFileName: 'fileName',//配置文件参数名（这个参数必需配置，后台用这个值接收图片）
+            showLinkImg:false  //隐藏网络图片tab
+        };
+
+
+//监听函数在上传图片的不同阶段做相应处理
+        editor.customConfig.uploadImgHooks = {
+            success: function (xhr, editor, result) {
+                console.log('图片上传并返回结果,图片插入成功')
+            },
+            fail: function (xhr, editor, result) {
+                console.log('图片上传并返回结果，但图片插入错误')
+            },
+            error: function (xhr, editor) {
+                console.log('图片上传出错')
+            },
+            timeout: function (xhr, editor) {
+                console.log('图片上传超时')
+            },
+            customInsert: function (insertImg, result, editor) {
+                console.log(' 图片上传并返回结果');
+                let url = result.url[0];
+                insertImg(url)
+            }
+        };
+
         editor.create()
+
     }
-    selectHandle(value){
-        console.log('vule',value);
+
+    selectHandle(value) {
+        console.log('vule', value);
         this.setState({
-            type:value
+            type: value
         })
     }
-    submitHandle(){
-        console.log('json',this.editor.txt.getJSON());
-        console.log('test',this.editor.txt.text());
-        console.log('test',this.editor.txt.html());
+
+    submitHandle() {
+        console.log('json', this.editor.txt.getJSON());
+        console.log('test', this.editor.txt.text());
+        console.log('test', this.editor.txt.html());
         let content = this.editor.txt.html();
         let desc = this.editor.txt.text();
 
-
         //todo  需要处理特殊字符转义问题
         let data = {
-            content:content.replace(/\"/g,'\\"'),//转义一下双引号 以方便存入数据库
-            title:this.titleInput.state.value,
-            type:this.state.type,
-            time:parseInt((new Date().getTime())/1000),
+            content: content.replace(/\"/g, '\\"'),//转义一下双引号 以方便存入数据库
+            title: this.titleInput.state.value,
+            type: this.state.type,
+            time: parseInt((new Date().getTime()) / 1000),
             desc
         };
 
-        saveArticle('http://localhost:3009/saveArticle',data);
+        saveArticle('http://localhost:3009/saveArticle', data);
 
     }
-    tabChange(){
+
+    tabChange() {
 
     }
+
     render() {
         return (
             <Layout>
@@ -163,7 +172,7 @@ class Edit extends Component {
                     <Tabs defaultActiveKey="1" style={{height: '100%'}} onChange={this.tabChange}>
                         <TabPane tab="富文本编辑器" key="1">
                             <Input ref={input => this.titleInput = input} placeholder="标题"/>
-                            <div ref='editorElem' style={{textAlign: 'left'}}/>
+                            <div id="editorElem" ref='editorElem' style={{textAlign: 'left'}}/>
                         </TabPane>
                         <TabPane tab="markDown编辑器" key="2">
                             <div className="markdown">
@@ -183,7 +192,7 @@ class Edit extends Component {
                         <Option value="3">数据库</Option>
                     </Select>
                 </div>
-                <Button  className="submit-btn" htmlType="button" type="primary" onClick={this.submitHandle}>提交</Button>
+                <Button className="submit-btn" htmlType="button" type="primary" onClick={this.submitHandle}>提交</Button>
             </Layout>
         )
     }
