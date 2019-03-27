@@ -48,7 +48,9 @@ class Edit extends Component {
 
 
         editor.customConfig.onchange = (html) => {
-            this.editorContent = html
+            console.log('111');
+            this.editorContent = html;
+            console.log('html11',html);
         };
 
 
@@ -130,7 +132,9 @@ class Edit extends Component {
             }
         };
 
-        editor.create()
+        editor.create();
+
+        this.editor = editor;
 
     }
 
@@ -142,9 +146,8 @@ class Edit extends Component {
     }
 
     submitHandle() {
-        console.log('json', this.editor.txt.getJSON());
-        console.log('test', this.editor.txt.text());
-        console.log('test', this.editor.txt.html());
+        // console.log('json', this.editor.txt.getJSON());
+        // console.log('test', this.editor.txt.text());
         let content = this.editor.txt.html();
         let desc = this.editor.txt.text();
 
