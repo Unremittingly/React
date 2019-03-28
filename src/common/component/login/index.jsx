@@ -70,7 +70,7 @@ class Login extends Component {
             <div>
                 <div className={this.props.loginInfo.isLogin ? "hidden" : "login-info"}>
                     <span className="login-btn" onClick={this.loginIn.bind(this)}>登录</span>
-                    <span className="register-btn">注册</span>
+                    {/*<span className="register-btn">注册</span>*/}
                     <Modal maskClosable={false} visible={this.state.isPopShow} onCancel={this.handleCancel.bind(this)}
                            onOk={this.handleOk.bind(this)}>{this.createLoginDom()}</Modal>
                 </div>

@@ -24,7 +24,7 @@ class Navigation extends Component {
         this.setState({
             navList: this.props.navList
         });
-        console.log('this.',this.props);
+        // console.log('this.',this.props);
     }
 
 

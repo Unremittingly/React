@@ -18,8 +18,6 @@ class Edit extends Component {
         this.tabChange = this.tabChange.bind(this);
         this.selectHandle = this.selectHandle.bind(this);
         this.submitHandle = this.submitHandle.bind(this);
-
-
     }
 
     state = {
@@ -45,14 +43,11 @@ class Edit extends Component {
     initEditor() {
         let editor = new E('#editorElem');
         let uploadUrl = 'http://localhost:3009/uploadImg';
-
-
         editor.customConfig.onchange = (html) => {
             console.log('111');
             this.editorContent = html;
             console.log('html11',html);
         };
-
 
 //配置menus可以选择显示哪些菜单栏
         editor.customConfig.menus = [

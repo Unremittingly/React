@@ -1,14 +1,16 @@
-import React,{Component} from "react"
+import React, {Component} from "react"
 import './index..scss'
 import {Button} from "antd";
 
 
-class Snake_0 extends Component{
+class Snake_0 extends Component {
 
-    state ={
-      isStart:false
+    state = {
+        isStart: false,
+        score: 0
     };
-    init(){
+
+    init() {
         const WIDTH = 20;
         let cxt;//canvas上下文对象
         let snakes = [];//蛇数组
@@ -17,12 +19,11 @@ class Snake_0 extends Component{
         let speedY = 0;//y轴速度
         let directionType = 0;//当前移动的方向 1.上 2.右 3.下 4.左
         let food;//食物对象
-        let score = 0;//分数
 
         let that = this;
+
         function init() {
             initCanvas();
-            updateScore();
         }
 
         function initCanvas() {
@@ -44,7 +45,7 @@ class Snake_0 extends Component{
             //     startAnimate(snake);
             // });
             // console.log('food', food);
-            if(that.state.isStart){
+            if (that.state.isStart) {
                 startAnimate(3);
             }
 
@@ -94,7 +95,6 @@ class Snake_0 extends Component{
                     addSnake();
                     startAnimate(type);
                     food.draw();
-                    score++;
                     updateScore();
                 }
             }, 200);
@@ -109,8 +109,11 @@ class Snake_0 extends Component{
         }
 
         function updateScore() {
-            let scoreDom = document.getElementById('score');
-            scoreDom.innerText = score;
+            let score = that.state.score + 1;
+            console.log('score', score);
+            that.setState({
+                score
+            })
         }
 
 
@@ -118,7 +121,8 @@ class Snake_0 extends Component{
             if (interval) {
                 clearInterval(interval);
             }
-            console.log('game over');
+            cxt.font = '30px Verdana';
+            cxt.fillText("GAME  OVER", 300, 200);
         }
 
         //碰撞检测 食物与snake
@@ -146,7 +150,7 @@ class Snake_0 extends Component{
             let headSnake = snakes[0];
             for (let i = 1; i < snakes.length; i++) {
                 let snake = snakes[i];
-                if (!((headSnake.x > snake.x+ 18 ) || (headSnake.y < snake.y) || (headSnake.y > snake.y + 18) || (headSnake.x < snake.x))) {
+                if (!((headSnake.x > snake.x + 18) || (headSnake.y < snake.y) || (headSnake.y > snake.y + 18) || (headSnake.x < snake.x))) {
                     isHit = true;
                     break;
                 }
@@ -355,6 +359,7 @@ class Snake_0 extends Component{
         init();
         this.startAnimate = startAnimate;
     }
+
     componentDidMount() {
 
         this.init();
@@ -363,13 +368,14 @@ class Snake_0 extends Component{
     render() {
         return (
             <div className="snake">
-                <canvas id="snake" width="800" height="600" />
-
-                <Button htmlType="button" type="primary" onClick={()=>{
-                    this.startAnimate(3);
-                }}>尝试一下</Button>
-                <div className="score">分数:
-                    <span id="score" />
+                <canvas id="snake" width="800" height="600"/>
+                <div >
+                    <Button htmlType="button" type="primary" onClick={() => {
+                        this.startAnimate(3);
+                    }}>尝试一下</Button>
+                    <span className="score">分数:
+                    <span id="score">{this.state.score}</span>
+                </span>
                 </div>
             </div>
         )

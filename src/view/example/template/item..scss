@@ -1,11 +1,26 @@
-.item_tit{
-  font-size: 3rem;
-  color: red;
+
+.example-item{
+  //position: relative;
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+  .item-tit{
+    font-size: 3rem;
+    color: red;
 
 
-  .git{
-    display: inline-block;
-    margin-left: 2rem;
-    font-size: 1.4rem;
+    .git{
+      display: inline-block;
+      margin-left: 2rem;
+      font-size: 1.4rem;
+    }
   }
+
+  //.optGroup{
+  //  position: absolute;
+  //  top: 10px;
+  //  right: 50%;
+  //}
 }
+
+
+
