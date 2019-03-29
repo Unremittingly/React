@@ -47,7 +47,7 @@ const sassData = [
 ];
 
 function resolveResource(name) {
-    return path.resolve(__dirname, './src/common/style/' + name);
+    return path.resolve(__dirname, './src/nav/style/' + name);
 }
 
 // This is the production and development configuration.
@@ -75,7 +75,7 @@ module.exports = function (webpackEnv) {
     // Get environment variables to inject into our app.
     const env = getClientEnvironment(publicUrl);
 
-    // common function to get style loaders
+    // nav function to get style loaders
     const getStyleLoaders = (cssOptions, preProcessor) => {
         const loaders = [
             isEnvDevelopment && require.resolve('style-loader'),
@@ -266,7 +266,7 @@ module.exports = function (webpackEnv) {
                 process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
             ),
             // These are the reasonable defaults supported by the Node ecosystem.
-            // We also include JSX as a common component filename extension to support
+            // We also include JSX as a nav component filename extension to support
             // some tools, although we do not recommend using it, see:
             // https://github.com/facebook/create-react-app/issues/290
             // `web` extension prefixes have been added for better support

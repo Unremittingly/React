@@ -5,6 +5,7 @@ import {getType} from "./classify";
 import {timeFormat} from "../../helpers/fuc";
 
 import './detail..scss'
+import ReactMarkdown from 'react-markdown'
 
 class Detail extends Component {
 
@@ -23,21 +24,28 @@ class Detail extends Component {
     }
 
     render() {
-
+        let result = this.state.data;
+        //1  富文本  2 markDown
+        let tabType = result.tabtype;
+        console.log('this',tabType);
+        let content = '';
+        if (tabType == 1) {
+            content = <div className="content" dangerouslySetInnerHTML={{__html: this.state.data.content}}/>;
+        } else {
+            content = <div className="content"><ReactMarkdown source={result.content}/></div>
+        }
         return (
             <Layout>
                 <div className="article-detail">
                     <div className="title">
-                        <div className="title-t">{this.state.data.title}</div>
+                        <div className="title-t">{result.title}</div>
                         <div className="title-o">
-                            <span className="time">{timeFormat(this.state.data.time)}</span>
-                            <span className="type">{getType(this.state.data.type)}</span>
-                            <span className="tag">{this.state.data.tag?this.state.data.tag:'未知标签'}</span>
+                            <span className="time">{timeFormat(result.time)}</span>
+                            <span className="type">{getType(result.type)}</span>
+                            <span className="tag">{result.tag ? result.tag : '未知标签'}</span>
                         </div>
                     </div>
-
-                    <div className="content" dangerouslySetInnerHTML={{__html: this.state.data.content}}/>
-
+                    {content}
                 </div>
             </Layout>
 

@@ -1,7 +1,7 @@
 import {createStore,combineReducers} from 'redux';
 
 import userInfo from './userInfo/reduce';
-import common from './common/reduce';
+import common from './nav/reduce';
 import article from './article/reduce'
 
 import test from  './test/reduce';

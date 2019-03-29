@@ -40,8 +40,9 @@ const saveArticle = (app) => {
         let time = req.body.time;
         let type = req.body.type;
         let desc = req.body.desc;
-        let value = '("' + title + '","' + type + '","' + time + '","' + content + '","' + desc + '")';
-        let sql = 'INSERT INTO article(title,type,time,content,description) VALUES' + value;
+        let tabType = req.body.tabType;
+        let value = '("' + title + '","' + type + '","' + time + '","' + content + '","' + desc + '","'+tabType+'")';
+        let sql = 'INSERT INTO article(title,type,time,content,description,tabtype) VALUES' + value;
         sqlOptions.insertData(sql, function (isSuccess) {
             console.log('isSuccess', isSuccess);
             res.send({

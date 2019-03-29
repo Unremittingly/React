@@ -6,7 +6,7 @@ import './edit..scss';
 import {saveArticle} from "../../helpers/dataManage";
 
 import E from 'wangeditor'
-import {replaceEscape} from "../../helpers/fuc";
+// import {replaceEscape} from "../../helpers/fuc";
 
 const TabPane = Tabs.TabPane;
 const Option = Select.Option;
@@ -26,13 +26,15 @@ class Edit extends Component {
         title: '',
         content: '',
         type: 1,
-        time: '1970-01-01'
+        time: '1970-01-01',
+        tabType: 1,
+
     };
 
     textChange(e) {
         this.setState({
             str: e.target.value
-        })
+        });
     }
 
 
@@ -45,9 +47,9 @@ class Edit extends Component {
         let editor = new E('#editorElem');
         let uploadUrl = 'http://localhost:3009/uploadImg';
         editor.customConfig.onchange = (html) => {
-            console.log('111');
-            this.editorContent = html;
-            console.log('html11',html);
+            // console.log('111');
+            // this.editorContent = html;
+            // console.log('html11',html);
         };
 
 //配置menus可以选择显示哪些菜单栏
@@ -103,7 +105,7 @@ class Edit extends Component {
             uploadImgMaxSize: 5 * 1024 * 1024,//图片大小限制为 5M
             uploadImgMaxLength: 10,// 限制一次最多上传 10 张图片
             uploadFileName: 'fileName',//配置文件参数名（这个参数必需配置，后台用这个值接收图片）
-            showLinkImg:false  //隐藏网络图片tab
+            showLinkImg: false  //隐藏网络图片tab
         };
 
 
@@ -142,26 +144,56 @@ class Edit extends Component {
     }
 
     submitHandle() {
-        // console.log('json', this.editor.txt.getJSON());
-        // console.log('test', this.editor.txt.text());
-        let content = this.editor.txt.html();
-        let desc = this.editor.txt.text().replace(/\"/g, '\\"').trim();
-        content =content.replace(/\"/g, '\\"');
-        //todo  需要处理特殊字符转义问题
-        let data = {
-            content: content,//转义一下双引号 以方便存入数据库
-            title: this.titleInput.state.value,
-            type: this.state.type,
-            time: parseInt((new Date().getTime()) / 1000),
-            desc
-        };
+
+        let data = {};
+        console.log('this.state.type', this.state.type);
+        if (this.state.tabType === 1) {
+            let content = this.editor.txt.html();
+            let desc = this.editor.txt.text().replace(/\"/g, '\\"').trim();
+            content = content.replace(/\"/g, '\\"');
+            //todo  需要处理特殊字符转义问题
+            data = {
+                content: content,//转义一下双引号 以方便存入数据库
+                title: this.titleInput.state.value,
+                type: this.state.type,
+                tabType: this.state.tabType,
+                time: parseInt((new Date().getTime()) / 1000),
+                desc
+            };
+        } else {
+            console.log('tihs', this.state.str);
+            let content = this.state.str;
+            console.log('content', content);
+            data = {
+                content: content,//转义一下双引号 以方便存入数据库
+                title: this.titleInput.state.value,
+                type: this.state.type,
+                time: parseInt((new Date().getTime()) / 1000),
+                tabType: this.state.tabType,
+                desc: content
+            };
+        }
+
+        // return false;
+
+        if (!data.title) {
+            console.log('请填写标题');
+            return false;
+        }
+        if (!data.content) {
+            console.log('请填写内容');
+            return false;
+        }
 
         saveArticle('http://localhost:3009/saveArticle', data);
 
     }
 
-    tabChange() {
-
+    tabChange(key) {
+        console.log('key', key);
+        this.setState({
+            tabType: key
+        })
     }
 
     render() {
@@ -176,7 +208,7 @@ class Edit extends Component {
                         <TabPane tab="markDown编辑器" key="2">
                             <div className="markdown">
                                 <div className="edit-left" style={{'marginTop': 10}}>
-                                    <Input placeholder="标题"/>
+                                    <Input ref={input => this.titleInput = input} placeholder="标题"/>
                                     <Input.TextArea defaultValue={this.state.str} onChange={this.textChange.bind(this)}/>
                                 </div>
                                 <div className="edit-right"><ReactMarkdown source={this.state.str}/></div>
