@@ -6,6 +6,7 @@ import './edit..scss';
 import {saveArticle} from "../../helpers/dataManage";
 
 import E from 'wangeditor'
+import {replaceEscape} from "../../helpers/fuc";
 
 const TabPane = Tabs.TabPane;
 const Option = Select.Option;
@@ -144,11 +145,11 @@ class Edit extends Component {
         // console.log('json', this.editor.txt.getJSON());
         // console.log('test', this.editor.txt.text());
         let content = this.editor.txt.html();
-        let desc = this.editor.txt.text();
-
+        let desc = this.editor.txt.text().replace(/\"/g, '\\"').trim();
+        content =content.replace(/\"/g, '\\"');
         //todo  需要处理特殊字符转义问题
         let data = {
-            content: content.replace(/\"/g, '\\"'),//转义一下双引号 以方便存入数据库
+            content: content,//转义一下双引号 以方便存入数据库
             title: this.titleInput.state.value,
             type: this.state.type,
             time: parseInt((new Date().getTime()) / 1000),

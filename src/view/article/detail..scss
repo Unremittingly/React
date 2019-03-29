@@ -1,14 +1,24 @@
 
-.article-detail{
+.article-detail {
 
-  .title{
-    margin:0 0 1rem 0;
-    font-size: 2rem;
-    font-weight: bolder;
+  .title {
+    margin: 0 0 1rem 0;
     text-align: center;
   }
 
-  .content{
+  .title-t {
+    font-weight: bolder;
+    font-size: 2rem;
+  }
+  .title-o{
+
+    span{
+      display: inline-block;
+      margin: 0 1rem;
+    }
+  }
+
+  .content {
     padding: 1rem;
   }
 
