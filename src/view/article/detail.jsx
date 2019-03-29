@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Layout from '../../common/layout'
 import {getArticleForId} from "../../helpers/dataManage";
-import './detail..css'
+import './detail..scss'
 
 class Detail extends Component {
 
