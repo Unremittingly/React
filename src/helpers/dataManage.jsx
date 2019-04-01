@@ -25,13 +25,16 @@ export const getArticles = (url, params, callBack) => {
  * @param url
  * @param params
  */
-export const saveArticle = (url, params,) => {
+export const saveArticle = (url, params,callback) => {
     axios.post(url, qs.stringify(params)).then(function (res) {
         if (res.status === 200) {
             if (res.data.isOk) {
-                console.log('插入成功');
+                console.log('保存成功');
+                if(callback && typeof callback ==="function"){
+                    callback();
+                }
             } else {
-                console.log('插入失败');
+                console.log('保存失败');
             }
 
         }
@@ -121,7 +124,6 @@ export const postUrl = (url, params,hint='') => {
         }).then(function (res) {
             if (res.status === 200) {
                 if (res.data.isOk) {
-                    console.log('操作成功');
                     resolve(res.data)
                 } else {
                     console.log('操作失败',hint);
@@ -160,12 +162,6 @@ export const getUrl = (url, params)=>{
 
 };
 
-
-export const getRecent = (url,params)=>{
-
-
-    return postUrl(url,params)
-};
 
 
 

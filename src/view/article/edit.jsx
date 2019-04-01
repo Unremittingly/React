@@ -185,7 +185,9 @@ class Edit extends Component {
             return false;
         }
 
-        saveArticle('http://localhost:3009/saveArticle', data);
+        saveArticle('http://localhost:3009/saveArticle', data,()=>{
+            window.location.reload();
+        });
 
     }
 
