@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {loginIn} from "../redux/userInfo/action";
 import qs from 'qs';
+import {LOGIN_IN} from "../redux/userInfo/constant";
 
 export const getArticles = (url, params, callBack) => {
     axios.get(url, {params: params}).then(function (res) {
@@ -52,7 +53,9 @@ export const login = function* (url, param, dispatch) {
         if (res.status === 200) {
             // console.log('res', res);
             if (res.data.isOk) {
-                dispatch(loginIn(param));
+                // dispatch({type:LOGIN_IN,info:param});//可以这样写 但是可能感觉 可读性上面没那么好 毕竟才接触  以后再回来看了再说吧   还是先按照下面这种来写吧
+                dispatch(loginIn(param))
+
             } else {
                 console.log('账号或密码错误');
             }
