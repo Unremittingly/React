@@ -29,7 +29,7 @@ class Detail extends Component {
         let tabType = result.tabtype;
         console.log('this',tabType);
         let content = '';
-        if (tabType == 1) {
+        if (tabType === 1) {
             content = <div className="content" dangerouslySetInnerHTML={{__html: this.state.data.content}}/>;
         } else {
             content = <div className="content"><ReactMarkdown source={result.content}/></div>

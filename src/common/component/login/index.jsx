@@ -18,7 +18,7 @@ class Login extends Component {
 
     componentWillMount() {
         this.setState({
-            isLogin:this.props.loginInfo.isLogin
+            isLogin: this.props.loginInfo.isLogin
         })
     }
 
@@ -27,19 +27,21 @@ class Login extends Component {
             isPopShow: true
         })
     }
-    loginOut(){
-        this.props.loginOut(()=>{
+
+    loginOut() {
+        this.props.loginOut(() => {
             this.setState({
-                isLogin:false
+                isLogin: false
             })
         });
     }
+
     handleOk() {
         let userName = this.userInput.state.value;
         let password = this.pwdInput.state.value;
         let that = this;
 
-        this.props.loginIn({
+        this.props.loginTest({
             userName,
             password
         }, () => {
@@ -57,6 +59,7 @@ class Login extends Component {
             isPopShow: false
         })
     }
+
     createLoginDom() {
         return (
             <div>
@@ -65,6 +68,7 @@ class Login extends Component {
             </div>
         )
     }
+
     render() {
         return (
             <div>
@@ -88,22 +92,40 @@ const mapDispatchToProps = (dispatch) => {
         loginIn: (info, f = () => {
         }) => {
             //使用Generator  和yield 模式来将异步变成同步
-            let l = login('http://localhost:3009/login',info,dispatch);
+            let l = login('http://localhost:3009/login', info, dispatch);
             l.next().value.then(function () {
                 //因为第一次返回的是一个promise 这里需要再写一次next()
                 let result = l.next().value.data;
-                if(result && result.isOk){
+                if (result && result.isOk) {
                     f();
                 }
-                if(!result){
+                if (!result) {
                     console.log('未知错误');
                 }
             })
 
         },
-        loginOut:(f=()=>{})=>{
+        loginOut: (f = () => {
+        }) => {
             dispatch(loginOut());
             f();
+        },
+        loginTest: (info, f = () => {
+        }) => {
+            dispatch(() => {
+                //返回一个promise 对象
+                login('http://localhost:3009/login', info, dispatch).then((result) => {
+                    console.log('result',result);
+                    if (result && result.isOk) {
+                        f();
+                    }
+                    if (!result) {
+                        console.log('未知错误');
+                    }
+                });
+
+            });
+            console.log('redux-thunk 后面');
         }
     }
 };

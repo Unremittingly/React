@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {loginIn} from "../redux/userInfo/action";
 import qs from 'qs';
-import {LOGIN_IN} from "../redux/userInfo/constant";
+// import {LOGIN_IN} from "../redux/userInfo/constant";
 
 export const getArticles = (url, params, callBack) => {
     axios.get(url, {params: params}).then(function (res) {
@@ -41,33 +41,41 @@ export const saveArticle = (url, params,) => {
     })
 };
 
-export const login = function* (url, param, dispatch) {
+export const login = function (url, param, dispatch) {
 
-    let result = {};
 
-    yield axios.post(url, qs.stringify(param), {
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-    }).then(function (res) {
-        if (res.status === 200) {
-            // console.log('res', res);
-            if (res.data.isOk) {
-                // dispatch({type:LOGIN_IN,info:param});//可以这样写 但是可能感觉 可读性上面没那么好 毕竟才接触  以后再回来看了再说吧   还是先按照下面这种来写吧
-                dispatch(loginIn(param))
 
-            } else {
-                console.log('账号或密码错误');
+
+    return new Promise((resolve, reject) =>  {
+        axios.post(url, qs.stringify(param), {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
             }
-            result = res;
-        } else {
-            console.log('error');
-        }
-    }).catch(function (e) {
-        console.log('未知错误', e);
+        }).then(function (res) {
+            if (res.status === 200) {
+                // console.log('res', res);
+                if (res.data.isOk) {
+                    // dispatch({type:LOGIN_IN,info:param});//可以这样写 但是可能感觉 可读性上面没那么好 毕竟才接触  以后再回来看了再说吧   还是先按照下面这种来写吧
+                    console.log('请求');
+                    dispatch(loginIn(param));
+                    resolve(res.data);
+
+                } else {
+                    console.log('账号或密码错误');
+                    reject();
+                }
+            } else {
+                console.log('error');
+            }
+        }).catch(function (e) {
+            console.log('未知错误', e);
+        });
+    }).catch((e)=>{
+        console.log('异常',e);
     });
 
-    yield result;
+
+
 };
 
 export const getToken = () => {

@@ -29,13 +29,17 @@ export const timeFormat = (timestamp, formatStr) => {
 //         }
 //     });
 // };
-
-export const replaceEscape = (text)=>{
-    return text.replace(/'"/g, function(match){
-        switch(match){
-            case "'": return "\'";
-            case '"': return "\"";
-
-        }
-    });
-};
+/*******
+ * 替换html元素标签
+ * @param text
+ * @returns {*}
+ */
+// export const replaceEscape = (text)=>{
+//     return text.replace(/'"/g, function(match){
+//         switch(match){
+//             case "'": return "\'";
+//             case '"': return "\"";
+//
+//         }
+//     });
+// };
