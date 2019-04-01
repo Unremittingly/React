@@ -28,7 +28,7 @@ export const getArticles = (url, params, callBack) => {
 export const saveArticle = (url, params,) => {
     axios.post(url, qs.stringify(params)).then(function (res) {
         if (res.status === 200) {
-            if (res.data.isSuccess) {
+            if (res.data.isOk) {
                 console.log('插入成功');
             } else {
                 console.log('插入失败');
@@ -38,6 +38,8 @@ export const saveArticle = (url, params,) => {
     })
 };
 
+
+
 /*******
  * 登录验证
  * @param url
@@ -45,7 +47,6 @@ export const saveArticle = (url, params,) => {
  * @param dispatch
  * @returns {Promise<any | never>}
  */
-
 export const login = function (url, param, dispatch) {
 
 
@@ -59,12 +60,11 @@ export const login = function (url, param, dispatch) {
                 // console.log('res', res);
                 if (res.data.isOk) {
                     // dispatch({type:LOGIN_IN,info:param});//可以这样写 但是可能感觉 可读性上面没那么好 毕竟才接触  以后再回来看了再说吧   还是先按照下面这种来写吧
-                    console.log('请求');
                     dispatch(loginIn(param));
                     resolve(res.data);
                 } else {
                     console.log('账号或密码错误');
-                    reject();
+                    reject('账号或密码错误');
                 }
             } else {
                 console.log('error');
@@ -73,7 +73,7 @@ export const login = function (url, param, dispatch) {
             console.log('未知错误', e);
         });
     }).catch((e) => {
-        console.log('异常', e);
+        console.log('error', e);
     });
 
 };
@@ -83,6 +83,8 @@ export const getTags = () => {
 
 };
 
+
+
 /*******
  * 通过id  获取文章内容
  * @param url
@@ -90,7 +92,6 @@ export const getTags = () => {
  * @param callback
  * @returns {*}
  */
-
 export const getArticleForId = (url, params, callback) => {
 
     return postUrl(url,params).then((res)=>{
@@ -102,6 +103,7 @@ export const getArticleForId = (url, params, callback) => {
 };
 
 
+
 /********
  * 公共post请求封装
  * @param url
@@ -109,8 +111,7 @@ export const getArticleForId = (url, params, callback) => {
  * @param hint
  * @returns {Promise<any | never>}
  */
-
-export const postUrl = (url, params,hint) => {
+export const postUrl = (url, params,hint='') => {
 
     return new Promise((resolve, reject) => {
         axios.post(url, qs.stringify(params), {
@@ -119,7 +120,7 @@ export const postUrl = (url, params,hint) => {
             }
         }).then(function (res) {
             if (res.status === 200) {
-                if (res.data.isSuccess) {
+                if (res.data.isOk) {
                     console.log('操作成功');
                     resolve(res.data)
                 } else {
@@ -135,13 +136,13 @@ export const postUrl = (url, params,hint) => {
 };
 
 
+
 /*******
  * 公共get请求封装
  * @param url
  * @param params
  * @returns {Promise<any | never>}
  */
-
 export const getUrl = (url, params)=>{
     return new Promise((resolve, reject) => {
         axios.get(url, {params: params}).then(function (res) {
@@ -157,6 +158,13 @@ export const getUrl = (url, params)=>{
         console.log('未知错误',e);
     })
 
+};
+
+
+export const getRecent = (url,params)=>{
+
+
+    return postUrl(url,params)
 };
 
 

@@ -59,5 +59,11 @@ try {
     console.log('图片上传任务 失败',e);
 }
 
+try {
+    article.getRecent(app)
+}catch (e) {
+    console.log('获取近期文章任务启动  失败',e);
+}
+
 
 app.listen(3009, () => console.log('Example app listening on port 3009!'));

@@ -16,7 +16,7 @@ export default {
         {path: '/home', component: home, auth: false},
         {path: '/article', component: article, auth: false},
         {path: '/edit', component: edit, auth: true},
-        {path: '/article/detail/:id', component: detail, auth: false},
+        {path: '/article/detail/:id', component: detail, auth: false,exact:true},
         {path: '/test', component: test, auth: false},
         {path: '/example', component: example, auth: false},
         {path: '*', component: notFound, auth: false}

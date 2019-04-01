@@ -1,18 +1,18 @@
-import React,{Component} from "react"
+import React, {Component} from "react"
 import "./index..scss"
 import avator from '../../image/avator.jpg'
+import ClassifyItem from './ClassifyItem'
 
-class Sidebar extends Component{
+class Sidebar extends Component {
+    //最新文章
     render() {
         return (
             <div className="sidebar">
-                <div className="via"><img src={avator} alt="via"/></div>
-                {/*最新*/}
-                <div className="sidebar-item">item1</div>
-                <div className="sidebar-item">item1</div>
-                <div className="sidebar-item">item1</div>
-                <div className="sidebar-item">item1</div>
-                {/*所有*/}
+                <div className="via">
+                    <img src={avator} alt="via"/>
+                </div>
+                <ClassifyItem/>
+
 
             </div>
         )

@@ -23,11 +23,25 @@ class Detail extends Component {
             });
     }
 
+    componentWillReceiveProps(nextProps,nextContent) {
+        // console.log('newx', nextProps.match);
+
+        //这个url 带参数  需要这里重新处理一下  初始化  不然  从带参数的切换到另一个参数的过后 页面不会改变
+        let id = nextProps.match.params.id;
+
+        getArticleForId('http://localhost:3009/getArticle', {id: id},
+            (data) => {
+                this.setState({
+                    data
+                });
+            });
+    }
+
     render() {
         let result = this.state.data;
         //1  富文本  2 markDown
         let tabType = result.tabtype;
-        console.log('this',tabType);
+        // console.log('this', tabType);
         let content = '';
         if (tabType === 1) {
             content = <div className="content" dangerouslySetInnerHTML={{__html: this.state.data.content}}/>;
