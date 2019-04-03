@@ -9,6 +9,14 @@
   .via{
     text-align: center;
 
+
+    .simple-tag{
+      //text-align: left;
+      margin: 5px 0;
+      color: red;
+      font-size: 12px;
+    }
+
     img{
       display: inline-block;
       height: 100px;

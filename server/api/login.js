@@ -11,7 +11,7 @@ const loginIn = (app)=>{
         let password = params.password;
         sqlOptions.selectAll('admin',function (result) {
             let isOk = false;
-            if(userName == result[0].username && md5(password)==result[0].pwd){
+            if(userName === result[0].username && md5(password)===result[0].pwd){
                 isOk = true;
             }
             res.send({

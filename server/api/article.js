@@ -46,7 +46,7 @@ const saveArticle = (app) => {
         sqlOptions.insertData(sql, function (isSuccess) {
             console.log('isSuccess', isSuccess);
             res.send({
-                isOk:isSuccess
+                isOk: isSuccess
             });
             next();
         });
@@ -57,6 +57,9 @@ const saveArticle = (app) => {
 const getArticleForId = (app) => {
     app.post('/getArticle', function (req, res, next) {
         // console.log('req.body', req.body);
+        let clientIp = getIp(req);
+        console.log('客户端ip', clientIp);
+        updateVisits();
         let id = req.body.id;
         sqlOptions.selectForId(id, 'article', function (data) {
             res.send({
@@ -67,6 +70,15 @@ const getArticleForId = (app) => {
         })
 
     })
+};
+let getIp = function (req) {
+    let ip = req.headers['x-real-ip'] ||
+        req.headers['x-forwarded-for'] ||
+        req.socket.remoteAddress || '';
+    if (ip.split(',').length > 0) {
+        ip = ip.split(',')[0];
+    }
+    return ip;
 };
 
 const uploadImg = (app) => {
@@ -95,19 +107,34 @@ const uploadImg = (app) => {
 const getRecent = (app) => {
     app.post('/getRecent', function (req, res, next) {
         // 近三天的文章
-        let time = new Date().getTime() / 1000 - 60 * 60 * 24 *3;
+        let time = new Date().getTime() / 1000 - 60 * 60 * 24 * 3;
 
         let sql = 'SELECT * from article where time >' + time;
         sqlOptions.operationData(sql, function (result) {
             res.send({
                 isOk: true,
-                data:result
+                data: result
             });
             next();
         })
 
     })
 };
+
+
+const updateVisits = () => {
+
+    //判断     如果是相同ip就不插入啦
+    // let time = new Date().getTime() / 1000;
+    // let value = '("' + visitIp + '","' + time + '")';
+    // let sql = 'INSERT INTO visit(visitIp,visitTime) VALUES ' + value;
+    // sqlOptions.operationData(sql, function () {
+    //
+    // })
+
+
+};
+
 
 exports.getRecent = getRecent;
 
