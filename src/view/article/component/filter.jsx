@@ -26,8 +26,20 @@ class Filter extends Component {
 
     }
 
+    searchHandle() {
+        this.setState({
+            str:this.searchInput.input.state.value
+        });
+    }
+
+    onSelectHandle(value){
+        this.setState({
+            type:value
+        })
+    }
 
     render() {
+        console.log('state',this.state);
         return (
             <div className="filter">
                 <span className="filter-time"><DatePicker
@@ -35,12 +47,13 @@ class Filter extends Component {
                     onChange={this.dataChange.bind(this)}/></span>
                 <span className="filter-type">文章类型</span>
                 <span className="filter-type">
-                    <Select defaultValue="lucy">
-                    <Option value="lucy">文章类型1</Option>
-                    <Option value="lucy1">文章类型</Option>
+                    <Select defaultValue="lucy" onSelect={this.onSelectHandle.bind(this)}>
+                    <Option value="1">前端</Option>
+                    <Option value="2">后端</Option>
                     </Select>
                 </span>
-                <span className="filter-search"><Input.Search size="default" defaultValue={this.state.str} placeholder="请输入搜索内容" enterButton="search"/></span>
+                <span className="filter-search"><Input.Search ref={input => this.searchInput = input} onSearch={this.searchHandle.bind(this)} size="default" defaultValue={this.state.str} placeholder="请输入搜索内容"
+                                                              enterButton="search"/></span>
             </div>
         )
     }

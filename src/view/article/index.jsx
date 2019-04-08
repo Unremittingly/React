@@ -24,7 +24,6 @@ class Article extends Component {
     componentDidMount() {
         getArticles('http://localhost:3009/article', {user: 'username', pwd: '123456'},
             (data) => {
-                console.log('data', data);
                 this.setState({
                     listData: data.data
                 });

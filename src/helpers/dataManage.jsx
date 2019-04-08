@@ -148,7 +148,6 @@ export const postUrl = (url, params,hint='') => {
 export const getUrl = (url, params)=>{
     return new Promise((resolve, reject) => {
         axios.get(url, {params: params}).then(function (res) {
-            console.log('res', res);
             if (res.status === 200) {
                 resolve(res.data);
             } else if (res.status === 404) {
