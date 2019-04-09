@@ -150,12 +150,7 @@ const search = (app) => {
                 sql += " WHERE time>"+time+" and type="+type+" and description LIKE '%"+str+"%'";
                 // sql +=" WHERE time>' + time +' and type='+type + ' and description= '+str+'";
             }
-
         }
-
-        console.log('sql',sql);
-
-
         let r = res;
         sqlOptions.operationData(sql, function (result) {
             // console.log('res',res);
@@ -172,11 +167,30 @@ const search = (app) => {
     })
 };
 
+const deleteArticle = (app)=>{
+    app.post('/deleteArticle',function (req,res,next) {
+        let id = req.body.id;
+        let sql = 'DELETE from article WHERE id='+id;
+        let r = res;
+        sqlOptions.operationData(sql, function (result) {
+            // console.log('res',res);
+            r.send(
+                {
+                    test: 'test测试',
+                    data: result,
+                    isOk: true
+                });
+            next();
+        });
+    })
+};
 
+
+
+
+exports.deleteArticle =deleteArticle;
 exports.search = search;
-
 exports.getRecent = getRecent;
-
 exports.editArticle = editArticle;
 exports.article = article;
 exports.saveArticle = saveArticle;

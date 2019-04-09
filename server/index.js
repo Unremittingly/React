@@ -73,4 +73,12 @@ try{
 }
 
 
+try{
+    article.deleteArticle(app);
+}catch (e) {
+    console.log('搜索任务启动  fail',e);
+
+}
+
+
 app.listen(3009, () => console.log('Example app listening on port 3009!'));

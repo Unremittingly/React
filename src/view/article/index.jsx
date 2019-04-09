@@ -4,11 +4,11 @@ import Filter from "./component/filter"
 import "./index..scss"
 import {connect} from "react-redux";
 import {getArticles, postUrl} from '../../helpers/dataManage'
-import {List, Avatar, Icon} from 'antd';
+import {List, Avatar, Icon,message} from 'antd';
 
-const IconText = ({type, text}) => (
-    <span>
-    <Icon type={type} style={{marginRight: 8}}/>
+const IconText = ({onClick,type, text}) => (
+    <span onClick={onClick}>
+    <Icon  type={type} style={{marginRight: 8}}/>
         {text}
   </span>
 );
@@ -19,6 +19,7 @@ class Article extends Component {
     constructor(props) {
         super(props);
         this.getSearchParam = this.getSearchParam.bind(this);
+        // this.deleteArticle = this.deleteArticle.bind(this);
     }
 
 
@@ -39,26 +40,53 @@ class Article extends Component {
     }
 
     clickHandle(id) {
-        this.props.history.push("/article/detail/"+id);
+        this.props.history.push("/article/detail/" + id);
     }
-    getSearchParam(params){
+
+    getSearchParam(params) {
         console.log(params);
         //每次筛选都会经过这里   这里需要调用search接口来返回数据
         // console.log('params', Date.parse(params.time)/1000);
 
-        postUrl('http://localhost:3009/search',{
-            time: Date.parse(params.time)/1000,
-            type:params.type,
-            str:params.str
-        }).then( (data)=> {
-            console.log('this',this.state);
+        postUrl('http://localhost:3009/search', {
+            time: Date.parse(params.time) / 1000,
+            type: params.type,
+            str: params.str
+        }).then((data) => {
+            console.log('this', this.state);
             this.setState({
                 listData: data.data
             });
         });
     }
 
+    deleteArticle(e,id) {
+        console.log('1',id);
+        postUrl('http://localhost:3009/deleteArticle',{
+            id:id
+        }).then((data)=>{
+            if(data.isOk){
+                message.success('删除成功！', 3);
+                window.location.reload();
+            }
+
+        });
+        e.stopPropagation();
+
+    }
+
+    createIcon(id) {
+        let iconArr = [<IconText type="star-o" text="156"/>, <IconText type="like-o" text="156"/>,
+            <IconText type="message" text="2"/>];
+        if (this.props.isLogin) {
+            iconArr.push(<IconText onClick={(e)=>this.deleteArticle(e,id)} type="delete-o" text="删除"/>);
+        }
+
+        return iconArr;
+    }
+
     render() {
+        console.log('statae', this.props.isLogin);
 
         let listData = this.state.listData;
 
@@ -83,7 +111,7 @@ class Article extends Component {
                                     data-id={item.id}
                                     key={item.title}
                                     onClick={this.clickHandle.bind(this, item.id)}
-                                    actions={[<IconText type="star-o" text="156"/>, <IconText type="like-o" text="156"/>, <IconText type="message" text="2"/>]}
+                                    actions={this.createIcon(item.id)}
                                     extra={<img width={200} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"/>}
                                 >
                                     <List.Item.Meta
@@ -106,7 +134,7 @@ const mapStateToProps = (state) => {
     return {
         test: state.article.data,
         resData: state.article.data,
-        state1: state
+        isLogin: state.userInfo.isLogin,
     }
 };
 

@@ -50,9 +50,10 @@ class Filter extends Component {
                 <span className="filter-time"><DatePicker
                     defaultValue={moment(this.state.time, this.state.dateType)}
                     onChange={this.dataChange.bind(this)}/></span>
-                <span className="filter-type">文章类型</span>
+
                 <span className="filter-type">
-                    <Select defaultValue="1" onSelect={this.onSelectHandle.bind(this)}>
+                    <span className="filter-label"> 文章类型:</span>
+                    <Select className="filter-select" defaultValue="1" onSelect={this.onSelectHandle.bind(this)}>
                     <Option value="1">前端</Option>
                     <Option value="2">后端</Option>
                     </Select>
