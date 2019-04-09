@@ -136,6 +136,45 @@ const updateVisits = () => {
 };
 
 
+const search = (app) => {
+    app.post('/search', function (req, res, next) {
+        //加载页面
+
+        let time = req.body.time;
+        let type = req.body.type;
+        let str = req.body.str;
+
+        let sql = 'SELECT * from article';
+        if(time || type || str){
+            if(time){
+                sql += " WHERE time>"+time+" and type="+type+" and description LIKE '%"+str+"%'";
+                // sql +=" WHERE time>' + time +' and type='+type + ' and description= '+str+'";
+            }
+
+        }
+
+        console.log('sql',sql);
+
+
+        let r = res;
+        sqlOptions.operationData(sql, function (result) {
+            // console.log('res',res);
+            r.send(
+                {
+                    test: 'test测试',
+                    data: result,
+                    isOk: true
+                });
+            next();
+        });
+
+
+    })
+};
+
+
+exports.search = search;
+
 exports.getRecent = getRecent;
 
 exports.editArticle = editArticle;

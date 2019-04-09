@@ -65,5 +65,12 @@ try {
     console.log('获取近期文章任务启动  失败',e);
 }
 
+try{
+    article.search(app);
+}catch (e) {
+    console.log('搜索任务启动  fail',e);
+
+}
+
 
 app.listen(3009, () => console.log('Example app listening on port 3009!'));

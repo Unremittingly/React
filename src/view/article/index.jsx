@@ -3,7 +3,7 @@ import Layout from "../../common/layout"
 import Filter from "./component/filter"
 import "./index..scss"
 import {connect} from "react-redux";
-import {getArticles} from '../../helpers/dataManage'
+import {getArticles, postUrl} from '../../helpers/dataManage'
 import {List, Avatar, Icon} from 'antd';
 
 const IconText = ({type, text}) => (
@@ -14,6 +14,14 @@ const IconText = ({type, text}) => (
 );
 
 class Article extends Component {
+
+
+    constructor(props) {
+        super(props);
+        this.getSearchParam = this.getSearchParam.bind(this);
+    }
+
+
     state = {
         name: "404",
         code: 3,
@@ -33,6 +41,22 @@ class Article extends Component {
     clickHandle(id) {
         this.props.history.push("/article/detail/"+id);
     }
+    getSearchParam(params){
+        console.log(params);
+        //每次筛选都会经过这里   这里需要调用search接口来返回数据
+        // console.log('params', Date.parse(params.time)/1000);
+
+        postUrl('http://localhost:3009/search',{
+            time: Date.parse(params.time)/1000,
+            type:params.type,
+            str:params.str
+        }).then( (data)=> {
+            console.log('this',this.state);
+            this.setState({
+                listData: data.data
+            });
+        });
+    }
 
     render() {
 
@@ -43,7 +67,7 @@ class Article extends Component {
                 <Layout {...this.props.state}  >
                     <div className="article">
                         {/*<span>redux测试：{this.props.test.test}</span>*/}
-                        <Filter/>
+                        <Filter getSearchParam={this.getSearchParam}/>
                         <List
                             itemLayout="vertical"
                             size="large"
