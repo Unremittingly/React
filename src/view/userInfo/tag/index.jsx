@@ -8,7 +8,7 @@ import './index..scss'
 
 class Tags extends Component {
     state = {
-        tags: ['游戏宅', '音乐控', '佛系码农','随缘人生','Bug制造者','单身猿','困难群众'],
+        tags: ['游戏宅', '音乐爱好者', '佛系码农','随缘人生','Bug制造者','困难群众'],
         inputVisible: false,
         inputValue: '',
     };

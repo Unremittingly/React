@@ -1,0 +1,15 @@
+
+.record-item{
+  margin: 10px 0;
+  .record-label{
+    display: inline-block;
+    width: 120px;
+    text-align: right;
+  }
+  .record-con{
+    display: inline-block;
+    margin-left: 10px;
+    color: red;
+  }
+}
+

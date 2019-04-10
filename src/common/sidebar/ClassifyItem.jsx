@@ -18,7 +18,7 @@ class ClassifyItem extends Component {
         for (let i = length - 1; i >= 0; i--) {
             let item = data[i];
             if (item.url) {
-                doms.push(<a key={i} className="sidebar-item" href={item.url} target="_blank">{item.title}</a>);
+                doms.push(<a key={i} className="sidebar-item" href={item.url}  rel="noopener noreferrer" target="_blank">{item.title}</a>);
             } else {
                 doms.push(<Link key={i} className="sidebar-item" target="_blank" rel="noopener noreferrer" to={"/article/detail/" + item.id}>{item.title}</Link>);
             }

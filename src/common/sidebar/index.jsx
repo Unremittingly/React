@@ -4,6 +4,8 @@ import avator from '../../image/avator.jpg'
 import ClassifyItem from './ClassifyItem'
 import {postUrl} from "../../helpers/dataManage";
 
+import {Tag} from "antd";
+
 class Sidebar extends Component {
 
 
@@ -20,7 +22,12 @@ class Sidebar extends Component {
                     "url":'https://www.cnblogs.com/onepixel/articles/7674659.html'
                 }
             ]
-        }
+        },
+
+        tags:[
+            '游戏宅',
+            '佛系码农'
+        ]
     };
 
 
@@ -49,6 +56,12 @@ class Sidebar extends Component {
                 <div className="via">
                     <img src={avator} alt="via"/>
                     <div className="simple-tag">高级CV工程师</div>
+                    {this.state.tags.map((tag)=>{
+                        return   <Tag
+                            color="blue"
+                        >{tag}</Tag>
+                    })}
+
                 </div>
                 <ClassifyItem list={this.state.newArticle} />
                 <ClassifyItem list={this.state.recommend} />
