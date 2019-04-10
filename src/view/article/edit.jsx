@@ -149,8 +149,10 @@ class Edit extends Component {
         console.log('this.state.type', this.state.type);
         if (this.state.tabType === 1) {
             let content = this.editor.txt.html();
-            let desc = this.editor.txt.text().replace(/\"/g, '\\"').trim();
-            content = content.replace(/\"/g, '\\"');
+            let desc = this.editor.txt.text().trim();
+
+            desc = encodeURI(desc);
+            content = encodeURI (content);
             //todo  需要处理特殊字符转义问题
             data = {
                 content: content,//转义一下双引号 以方便存入数据库
@@ -163,14 +165,24 @@ class Edit extends Component {
         } else {
             console.log('tihs', this.state.str);
             let content = this.state.str;
+            let desc = content.trim();
+
+
+            desc = encodeURI(desc);
+            content = encodeURI (content);
+
+            // \ 和"" 不能一起？
+            // desc = desc.replace(/\\/g, '\\\\').trim();
+
             console.log('content', content);
+
             data = {
                 content: content,//转义一下双引号 以方便存入数据库
                 title: this.titleInput.state.value,
                 type: this.state.type,
                 time: parseInt((new Date().getTime()) / 1000),
                 tabType: this.state.tabType,
-                desc: content
+                desc: desc
             };
         }
 

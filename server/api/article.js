@@ -41,6 +41,9 @@ const saveArticle = (app) => {
         let type = req.body.type;
         let desc = req.body.desc;
         let tabType = req.body.tabType;
+        console.log('content',content);
+        console.log('desc',desc);
+
         let value = '("' + title + '","' + type + '","' + time + '","' + content + '","' + desc + '","' + tabType + '")';
         let sql = 'INSERT INTO article(title,type,time,content,description,tabtype) VALUES' + value;
         sqlOptions.insertData(sql, function (isSuccess) {

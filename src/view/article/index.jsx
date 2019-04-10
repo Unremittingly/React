@@ -112,7 +112,7 @@ class Article extends Component {
                                     <List.Item.Meta
                                         avatar={<Avatar src={item.avatar}/>}
                                         title={<a href={item.href}>{item.title}</a>}
-                                        description={item.description ? item.description.substring(0, 13) + '...' : ''}
+                                        description={item.description ? decodeURI(item.description).substring(0, 13) + '...' : ''}
                                     />
                                 </List.Item>
                             )}

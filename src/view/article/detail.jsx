@@ -44,9 +44,9 @@ class Detail extends Component {
         // console.log('this', tabType);
         let content = '';
         if (tabType === 1) {
-            content = <div className="content" dangerouslySetInnerHTML={{__html: this.state.data.content}}/>;
+            content = <div className="content" dangerouslySetInnerHTML={{__html: decodeURI(this.state.data.content)}}/>;
         } else {
-            content = <div className="content"><ReactMarkdown source={result.content}/></div>
+            content = <div className="content"><ReactMarkdown source={decodeURI(result.content)}/></div>
         }
         return (
             <Layout>

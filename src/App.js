@@ -5,6 +5,8 @@ import Routers from './router/router'
 import 'antd/dist/antd.css'
 import AuthRoute from './router/authRoute'
 
+import './common/style/base..scss'
+
 
 
 
