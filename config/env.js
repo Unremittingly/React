@@ -57,7 +57,7 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
   .join(path.delimiter);
 
 // Grab NODE_ENV and REACT_APP_* environment variables and prepare them to be
-// injected into the application via DefinePlugin in Webpack configuration.
+// injected into the userInfo via DefinePlugin in Webpack configuration.
 const REACT_APP = /^REACT_APP_/i;
 
 function getClientEnvironment(publicUrl) {

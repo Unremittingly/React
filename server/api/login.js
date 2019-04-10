@@ -4,7 +4,7 @@ const md5 = require('md5');
 const loginIn = (app)=>{
 
 
-// 创建 application/x-www-form-urlencoded 编码解析
+// 创建 userInfo/x-www-form-urlencoded 编码解析
     app.post('/login',function (req,res,next) {
         let params = req.body;
         let userName = params.userName;

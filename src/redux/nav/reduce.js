@@ -1,7 +1,7 @@
 import Home from "../../view/home";
 import Article from "../../view/article"
 import edit from '../../view/article/edit'
-import UserInfo from "../../view/application"
+import UserInfo from "../../view/userInfo"
 import Example from "../../view/example";
 
 // import Test from '../../view/test'

@@ -19,7 +19,6 @@ class Article extends Component {
     constructor(props) {
         super(props);
         this.getSearchParam = this.getSearchParam.bind(this);
-        // this.deleteArticle = this.deleteArticle.bind(this);
     }
 
 
@@ -76,8 +75,8 @@ class Article extends Component {
     }
 
     createIcon(id) {
-        let iconArr = [<IconText type="star-o" text="156"/>, <IconText type="like-o" text="156"/>,
-            <IconText type="message" text="2"/>];
+        let iconArr = [<IconText type="star-o" text="0"/>, <IconText type="like-o" text="0"/>,
+            <IconText type="message" text="0"/>];
         if (this.props.isLogin) {
             iconArr.push(<IconText onClick={(e)=>this.deleteArticle(e,id)} type="delete-o" text="删除"/>);
         }
@@ -86,15 +85,12 @@ class Article extends Component {
     }
 
     render() {
-        console.log('statae', this.props.isLogin);
-
         let listData = this.state.listData;
 
         return (
             <div className="article-list">
                 <Layout {...this.props.state}  >
                     <div className="article">
-                        {/*<span>redux测试：{this.props.test.test}</span>*/}
                         <Filter getSearchParam={this.getSearchParam}/>
                         <List
                             itemLayout="vertical"
@@ -119,7 +115,6 @@ class Article extends Component {
                                         title={<a href={item.href}>{item.title}</a>}
                                         description={item.description ? item.description.substring(0, 13) + '...' : ''}
                                     />
-                                    {/*<div dangerouslySetInnerHTML={{__html: item.content}}/>*/}
                                 </List.Item>
                             )}
                         />,
@@ -132,20 +127,13 @@ class Article extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        test: state.article.data,
-        resData: state.article.data,
-        isLogin: state.userInfo.isLogin,
+        isLogin: state.userInfo.isLogin  //管理员是否登录
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // getList: function () {
-        //
-        //     let that = this;
-        //
-        //     // dispatch(getList("username", "123456"));
-        // }
+
     }
 };
 

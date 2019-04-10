@@ -56,7 +56,7 @@ export const login = function (url, param, dispatch) {
     return new Promise((resolve, reject) => {
         axios.post(url, qs.stringify(param), {
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'userInfo/x-www-form-urlencoded'
             }
         }).then(function (res) {
             if (res.status === 200) {
@@ -117,11 +117,7 @@ export const getArticleForId = (url, params, callback) => {
 export const postUrl = (url, params,hint='') => {
 
     return new Promise((resolve, reject) => {
-        axios.post(url, qs.stringify(params), {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        }).then(function (res) {
+        axios.post(url, qs.stringify(params), {}).then(function (res) {
             if (res.status === 200) {
                 if (res.data.isOk) {
                     resolve(res.data)

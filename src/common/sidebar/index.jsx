@@ -28,7 +28,9 @@ class Sidebar extends Component {
     componentDidMount() {
 
         let url = 'http://localhost:3009/getRecent';
-        postUrl(url, {}).then((result) => {
+        postUrl(url, {
+            test:'test'
+        }).then((result) => {
             this.setState({
                 newArticle:{
                     data: result.data,

@@ -134,7 +134,7 @@ module.exports = function (webpackEnv) {
                 ? 'source-map'
                 : false
             : isEnvDevelopment && 'eval-source-map',
-        // These are the "entry points" to our application.
+        // These are the "entry points" to our userInfo.
         // This means they will be the "root" imports that are included in JS bundle.
         entry: [
             // Include an alternative client for WebpackDevServer. A client's job is to
@@ -337,7 +337,7 @@ module.exports = function (webpackEnv) {
                                 name: 'static/media/[name].[hash:8].[ext]',
                             },
                         },
-                        // Process application JS with Babel.
+                        // Process userInfo JS with Babel.
                         // The preset includes JSX, Flow, TypeScript, and some ESnext features.
                         {
                             test: /\.(js|mjs|jsx|ts|tsx)$/,
@@ -369,7 +369,7 @@ module.exports = function (webpackEnv) {
                             },
                         },
                         // Process any JS outside of the app with Babel.
-                        // Unlike the application JS, we only compile the standard ES features.
+                        // Unlike the userInfo JS, we only compile the standard ES features.
                         {
                             test: /\.(js|mjs)$/,
                             exclude: /@babel(?:\/|\\{1,2})runtime/,
