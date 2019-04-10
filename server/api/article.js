@@ -145,12 +145,29 @@ const search = (app) => {
         let str = req.body.str;
 
         let sql = 'SELECT * from article';
-        if(time || type || str){
-            if(time){
-                sql += " WHERE time>"+time+" and type="+type+" and description LIKE '%"+str+"%'";
-                // sql +=" WHERE time>' + time +' and type='+type + ' and description= '+str+'";
+
+        let arr = [{
+            field: 'time',
+            value: time
+        }, {
+            field: 'type',
+            value: type
+        }, {
+            field: 'str',
+            value: str
+        }];
+        //凭借搜索的sql
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].value) {
+                if(sql.indexOf('WHERE') ===-1){
+                    sql += " WHERE time>" + time;
+                }else{
+                    sql += " and '"+arr[i].field+"'=" + arr[i].value;
+                }
             }
         }
+        console.log('sql',sql);
+
         let r = res;
         sqlOptions.operationData(sql, function (result) {
             // console.log('res',res);
@@ -167,10 +184,10 @@ const search = (app) => {
     })
 };
 
-const deleteArticle = (app)=>{
-    app.post('/deleteArticle',function (req,res,next) {
+const deleteArticle = (app) => {
+    app.post('/deleteArticle', function (req, res, next) {
         let id = req.body.id;
-        let sql = 'DELETE from article WHERE id='+id;
+        let sql = 'DELETE from article WHERE id=' + id;
         let r = res;
         sqlOptions.operationData(sql, function (result) {
             // console.log('res',res);
@@ -186,9 +203,7 @@ const deleteArticle = (app)=>{
 };
 
 
-
-
-exports.deleteArticle =deleteArticle;
+exports.deleteArticle = deleteArticle;
 exports.search = search;
 exports.getRecent = getRecent;
 exports.editArticle = editArticle;

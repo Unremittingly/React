@@ -33,7 +33,7 @@ const navList = () => {
             name: '个人中心',
             path: '/info',
             component: UserInfo,
-            auth: true
+            auth: false
         },
         // {
         //     id: 5,

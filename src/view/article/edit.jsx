@@ -219,7 +219,7 @@ class Edit extends Component {
                     </Tabs>
                 </div>
                 <div className="optGroup">
-                    <Select defaultValue="lucy" onSelect={this.selectHandle} value="1">
+                    <Select defaultValue="1" onSelect={this.selectHandle} >
                         <Option value="1">前端</Option>
                         <Option value="2">后端</Option>
                         <Option value="3">数据库</Option>

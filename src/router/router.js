@@ -12,7 +12,7 @@ export default {
     name: 'home',
     component: home,
     childRoutes: [
-        {path: '/info', component: UserInfo, auth: true},//这个router需要权限  多加一个属性
+        {path: '/info', component: UserInfo, auth: false},//这个router需要权限  多加一个属性
         {path: '/home', component: home, auth: false},
         {path: '/article', component: article, auth: false},
         {path: '/edit', component: edit, auth: true},

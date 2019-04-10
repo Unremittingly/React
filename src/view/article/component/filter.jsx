@@ -4,6 +4,7 @@ import './index..scss';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 import PropTypes from 'prop-types'
+import {types} from "../classify";
 
 
 moment.locale('zh-cn');
@@ -13,10 +14,10 @@ const Option = Select.Option;
 class Filter extends Component {
 
     state = {
-        time: '2016-11-01',
+        time: '',
         dateType: 'YYYY-MM-DD',
-        str: 'test',
-        type: 1
+        str: '',
+        type: null
     };
 
     dataChange(e, dataString) {
@@ -43,19 +44,23 @@ class Filter extends Component {
     }
 
     render() {
-        console.log('state', this.state);
+        // console.log('state', this.state);
 
         return (
             <div className="filter">
                 <span className="filter-time"><DatePicker
-                    defaultValue={moment(this.state.time, this.state.dateType)}
+                    // defaultValue={moment(this.state.time, this.state.dateType)}
                     onChange={this.dataChange.bind(this)}/></span>
 
                 <span className="filter-type">
                     <span className="filter-label"> 文章类型:</span>
-                    <Select className="filter-select" defaultValue="1" onSelect={this.onSelectHandle.bind(this)}>
-                    <Option value="1">前端</Option>
-                    <Option value="2">后端</Option>
+                    <Select className="filter-select" defaultValue="全部" onSelect={this.onSelectHandle.bind(this)}>
+                         <Option value="">全部</Option>
+                        {types.map((item, key) => {
+                            return <Option key={key} value={item.key}>{item.value}</Option>
+                        })}
+
+
                     </Select>
                 </span>
                 <span className="filter-search">

@@ -43,16 +43,15 @@ class Article extends Component {
     }
 
     getSearchParam(params) {
-        console.log(params);
+        // console.log(params);
         //每次筛选都会经过这里   这里需要调用search接口来返回数据
         // console.log('params', Date.parse(params.time)/1000);
 
         postUrl('http://localhost:3009/search', {
-            time: Date.parse(params.time) / 1000,
+            time: params.time ? Date.parse(params.time) / 1000 : null,
             type: params.type,
             str: params.str
         }).then((data) => {
-            console.log('this', this.state);
             this.setState({
                 listData: data.data
             });

@@ -55,9 +55,6 @@ export const login = function (url, param, dispatch) {
 
     return new Promise((resolve, reject) => {
         axios.post(url, qs.stringify(param), {
-            headers: {
-                'Content-Type': 'userInfo/x-www-form-urlencoded'
-            }
         }).then(function (res) {
             if (res.status === 200) {
                 // console.log('res', res);
