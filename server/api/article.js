@@ -91,9 +91,11 @@ const uploadImg = (app) => {
         form.uploadDir = dir;
         form.parse(req, function (err, fields, files) {
             let oldPath = files.fileName.path; //fileName就是我们刚在前台模板里面配置的后台接受的名称；
-            let extname = files.fileName.name; //获取图片名称
+            let curTime = parseInt(new Date().getTime()/1000) ;
+            let extname = curTime+'_'+ files.fileName.name; //获取图片名称
             //新的路径由组成：原父路径 + 拓展名
-            let newPath = dir + extname;
+
+            let newPath =  dir + extname;
             //改名     把之前存的图片换成真的图片的完整路径
             fs.rename(oldPath, newPath, function (err) {
                 if (err) {
