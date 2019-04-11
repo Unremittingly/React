@@ -57,6 +57,7 @@ class Detail extends Component {
                             <span className="time">{timeFormat(result.time)}</span>
                             <span className="type">{getType(result.type)}</span>
                             <span className="tag">{result.tag ? result.tag : '未知标签'}</span>
+                            <span className="pView">阅读量：{result.count ? result.count : '0'}</span>
                         </div>
                     </div>
                     {content}

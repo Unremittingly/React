@@ -56,8 +56,8 @@ class Sidebar extends Component {
                 <div className="via">
                     <img src={avator} alt="via"/>
                     <div className="simple-tag">高级CV工程师</div>
-                    {this.state.tags.map((tag)=>{
-                        return   <Tag
+                    {this.state.tags.map((tag,key)=>{
+                        return   <Tag key={key}
                             color="blue"
                         >{tag}</Tag>
                     })}

@@ -41,8 +41,8 @@ const saveArticle = (app) => {
         let type = req.body.type;
         let desc = req.body.desc;
         let tabType = req.body.tabType;
-        console.log('content',content);
-        console.log('desc',desc);
+        console.log('content', content);
+        console.log('desc', desc);
 
         let value = '("' + title + '","' + type + '","' + time + '","' + content + '","' + desc + '","' + tabType + '")';
         let sql = 'INSERT INTO article(title,type,time,content,description,tabtype) VALUES' + value;
@@ -62,17 +62,31 @@ const getArticleForId = (app) => {
         // console.log('req.body', req.body);
         let clientIp = getIp(req);
         console.log('客户端ip', clientIp);
-        updateVisits();
         let id = req.body.id;
-        sqlOptions.selectForId(id, 'article', function (data) {
+
+        updateVisits(clientIp, id, () => {
+
+        });
+        let sql ='SELECT' +
+            ' a.*,' +
+            ' COUNT( DISTINCT b.id) as count' +
+            ' FROM' +
+            ' article a' +
+            ' LEFT JOIN visit b ON b.articleId = a.id' +
+            ' WHERE a.id='+id+
+            ' GROUP BY a.id ';
+        sqlOptions.operationData(sql,function (data) {
             res.send({
                 isOk: true,
-                data: data
+                data: data[0]
             });
             next();
         })
 
-    })
+
+    });
+
+
 };
 let getIp = function (req) {
     let ip = req.headers['x-real-ip'] ||
@@ -91,11 +105,11 @@ const uploadImg = (app) => {
         form.uploadDir = dir;
         form.parse(req, function (err, fields, files) {
             let oldPath = files.fileName.path; //fileName就是我们刚在前台模板里面配置的后台接受的名称；
-            let curTime = parseInt(new Date().getTime()/1000) ;
-            let extname = curTime+'_'+ files.fileName.name; //获取图片名称
+            let curTime = parseInt(new Date().getTime() / 1000);
+            let extname = curTime + '_' + files.fileName.name; //获取图片名称
             //新的路径由组成：原父路径 + 拓展名
 
-            let newPath =  dir + extname;
+            let newPath = dir + extname;
             //改名     把之前存的图片换成真的图片的完整路径
             fs.rename(oldPath, newPath, function (err) {
                 if (err) {
@@ -127,15 +141,16 @@ const getRecent = (app) => {
 };
 
 
-const updateVisits = () => {
+const updateVisits = (visitIp, articleId, callback) => {
 
     //判断     如果是相同ip就不插入啦
-    // let time = new Date().getTime() / 1000;
-    // let value = '("' + visitIp + '","' + time + '")';
-    // let sql = 'INSERT INTO visit(visitIp,visitTime) VALUES ' + value;
-    // sqlOptions.operationData(sql, function () {
-    //
-    // })
+    let time = new Date().getTime() / 1000;
+    let value = '("' + visitIp + '"," ' + time + '"," ' + articleId + '")';
+    let sql = 'INSERT INTO visit(visitIp,visitTime,articleId) VALUES ' + value;
+    sqlOptions.operationData(sql, function (data) {
+        callback();
+        console.log('data', data);
+    })
 
 
 };
@@ -164,14 +179,14 @@ const search = (app) => {
         //凭借搜索的sql
         for (let i = 0; i < arr.length; i++) {
             if (arr[i].value) {
-                if(sql.indexOf('WHERE') ===-1){
+                if (sql.indexOf('WHERE') === -1) {
                     sql += " WHERE time>" + time;
-                }else{
-                    sql += " and '"+arr[i].field+"'=" + arr[i].value;
+                } else {
+                    sql += " and '" + arr[i].field + "'=" + arr[i].value;
                 }
             }
         }
-        console.log('sql',sql);
+        console.log('sql', sql);
 
         let r = res;
         sqlOptions.operationData(sql, function (result) {
