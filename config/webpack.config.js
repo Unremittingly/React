@@ -86,6 +86,7 @@ module.exports = function (webpackEnv) {
                     shouldUseRelativeAssetPaths ? {publicPath: '../../'} : undefined
                 ),
             },
+
             {
                 loader: require.resolve('css-loader'),
                 options: cssOptions,

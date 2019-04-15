@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Layout from '../../common/layout'
+import style from './index.module.scss'
 
 
 class Home extends Component {
@@ -12,7 +13,10 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <Layout {...this.state}>home</Layout>
+                <Layout {...this.state}>
+                    <div className={style.home}>home <br/>use css module for Resolve scope conflicts</div>
+                </Layout>
+
             </div>
         )
     }
