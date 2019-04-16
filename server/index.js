@@ -3,6 +3,7 @@ const app = express();
 
 const article = require('./api/article');
 const login = require('./api/login');
+const socket = require('./api/websocket');
 const bodyParser     =         require("body-parser");
 const path = require('path');
 
@@ -80,5 +81,10 @@ try{
 
 }
 
+// try {
+//     socket.socket(app)
+// }catch (e) {
+//     console.log('socket 服务器开启失败',e);
+// }
 
 app.listen(3009, () => console.log('Example app listening on port 3009!'));

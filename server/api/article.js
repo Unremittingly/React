@@ -54,6 +54,7 @@ const saveArticle = (app) => {
             next();
         });
 
+
     })
 };
 
@@ -67,15 +68,15 @@ const getArticleForId = (app) => {
         updateVisits(clientIp, id, () => {
 
         });
-        let sql ='SELECT' +
+        let sql = 'SELECT' +
             ' a.*,' +
             ' COUNT( DISTINCT b.id) as count' +
             ' FROM' +
             ' article a' +
             ' LEFT JOIN visit b ON b.articleId = a.id' +
-            ' WHERE a.id='+id+
+            ' WHERE a.id=' + id +
             ' GROUP BY a.id ';
-        sqlOptions.operationData(sql,function (data) {
+        sqlOptions.operationData(sql, function (data) {
             res.send({
                 isOk: true,
                 data: data[0]
