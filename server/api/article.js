@@ -169,21 +169,38 @@ const search = (app) => {
 
         let arr = [{
             field: 'time',
-            value: time
+            sql: '>',
+            value: time ? time : 0
         }, {
             field: 'type',
+            sql: '=',
             value: type
         }, {
-            field: 'str',
-            value: str
+            fieldT: 'title',
+            field: 'description',
+            sql: '  LIKE',
+            value: str ? " '%" + str + "%'" : ''
         }];
-        //凭借搜索的sql
+        //拼接搜索的sql
         for (let i = 0; i < arr.length; i++) {
             if (arr[i].value) {
+
                 if (sql.indexOf('WHERE') === -1) {
-                    sql += " WHERE time>" + time;
+                    if (arr[i].field === 'description') {
+                        sql += " WHERE (" + arr[i].field + arr[i].sql + arr[i].value + " or " +
+                            arr[i].fieldT + arr[i].sql + arr[i].value + ")";
+                    } else {
+                        sql += " WHERE " + arr[i].field + arr[i].sql + arr[i].value;
+                    }
+
                 } else {
-                    sql += " and '" + arr[i].field + "'=" + arr[i].value;
+                    if (arr[i].field === 'description') {
+                        sql += " and (" + arr[i].field + arr[i].sql + arr[i].value + " or " +
+                            arr[i].fieldT + arr[i].sql + arr[i].value + ")";
+                    } else {
+                        sql += " and " + arr[i].field + arr[i].sql + arr[i].value;
+                    }
+
                 }
             }
         }
