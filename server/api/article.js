@@ -204,7 +204,7 @@ const search = (app) => {
                 }
             }
         }
-        console.log('sql', sql);
+        // console.log('sql', sql);
 
         let r = res;
         sqlOptions.operationData(sql, function (result) {
