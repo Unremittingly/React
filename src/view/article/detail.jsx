@@ -4,8 +4,9 @@ import {getArticleForId} from "../../helpers/dataManage";
 import {getType} from "./classify";
 import {timeFormat} from "../../helpers/fuc";
 
-import './detail..scss'
-import ReactMarkdown from 'react-markdown'
+import './detail..scss';
+import ReactMarkdown from 'react-markdown';
+import Comment from './component/comment'
 
 class Detail extends Component {
 
@@ -23,7 +24,7 @@ class Detail extends Component {
             });
     }
 
-    componentWillReceiveProps(nextProps,nextContent) {
+    componentWillReceiveProps(nextProps, nextContent) {
         // console.log('newx', nextProps.match);
 
         //这个url 带参数  需要这里重新处理一下  初始化  不然  从带参数的切换到另一个参数的过后 页面不会改变
@@ -62,6 +63,7 @@ class Detail extends Component {
                     </div>
                     {content}
                 </div>
+                <Comment articleId={this.state.params.id} commentId={2}/>
             </Layout>
 
         )

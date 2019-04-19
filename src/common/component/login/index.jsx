@@ -40,6 +40,7 @@ class Login extends Component {
         let userName = this.userInput.state.value;
         let password = this.pwdInput.state.value;
         let that = this;
+        //验证
 
         this.props.loginTest({
             userName,

@@ -4,12 +4,10 @@ import style from './index.module.scss'
 
 
 class Home extends Component {
-
     state = {
         name: '首页',
         code: 1,
     };
-
     render() {
         return (
             <div>
