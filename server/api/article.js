@@ -240,7 +240,31 @@ const deleteArticle = (app) => {
     })
 };
 
+const getCurTime = () => {
 
+    return parseInt(new Date() / 1000);
+};
+const addComment = (app) => {
+    app.post('/addComment', function (req, res, next) {
+        let article_id = req.body.articleId;
+        let comment_id = req.body.commentId;
+        let time = getCurTime();
+        let content = req.body.content;
+        let sql = 'INSERT INTO comment(article_id,comment_id,time,content) VALUES ' + '("' + article_id + '","' + comment_id + '","' + time + '","' + content + '")';
+        let isSuccess = sqlOptions.operationData(sql, function (data) {
+            if(data.insertId){
+                res.send({
+                    data:data,
+                    isOk:true
+                });
+            }
+
+        })
+    })
+};
+
+
+exports.addComment = addComment;
 exports.deleteArticle = deleteArticle;
 exports.search = search;
 exports.getRecent = getRecent;

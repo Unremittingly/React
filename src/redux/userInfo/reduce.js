@@ -1,6 +1,11 @@
 import {GET_USER_INFO,LOGIN_IN,LOGIN_OUT} from "./constant";
-
-const userInfo = (state={isLogin:false},action)=>{
+import avator from "../../image/avator.jpg";
+let defaultState = {
+    isLogin:false,
+    avatar:avator,
+    name:'admin'
+};
+const userInfo = (state=defaultState,action)=>{
     switch (action.type) {
         case GET_USER_INFO:
             return {...state,data:action.data};

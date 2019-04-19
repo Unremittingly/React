@@ -1,11 +1,15 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import './comment..scss'
+// import avator from '../../../image/avator.jpg'
 
 import {
     Comment, Avatar, Form, Button, List, Input,
 } from 'antd';
 import moment from 'moment';
+import {connect} from "react-redux";
+import {postUrl} from "../../../helpers/dataManage";
+
 
 const TextArea = Input.TextArea;
 
@@ -39,11 +43,12 @@ const Editor = ({
     </div>
 );
 
-class Comments extends React.Component {
+class Comments extends Component {
     state = {
         comments: [],
         submitting: false,
         value: '',
+        avatar:this.props.userInfo.avatar
     };
 
     handleSubmit = () => {
@@ -61,8 +66,8 @@ class Comments extends React.Component {
                 value: '',
                 comments: [
                     {
-                        author: 'Han Solo',
-                        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                        author: this.props.userInfo.name,
+                        avatar: this.state.avatar,
                         content: <p>{this.state.value}</p>,
                         datetime: moment().fromNow(),
                     },
@@ -70,6 +75,15 @@ class Comments extends React.Component {
                 ],
             });
         }, 1000);
+
+        postUrl('http://localhost:3009/addComment',{
+            commentId:this.props.commentId,
+            articleId:this.props.articleId,
+            content: this.state.value
+        }).then((data)=>{
+            console.log('comment',data);
+        })
+        //add Comment
     };
     handleChange = (e) => {
         this.setState({
@@ -80,9 +94,9 @@ class Comments extends React.Component {
     render() {
         const {comments, submitting, value} = this.state;
 
-        let articleId = this.props.articleId;
-        let commentId = this.props.commentId;
-        console.log('id',articleId,commentId);
+        // let articleId = this.props.articleId;
+        // let commentId = this.props.commentId;
+        // console.log('id', articleId, commentId);
 
         return (
             <div className="comment">
@@ -90,8 +104,8 @@ class Comments extends React.Component {
                 <Comment
                     avatar={(
                         <Avatar
-                            src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                            alt="Han Solo"
+                            src={ this.state.avatar}
+                            alt={this.props.userInfo.name}
                         />
                     )}
                     content={(
@@ -108,10 +122,16 @@ class Comments extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        userInfo: state.userInfo
+    }
+
+};
 
 Comments.propType = {
     articleId: PropTypes.number,
     commentId: PropTypes.number
 };
 
-export default Comments;
+export default connect(mapStateToProps)(Comments);
