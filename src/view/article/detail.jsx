@@ -6,7 +6,9 @@ import {timeFormat} from "../../helpers/fuc";
 
 import './detail..scss';
 import ReactMarkdown from 'react-markdown';
-import Comment from './component/comment'
+import Comment from './component/comment';
+
+import PageNav from './component/pageNav';
 
 class Detail extends Component {
 
@@ -49,6 +51,13 @@ class Detail extends Component {
         } else {
             content = <div className="content"><ReactMarkdown source={decodeURI(result.content)}/></div>
         }
+
+        let pD = {
+            name:'上一个'
+        };
+        let nD = {
+            name:'下一个'
+        }
         return (
             <Layout>
                 <div className="article-detail">
@@ -63,6 +72,7 @@ class Detail extends Component {
                     </div>
                     {content}
                 </div>
+                <PageNav preData={pD} nextData={nD} />
                 <Comment articleId={this.state.params.id} commentId={2}/>
             </Layout>
 

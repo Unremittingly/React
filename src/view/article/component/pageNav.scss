@@ -1,0 +1,11 @@
+
+
+.page_nav{
+
+  display: flex;
+  justify-content: space-between;
+
+  .pre,.next{
+    cursor: pointer;
+  }
+}
