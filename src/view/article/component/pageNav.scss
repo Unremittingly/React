@@ -1,11 +1,17 @@
 
 
 .page_nav{
+  position: relative;
+  //bottom: 20vh;
+  width: 100%;
+  margin-bottom: 20px;
 
-  display: flex;
-  justify-content: space-between;
-
-  .pre,.next{
-    cursor: pointer;
+  .pre{
+    position: absolute;
+    left: 10px;
+  }
+  .next{
+    position: absolute;
+    right: 10px;
   }
 }

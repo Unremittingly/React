@@ -94,4 +94,10 @@ try {
 //     console.log('socket 服务器开启失败',e);
 // }
 
+try {
+    article.getPageNav(app);
+}catch (e) {
+
+}
+
 app.listen(3009, () => console.log('Example app listening on port 3009!'));

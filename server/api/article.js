@@ -252,10 +252,10 @@ const addComment = (app) => {
         let content = req.body.content;
         let sql = 'INSERT INTO comment(article_id,comment_id,time,content) VALUES ' + '("' + article_id + '","' + comment_id + '","' + time + '","' + content + '")';
         let isSuccess = sqlOptions.operationData(sql, function (data) {
-            if(data.insertId){
+            if (data.insertId) {
                 res.send({
-                    data:data,
-                    isOk:true
+                    data: data,
+                    isOk: true
                 });
             }
 
@@ -263,7 +263,26 @@ const addComment = (app) => {
     })
 };
 
+const getPageNav = (app) => {
+    app.post('/getPageNav', function (req, res, next) {
+        let article_id = req.body.articleId;
+        let sql = 'SELECT * FROM article  where id<' + article_id + '  ORDER BY id DESC  limit 1';
+        let nSql = 'SELECT * FROM article  where id>' + article_id + '  limit 1';
+        sqlOptions.operationData(sql, function (pData) {
+            sqlOptions.operationData(nSql,function (nData) {
+                res.send({
+                    pData:pData,
+                    nData:nData,
+                    isOk: true
+                })
+            });
 
+        })
+    })
+};
+
+
+exports.getPageNav = getPageNav;
 exports.addComment = addComment;
 exports.deleteArticle = deleteArticle;
 exports.search = search;

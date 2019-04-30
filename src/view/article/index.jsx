@@ -4,11 +4,11 @@ import Filter from "./component/filter"
 import "./index..scss"
 import {connect} from "react-redux";
 import {getArticles, postUrl} from '../../helpers/dataManage'
-import {List, Avatar, Icon,message} from 'antd';
+import {List, Avatar, Icon, message} from 'antd';
 
-const IconText = ({onClick,type, text}) => (
+const IconText = ({onClick, type, text}) => (
     <span onClick={onClick}>
-    <Icon  type={type} style={{marginRight: 8}}/>
+    <Icon type={type} style={{marginRight: 8}}/>
         {text}
   </span>
 );
@@ -38,8 +38,18 @@ class Article extends Component {
             });
     }
 
-    clickHandle(id) {
-        this.props.history.push("/article/detail/" + id);
+    clickHandle(id,key) {
+        console.log('111',this.state.listData[key].id);
+        let pIndex = key-1>=0?key-1:key;
+        let nIndex = key+1<this.state.listData.length?key+1:key;
+        let pre = this.state.listData[pIndex];
+        let next = this.state.listData[nIndex];
+        this.props.history.push({
+            pathname: "/article/detail/" + id, query: {
+                pre: pre,
+                next: next
+            }
+        });
     }
 
     getSearchParam(params) {
@@ -58,12 +68,12 @@ class Article extends Component {
         });
     }
 
-    deleteArticle(e,id) {
-        console.log('1',id);
-        postUrl('http://localhost:3009/deleteArticle',{
-            id:id
-        }).then((data)=>{
-            if(data.isOk){
+    deleteArticle(e, id) {
+        console.log('1', id);
+        postUrl('http://localhost:3009/deleteArticle', {
+            id: id
+        }).then((data) => {
+            if (data.isOk) {
                 message.success('删除成功！', 3);
                 window.location.reload();
             }
@@ -77,7 +87,7 @@ class Article extends Component {
         let iconArr = [<IconText type="star-o" text="0"/>, <IconText type="like-o" text="0"/>,
             <IconText type="message" text="0"/>];
         if (this.props.isLogin) {
-            iconArr.push(<IconText onClick={(e)=>this.deleteArticle(e,id)} type="delete-o" text="删除"/>);
+            iconArr.push(<IconText onClick={(e) => this.deleteArticle(e, id)} type="delete-o" text="删除"/>);
         }
 
         return iconArr;
@@ -101,11 +111,11 @@ class Article extends Component {
                                 pageSize: 2,
                             }}
                             dataSource={listData}
-                            renderItem={item => (
+                            renderItem={(item,key) => (
                                 <List.Item
                                     data-id={item.id}
                                     key={item.title}
-                                    onClick={this.clickHandle.bind(this, item.id)}
+                                    onClick={this.clickHandle.bind(this, item.id,key)}
                                     actions={this.createIcon(item.id)}
                                     extra={<img width={200} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"/>}
                                 >
@@ -131,9 +141,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-
-    }
+    return {}
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Article)

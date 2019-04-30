@@ -14,7 +14,8 @@ class Detail extends Component {
 
     state = {
         data: {},
-        params: this.props.match.params
+        params: this.props.match.params,
+        pageNavData: this.props.location.query,
     };
 
     componentDidMount() {
@@ -38,6 +39,26 @@ class Detail extends Component {
                     data
                 });
             });
+        this.setState({
+            params:nextProps.match.params
+        })
+    }
+
+    saveSession(data) {
+        if (data.pre && data.next) {
+            sessionStorage.setItem('detail', JSON.stringify(data));
+        }
+
+    }
+
+    getPageNav() {
+        let pAndN = sessionStorage.getItem('detail');
+        if (!this.state.pageNavData) {
+            return JSON.parse(pAndN);
+        } else {
+            return this.state.pageNavData;
+        }
+
     }
 
     render() {
@@ -52,12 +73,12 @@ class Detail extends Component {
             content = <div className="content"><ReactMarkdown source={decodeURI(result.content)}/></div>
         }
 
-        let pD = {
-            name:'上一个'
-        };
-        let nD = {
-            name:'下一个'
-        }
+        //todo 前端获取  可以不用的  直接请求api 获取   这里api获取也做啦  目前用的就是后台直接获取的
+        let pageData = this.getPageNav();
+        let pD = pageData.pre;
+        let nD = pageData.next;
+        this.saveSession(pageData);
+
         return (
             <Layout>
                 <div className="article-detail">
@@ -72,7 +93,7 @@ class Detail extends Component {
                     </div>
                     {content}
                 </div>
-                <PageNav preData={pD} nextData={nD} />
+                <PageNav preData={pD} nextData={nD} result={result} articleId={this.state.params.id}/>
                 <Comment articleId={this.state.params.id} commentId={2}/>
             </Layout>
 
