@@ -410,6 +410,7 @@ module.exports = function (webpackEnv) {
                                 sourceMap: isEnvProduction
                                     ? shouldUseSourceMap
                                     : isEnvDevelopment,
+
                             }),
                             // Don't consider CSS imports dead code even if the
                             // containing package claims to have no side effects.
@@ -426,7 +427,9 @@ module.exports = function (webpackEnv) {
                                 sourceMap: isEnvProduction
                                     ? shouldUseSourceMap
                                     : isEnvDevelopment,
-                                modules: true,
+                                modules: true,//todo 配置css module
+                                localIdentName: "[name]__[local]___[hash:base64:5]",
+
                                 getLocalIdent: getCSSModuleLocalIdent,
                             }),
                         },
@@ -436,12 +439,15 @@ module.exports = function (webpackEnv) {
                         {
                             test: sassRegex,
                             exclude: sassModuleRegex,
+
                             use: getStyleLoaders(
                                 {
                                     importLoaders: 2,
                                     sourceMap: isEnvProduction
                                         ? shouldUseSourceMap
                                         : isEnvDevelopment,
+                                    // modules: true,//todo 配置css module
+                                    // localIdentName: "[name]__[local]___[hash:base64:5]",
                                 },
                                 'sass-loader',
 
