@@ -12,7 +12,7 @@ const userInfo = (state=defaultState,action)=>{
         case LOGIN_IN:
             return {...state,isLogin:true,info:action.info};
         case LOGIN_OUT:
-            return {...state,isLogin:true,info:action.info};
+            return {...state,isLogin:false,info:action.info};
         default:
             return {...state}
     }
