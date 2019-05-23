@@ -6,11 +6,12 @@ import './index..scss'
 class Layout extends Component{
 
     render() {
+        let {children} = this.props;
         return (
             <div className="layout">
                 <Navigation/>
                 <div className='contain'>
-                    {this.props.children}
+                    {children}
                 </div>
                 <Sidebar/>
             </div>

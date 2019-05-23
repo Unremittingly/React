@@ -35,12 +35,6 @@ const navList = () => {
             component: UserInfo,
             auth: false
         },
-        // {
-        //     id: 5,
-        //     name: 'test',
-        //     path: '/test',
-        //     component: Test
-        // },
         {
             id: 6,
             name: '实例',

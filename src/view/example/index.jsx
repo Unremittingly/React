@@ -13,9 +13,9 @@ class Example extends Component {
                 component: <Snake/>
             },
             {
-                name:'firework',
-                gitUrl:'https://github.com/Unremittingly/web/tree/master/canvas/fireworks',
-                component:<FireWork/>
+                name: 'firework',
+                gitUrl: 'https://github.com/Unremittingly/web/tree/master/canvas/fireworks',
+                component: <FireWork/>
             }
         ]
     };

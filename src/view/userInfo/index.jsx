@@ -22,7 +22,6 @@ class UserInfo extends Component {
                     <Tags/>
                     <Record/>
                 </Layout>
-
             </div>
         )
     }

@@ -31,11 +31,12 @@ class ClassifyItem extends Component {
     }
 
     render() {
+        let {title,data} = this.props.list;
         return (
             <div className="classify-item">
                 {/*最新*/}
-                <div className="item-tit" >{this.props.list.title}</div>
-                {this.getNewListDom(this.props.list.data)}
+                <div className="item-tit" >{title}</div>
+                {this.getNewListDom(data)}
                 {/*所有*/}
             </div>
         );
