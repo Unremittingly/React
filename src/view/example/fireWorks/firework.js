@@ -11,6 +11,7 @@ let sparks = [];
 let sparkEndLength = 0;
 let sparkColor = [0, 100, 160, 220, 280];
 let animateLength = 0;//统计requestAnimationFrame动画次数   在中间的时候需要清除一下
+let animateFrames = [];
 
 
 //统一一下兼容性
@@ -336,7 +337,7 @@ function sparkAnimation() {
     if (sparkEndLength > sparks.length) {
         clearCanvas();
     } else {
-        requestAnimFrame(function () {
+      let  animateFrame =  requestAnimFrame(function () {
             animateLength++;
             //这里给个变量进行中途清除  然动画的视觉效果看起来是向外扩散的  不清除的话会看见一整条线  清除了就只有单独的某几段啦
             if (animateLength % 10) {
@@ -344,11 +345,17 @@ function sparkAnimation() {
             }
             sparkAnimation();
         });
+      animateFrames.push(animateFrame);
     }
 
 }
 
 function clearCanvas() {
+
+    for (let i = 0; i < animateFrames.length; i++) {
+        let animateFrame = animateFrames[i];
+      window.cancelAnimationFrame(animateFrame)
+    }
 
     for (let i = 0; i < sparks.length; i++) {
         let spark = sparks[i];
