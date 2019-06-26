@@ -15,7 +15,6 @@ class Tags extends Component {
 
     handleClose = (removedTag) => {
         const tags = this.state.tags.filter(tag => tag !== removedTag);
-        console.log(tags);
         this.setState({ tags });
     };
 

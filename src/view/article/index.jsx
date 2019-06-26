@@ -15,12 +15,10 @@ const IconText = ({onClick, type, text}) => (
 
 class Article extends Component {
 
-
     constructor(props) {
         super(props);
         this.getSearchParam = this.getSearchParam.bind(this);
     }
-
 
     state = {
         name: "404",
@@ -140,8 +138,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {}
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Article)
+export default connect(mapStateToProps)(Article)

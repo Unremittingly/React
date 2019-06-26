@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Layout from '../../common/layout'
+import './index.scss'
 
 class NotFound extends Component {
 
@@ -11,7 +12,9 @@ class NotFound extends Component {
     render() {
         return (
             <div>
-                <Layout {...this.state} >404 not found</Layout>
+                <Layout {...this.state} >
+                    <div className="fail">404 not found</div>
+                </Layout>
             </div>
         );
     }
