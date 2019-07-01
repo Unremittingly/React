@@ -1,16 +1,10 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom'
-
 import PropType from 'prop-types'
-
 import './classfiyItem..scss';
 
 
 class ClassifyItem extends Component {
-
-    state = {
-        data: this.props.list.data,
-    };
 
     getNewListDom(data) {
         let doms = [];

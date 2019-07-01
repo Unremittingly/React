@@ -10,9 +10,10 @@ class Home extends Component {
     };
     render() {
         console.log('style',style);
+        let state = this.state;
         return (
             <div>
-                <Layout {...this.state}>
+                <Layout {...state}>
                     <div className={style.home}>home <br/>use css module for Resolve scope conflicts</div>
                     <div className={style.test}>test</div>
                 </Layout>

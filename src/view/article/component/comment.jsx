@@ -92,7 +92,7 @@ class Comments extends Component {
     };
 
     render() {
-        const {comments, submitting, value} = this.state;
+        const {comments, submitting, value,avatar} = this.state;
 
         // let articleId = this.props.articleId;
         // let commentId = this.props.commentId;
@@ -104,7 +104,7 @@ class Comments extends Component {
                 <Comment
                     avatar={(
                         <Avatar
-                            src={ this.state.avatar}
+                            src={avatar}
                             alt={this.props.userInfo.name}
                         />
                     )}

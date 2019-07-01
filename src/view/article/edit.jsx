@@ -150,7 +150,6 @@ class Edit extends Component {
         if (this.state.tabType === 1) {
             let content = this.editor.txt.html();
             let desc = this.editor.txt.text().trim();
-
             desc = encodeURI(desc);
             content = encodeURI (content);
             //todo  需要处理特殊字符转义问题

@@ -5,18 +5,12 @@ import "./pageNav.scss";
 import {postUrl} from "../../../helpers/dataManage";
 
 class PageNav extends Component {
-
-
     state={
         data:{
 
         }
     };
-    componentWillMount() {
 
-
-
-    }
     componentWillReceiveProps(nextProps, nextContext) {
         let id = this.props.articleId;
         postUrl('http://localhost:3009/getPageNav',{articleId:id}).then((data)=>{

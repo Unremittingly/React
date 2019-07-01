@@ -36,6 +36,11 @@ class Login extends Component {
         });
     }
 
+    resetState(){
+        this.userInput.state.value = '';
+        this.pwdInput.state.value = '';
+    }
+
     handleOk() {
         let userName = this.userInput.state.value;
         let password = this.pwdInput.state.value;
@@ -51,6 +56,7 @@ class Login extends Component {
                 userName,
                 password
             });
+            that.resetState();
         });
 
     }
@@ -58,7 +64,8 @@ class Login extends Component {
     handleCancel(e) {
         this.setState({
             isPopShow: false
-        })
+        });
+        this.resetState();
     }
 
     createLoginDom() {
@@ -98,7 +105,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(() => {
                 //返回一个promise 对象
                 login('http://localhost:3009/login', info, dispatch).then((result) => {
-                    console.log('result',result);
+                    // console.log('result',result);
                     if (result && result.isOk) {
                         f();
                     }
@@ -107,7 +114,6 @@ const mapDispatchToProps = (dispatch) => {
                     }
                 });
             });
-            console.log('redux-thunk 后面');
         }
     }
 };

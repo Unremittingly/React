@@ -5,13 +5,14 @@ import PropType from 'prop-types';
 
 class Item extends Component{
     render() {
+        const {name,children,gitUrl} = this.props;
         return (
             <div className="example-item">
-                <div className="item-tit">{this.props.name} <span className="git">git地址：
-                    <a href={this.props.gitUrl} target="_Blank" rel="noopener noreferrer">戳这里</a>
+                <div className="item-tit">{name} <span className="git">git地址：
+                    <a href={gitUrl} target="_Blank" rel="noopener noreferrer">戳这里</a>
                 </span>
                 </div>
-                <div className="item-con">{this.props.children}</div>
+                <div className="item-con">{children}</div>
             </div>
         )
     }

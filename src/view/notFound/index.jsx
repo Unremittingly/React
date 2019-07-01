@@ -10,9 +10,10 @@ class NotFound extends Component {
     };
 
     render() {
+        let state = this.state;
         return (
             <div>
-                <Layout {...this.state} >
+                <Layout {...state} >
                     <div className="fail">404 not found</div>
                 </Layout>
             </div>

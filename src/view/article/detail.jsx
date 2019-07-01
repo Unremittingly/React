@@ -19,7 +19,8 @@ class Detail extends Component {
     };
 
     componentDidMount() {
-        getArticleForId('http://localhost:3009/getArticle', {id: this.state.params.id},
+        const id = this.state.params.id;
+        getArticleForId('http://localhost:3009/getArticle', {id},
             (data) => {
                 this.setState({
                     data
@@ -40,7 +41,7 @@ class Detail extends Component {
                 });
             });
         this.setState({
-            params:nextProps.match.params
+            params: nextProps.match.params
         })
     }
 

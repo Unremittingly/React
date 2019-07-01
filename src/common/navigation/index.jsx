@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import {Link} from "react-router-dom"
-import Routers from '../../router/router'
 import Login from '../component/login'
 
 
@@ -9,35 +8,33 @@ import './index..scss'
 
 class Navigation extends Component {
 
+    state = {};
 
-    state = {
-        navList: [
-            {
-                name: '首页',
-                path: 'home',
-                component: Routers
+    clickHandle(id) {
+        console.log('id',id);
+        const {navList} = this.props;
+        for (let i = 0; i < navList.length; i++) {
+            let item = navList[i];
+            if (item.id === id) {
+                item.active = true;
+                // break;
+            }else{
+                item.active = false;
             }
-        ]
-
-    };
-
-    componentDidMount() {
-        this.setState({
-            navList: this.props.navList
-        });
-        // console.log('this.',this.props);
+        }
     }
 
-
     render() {
-        const listItems = this.props.navList.map((item) => {
+        const {navList, isLogin} = this.props;
+        const listItems = navList.map((item) => {
+
             if (!item.auth) {
-                return <Link to={item.path} key={item.id}>{item.name}</Link>;
+                return <Link className={item.active?'active':''} onClick={()=>this.clickHandle(item.id)} to={item.path} key={item.id}>{item.name}</Link>;
             } else {
-                //    需要login权限的
-                if (this.props.isLogin) {
-                    return <Link to={item.path}  key={item.id}>{item.name}</Link>;
-                }else{
+                //需要login权限的
+                if (isLogin) {
+                    return <Link className={item.active?'active':''} to={item.path} key={item.id}>{item.name}</Link>;
+                } else {
                     return '';
                 }
             }

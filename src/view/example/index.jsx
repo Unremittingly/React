@@ -21,10 +21,11 @@ class Example extends Component {
     };
 
     render() {
+        let {list} = this.state;
         return (
             <div className="example">
                 <Layout>
-                    {this.state.list.map((item) => {
+                    {list.map((item) => {
                         return <Item key={item.name} name={item.name} gitUrl={item.gitUrl}>{item.component}</Item>;
                     })}
                 </Layout>

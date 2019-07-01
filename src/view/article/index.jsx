@@ -92,11 +92,12 @@ class Article extends Component {
     }
 
     render() {
-        let listData = this.state.listData;
+        let {listData} = this.state;
+        let {state} = this.props;
 
         return (
             <div className="article-list">
-                <Layout {...this.props.state}  >
+                <Layout {...state}  >
                     <div className="article">
                         <Filter getSearchParam={this.getSearchParam}/>
                         <List
