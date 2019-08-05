@@ -282,6 +282,18 @@ const getPageNav = (app) => {
 };
 
 
+const getCommentForId = (app)=>{
+    app.post('/getComment', function (req, res, next) {
+        let article_id = req.body.articleId;
+        let nSql = 'SELECT * FROM comment  where id=' + article_id + '  limit 1';
+        sqlOptions.operationData(nSql,function (nData) {
+            res.send({
+                isOk: true
+            })
+        });
+    })
+};
+
 exports.getPageNav = getPageNav;
 exports.addComment = addComment;
 exports.deleteArticle = deleteArticle;
@@ -292,3 +304,5 @@ exports.article = article;
 exports.saveArticle = saveArticle;
 exports.getArticleForId = getArticleForId;
 exports.uploadImg = uploadImg;
+
+exports.getCommentForId = getCommentForId;

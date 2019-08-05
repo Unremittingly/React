@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
+//使用hashrouter   如果要改成historyrouter   直接改成  BrowerRouter as Router
+import {HashRouter as Router, Route, Switch} from 'react-router-dom'
 import './App.css';
 import Routers from './router/router'
 import 'antd/dist/antd.css'
@@ -32,9 +33,9 @@ class App extends Component {
 
     render() {
         const children = this.renderRouters();
-        return (<BrowserRouter><Switch>
+        return (<Router><Switch>
             {children}
-        </Switch></BrowserRouter>);
+        </Switch></Router>);
     }
 }
 

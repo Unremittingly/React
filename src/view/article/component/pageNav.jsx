@@ -13,7 +13,7 @@ class PageNav extends Component {
 
     componentWillReceiveProps(nextProps, nextContext) {
         let id = this.props.articleId;
-        postUrl('http://localhost:3009/getPageNav',{articleId:id}).then((data)=>{
+        postUrl('/getPageNav',{articleId:id}).then((data)=>{
             console.log('data',data);
             this.setState({
                 data

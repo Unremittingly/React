@@ -85,6 +85,13 @@ try {
 
 }
 
+try {
+    article.getCommentForId(app);
+} catch (e) {
+    console.log('添加评论  fail', e);
+
+}
+
 
 // try {
 //     socket.socket(app)

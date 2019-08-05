@@ -33,7 +33,7 @@ class Sidebar extends Component {
 
     componentDidMount() {
 
-        let url = 'http://localhost:3009/getRecent';
+        let url = '/getRecent';
         postUrl(url, {
             test: 'test'
         }).then((result) => {

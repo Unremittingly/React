@@ -76,7 +76,7 @@ class Comments extends Component {
             });
         }, 1000);
 
-        postUrl('http://localhost:3009/addComment',{
+        postUrl('/addComment',{
             commentId:this.props.commentId,
             articleId:this.props.articleId,
             content: this.state.value

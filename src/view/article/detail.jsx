@@ -20,7 +20,7 @@ class Detail extends Component {
 
     componentDidMount() {
         const id = this.state.params.id;
-        getArticleForId('http://localhost:3009/getArticle', {id},
+        getArticleForId('/getArticle', {id},
             (data) => {
                 this.setState({
                     data
@@ -34,7 +34,7 @@ class Detail extends Component {
         //这个url 带参数  需要这里重新处理一下  初始化  不然  从带参数的切换到另一个参数的过后 页面不会改变
         let id = nextProps.match.params.id;
 
-        getArticleForId('http://localhost:3009/getArticle', {id: id},
+        getArticleForId('/getArticle', {id: id},
             (data) => {
                 this.setState({
                     data

@@ -3,6 +3,11 @@ import {loginIn} from "../redux/userInfo/action";
 import qs from 'qs';
 // import {LOGIN_IN} from "../redux/userInfo/constant";
 
+
+const LOCAL_URL ='http://localhost:3009';
+let  BASE_URL = 'http://47.240.15.130:3009';
+BASE_URL = LOCAL_URL;
+
 /********
  * 获取文章列表
  * @param url
@@ -10,7 +15,6 @@ import qs from 'qs';
  * @param callBack
  */
 export const getArticles = (url, params, callBack) => {
-
     getUrl(url,params).then((result)=>{
         if(callBack){
             callBack(result)
@@ -26,6 +30,7 @@ export const getArticles = (url, params, callBack) => {
  * @param params
  */
 export const saveArticle = (url, params,callback) => {
+    url = dealUrl(url);
     axios.post(url, qs.stringify(params)).then(function (res) {
         if (res.status === 200) {
             if (res.data.isOk) {
@@ -51,7 +56,7 @@ export const saveArticle = (url, params,callback) => {
  * @returns {Promise<any | never>}
  */
 export const login = function (url, param, dispatch) {
-
+    url = dealUrl(url);
 
     return new Promise((resolve, reject) => {
         axios.post(url, qs.stringify(param), {
@@ -84,6 +89,10 @@ export const getTags = () => {
 };
 
 
+function dealUrl(url) {
+    return BASE_URL+url;
+}
+
 
 /*******
  * 通过id  获取文章内容
@@ -93,7 +102,6 @@ export const getTags = () => {
  * @returns {*}
  */
 export const getArticleForId = (url, params, callback) => {
-
     return postUrl(url,params).then((res)=>{
         if(callback){
             callback(res.data)
@@ -113,6 +121,9 @@ export const getArticleForId = (url, params, callback) => {
  */
 export const postUrl = (url, params,hint='') => {
 
+
+    url = dealUrl(url);
+    console.log('url',url);
     return new Promise((resolve, reject) => {
         axios.post(url, qs.stringify(params), {}).then(function (res) {
             if (res.status === 200) {
@@ -139,6 +150,7 @@ export const postUrl = (url, params,hint='') => {
  * @returns {Promise<any | never>}
  */
 export const getUrl = (url, params)=>{
+    url = dealUrl(url);
     return new Promise((resolve, reject) => {
         axios.get(url, {params: params}).then(function (res) {
             if (res.status === 200) {

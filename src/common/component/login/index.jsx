@@ -104,7 +104,7 @@ const mapDispatchToProps = (dispatch) => {
         loginIn: (info, f=()=>{}) => {
             dispatch(() => {
                 //返回一个promise 对象
-                login('http://localhost:3009/login', info, dispatch).then((result) => {
+                login('/login', info, dispatch).then((result) => {
                     // console.log('result',result);
                     if (result && result.isOk) {
                         f();

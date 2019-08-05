@@ -28,7 +28,7 @@ class Article extends Component {
 
 
     componentDidMount() {
-        getArticles('http://localhost:3009/article', {user: 'username', pwd: '123456'},
+        getArticles('/article', {user: 'username', pwd: '123456'},
             (data) => {
                 this.setState({
                     listData: data.data
@@ -55,7 +55,7 @@ class Article extends Component {
         //每次筛选都会经过这里   这里需要调用search接口来返回数据
         // console.log('params', Date.parse(params.time)/1000);
 
-        postUrl('http://localhost:3009/search', {
+        postUrl('/search', {
             time: params.time ? Date.parse(params.time) / 1000 : null,
             type: params.type,
             str: params.str
@@ -68,7 +68,7 @@ class Article extends Component {
 
     deleteArticle(e, id) {
         console.log('1', id);
-        postUrl('http://localhost:3009/deleteArticle', {
+        postUrl('/deleteArticle', {
             id: id
         }).then((data) => {
             if (data.isOk) {
