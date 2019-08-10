@@ -28,6 +28,7 @@ class Article extends Component {
 
 
     componentDidMount() {
+        console.log(';1');
         getArticles('/article', {},
             (data) => {
                 this.setState({
