@@ -65,9 +65,9 @@ const getArticleForId = (app) => {
         console.log('客户端ip', clientIp);
         let id = req.body.id;
 
-        updateVisits(clientIp, id, () => {
-
-        });
+        // updateVisits(clientIp, id, () => {
+        //
+        // });
         let sql = 'SELECT' +
             ' a.*,' +
             ' COUNT( DISTINCT b.id) as count' +
