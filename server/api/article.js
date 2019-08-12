@@ -34,26 +34,34 @@ const editArticle = (app) => {
 
 const saveArticle = (app) => {
     app.post('/saveArticle', function (req, res, next) {
-        // console.log('req.body', req.body);
-        let title = req.body.title;
-        let content = req.body.content;
-        let time = req.body.time;
-        let type = req.body.type;
-        let desc = req.body.desc;
-        let tabType = req.body.tabType;
-        console.log('content', content);
-        console.log('desc', desc);
+        try {
 
-        let value = '("' + title + '","' + type + '","' + time + '","' + content + '","' + desc + '","' + tabType + '")';
-        let sql = 'INSERT INTO article(title,type,time,content,description,tabtype) VALUES' + value;
-        sqlOptions.insertData(sql, function (isSuccess) {
-            console.log('isSuccess', isSuccess);
-            res.send({
-                isOk: isSuccess
+
+            // console.log('req.body', req.body);
+            let title = req.body.title;
+            let content = req.body.content;
+            let time = req.body.time;
+            let type = req.body.type;
+            let desc = req.body.desc;
+            let tabType = req.body.tabType;
+            console.log('content', content);
+            console.log('desc', desc);
+
+            let value = '("' + title + '","' + type + '","' + time + '","' + content + '","' + desc + '","' + tabType + '")';
+            let sql = 'INSERT INTO article(title,type,time,content,description,tabtype) VALUES' + value;
+            sqlOptions.insertData(sql, function (isSuccess) {
+                console.log('isSuccess', isSuccess);
+                res.send({
+                    isOk: isSuccess
+                });
+                next();
             });
-            next();
-        });
-
+        } catch (e) {
+            res.send({
+                isOk: false,
+                message: e
+            })
+        }
 
     })
 };
@@ -61,29 +69,35 @@ const saveArticle = (app) => {
 const getArticleForId = (app) => {
     app.post('/getArticle', function (req, res, next) {
         // console.log('req.body', req.body);
-        let clientIp = getIp(req);
-        console.log('客户端ip', clientIp);
-        let id = req.body.id;
+        try {
+            let clientIp = getIp(req);
+            console.log('客户端ip', clientIp);
+            let id = req.body.id;
 
-        // updateVisits(clientIp, id, () => {
-        //
-        // });
-        let sql = 'SELECT' +
-            ' a.*,' +
-            ' COUNT( DISTINCT b.id) as count' +
-            ' FROM' +
-            ' article a' +
-            ' LEFT JOIN visit b ON b.articleId = a.id' +
-            ' WHERE a.id=' + id +
-            ' GROUP BY a.id ';
-        sqlOptions.operationData(sql, function (data) {
+            // updateVisits(clientIp, id, () => {
+            //
+            // });
+            let sql = 'SELECT' +
+                ' a.*,' +
+                ' COUNT( DISTINCT b.id) as count' +
+                ' FROM' +
+                ' article a' +
+                ' LEFT JOIN visit b ON b.articleId = a.id' +
+                ' WHERE a.id=' + id +
+                ' GROUP BY a.id ';
+            sqlOptions.operationData(sql, function (data) {
+                res.send({
+                    isOk: true,
+                    data: data[0]
+                });
+                next();
+            })
+        } catch (e) {
             res.send({
-                isOk: true,
-                data: data[0]
-            });
-            next();
-        })
-
+                isOk: false,
+                message: e
+            })
+        }
 
     });
 
@@ -161,63 +175,72 @@ const search = (app) => {
     app.post('/search', function (req, res, next) {
         //加载页面
 
-        let time = req.body.time;
-        let type = req.body.type;
-        let str = req.body.str;
+        try {
 
-        let sql = 'SELECT * from article';
 
-        let arr = [{
-            field: 'time',
-            sql: '>',
-            value: time ? time : 0
-        }, {
-            field: 'type',
-            sql: '=',
-            value: type
-        }, {
-            fieldT: 'title',
-            field: 'description',
-            sql: '  LIKE',
-            value: str ? " '%" + str + "%'" : ''
-        }];
-        //拼接搜索的sql
-        for (let i = 0; i < arr.length; i++) {
-            if (arr[i].value) {
+            let time = req.body.time;
+            let type = req.body.type;
+            let str = req.body.str;
 
-                if (sql.indexOf('WHERE') === -1) {
-                    if (arr[i].field === 'description') {
-                        sql += " WHERE (" + arr[i].field + arr[i].sql + arr[i].value + " or " +
-                            arr[i].fieldT + arr[i].sql + arr[i].value + ")";
+            let sql = 'SELECT * from article';
+
+            let arr = [{
+                field: 'time',
+                sql: '>',
+                value: time ? time : 0
+            }, {
+                field: 'type',
+                sql: '=',
+                value: type
+            }, {
+                fieldT: 'title',
+                field: 'description',
+                sql: '  LIKE',
+                value: str ? " '%" + str + "%'" : ''
+            }];
+            //拼接搜索的sql
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i].value) {
+
+                    if (sql.indexOf('WHERE') === -1) {
+                        if (arr[i].field === 'description') {
+                            sql += " WHERE (" + arr[i].field + arr[i].sql + arr[i].value + " or " +
+                                arr[i].fieldT + arr[i].sql + arr[i].value + ")";
+                        } else {
+                            sql += " WHERE " + arr[i].field + arr[i].sql + arr[i].value;
+                        }
+
                     } else {
-                        sql += " WHERE " + arr[i].field + arr[i].sql + arr[i].value;
-                    }
+                        if (arr[i].field === 'description') {
+                            sql += " and (" + arr[i].field + arr[i].sql + arr[i].value + " or " +
+                                arr[i].fieldT + arr[i].sql + arr[i].value + ")";
+                        } else {
+                            sql += " and " + arr[i].field + arr[i].sql + arr[i].value;
+                        }
 
-                } else {
-                    if (arr[i].field === 'description') {
-                        sql += " and (" + arr[i].field + arr[i].sql + arr[i].value + " or " +
-                            arr[i].fieldT + arr[i].sql + arr[i].value + ")";
-                    } else {
-                        sql += " and " + arr[i].field + arr[i].sql + arr[i].value;
                     }
-
                 }
             }
+            // console.log('sql', sql);
+
+            let r = res;
+            sqlOptions.operationData(sql, function (result) {
+                // console.log('res',res);
+                r.send(
+                    {
+                        test: 'test测试',
+                        data: result,
+                        isOk: true
+                    });
+                next();
+            });
+        } catch (e) {
+
+            res.send({
+                isOk: false,
+                message: e
+            })
         }
-        // console.log('sql', sql);
-
-        let r = res;
-        sqlOptions.operationData(sql, function (result) {
-            // console.log('res',res);
-            r.send(
-                {
-                    test: 'test测试',
-                    data: result,
-                    isOk: true
-                });
-            next();
-        });
-
 
     })
 };
@@ -246,47 +269,62 @@ const getCurTime = () => {
 };
 const addComment = (app) => {
     app.post('/addComment', function (req, res, next) {
-        let article_id = req.body.articleId;
-        let comment_id = req.body.commentId;
-        let time = getCurTime();
-        let content = req.body.content;
-        let sql = 'INSERT INTO comment(article_id,comment_id,time,content) VALUES ' + '("' + article_id + '","' + comment_id + '","' + time + '","' + content + '")';
-        let isSuccess = sqlOptions.operationData(sql, function (data) {
-            if (data.insertId) {
-                res.send({
-                    data: data,
-                    isOk: true
-                });
-            }
+        try {
+            let article_id = req.body.articleId;
+            let comment_id = req.body.commentId;
+            let time = getCurTime();
+            let content = req.body.content;
+            let sql = 'INSERT INTO comment(article_id,comment_id,time,content) VALUES ' + '("' + article_id + '","' + comment_id + '","' + time + '","' + content + '")';
+            let isSuccess = sqlOptions.operationData(sql, function (data) {
+                if (data.insertId) {
+                    res.send({
+                        data: data,
+                        isOk: true
+                    });
+                }
 
-        })
+            })
+        } catch (e) {
+            res.send({
+                message: e,
+                isOk: false
+            });
+        }
     })
 };
 
 const getPageNav = (app) => {
     app.post('/getPageNav', function (req, res, next) {
-        let article_id = req.body.articleId;
-        let sql = 'SELECT * FROM article  where id<' + article_id + '  ORDER BY id DESC  limit 1';
-        let nSql = 'SELECT * FROM article  where id>' + article_id + '  limit 1';
-        sqlOptions.operationData(sql, function (pData) {
-            sqlOptions.operationData(nSql,function (nData) {
-                res.send({
-                    pData:pData,
-                    nData:nData,
-                    isOk: true
-                })
-            });
 
-        })
+        try {
+            let article_id = req.body.articleId;
+            let sql = 'SELECT * FROM article  where id<' + article_id + '  ORDER BY id DESC  limit 1';
+            let nSql = 'SELECT * FROM article  where id>' + article_id + '  limit 1';
+            sqlOptions.operationData(sql, function (pData) {
+                sqlOptions.operationData(nSql, function (nData) {
+                    res.send({
+                        pData: pData,
+                        nData: nData,
+                        isOk: true
+                    })
+                });
+
+            })
+        } catch (e) {
+            res.send({
+                message: e,
+                isOk: false
+            })
+        }
     })
 };
 
 
-const getCommentForId = (app)=>{
+const getCommentForId = (app) => {
     app.post('/getComment', function (req, res, next) {
         let article_id = req.body.articleId;
         let nSql = 'SELECT * FROM comment  where id=' + article_id + '  limit 1';
-        sqlOptions.operationData(nSql,function (nData) {
+        sqlOptions.operationData(nSql, function (nData) {
             res.send({
                 isOk: true
             })
