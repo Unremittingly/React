@@ -174,18 +174,21 @@ const operationData = async function (sql, callback) {
         if (defaultSql) {
             try {
 
-                await connection.query(defaultSql, function (error, result) {
+                connection.query(defaultSql, function (error, result) {
                     if (error) {
                         console.log('数据操作失败', error);
-
+                        if (callback) {
+                            callback(error);
+                        }
                         isSuccess = false;
                     } else {
                         console.log('数据操作成功');
                         isSuccess = true;
+                        if (callback) {
+                            callback(result);
+                        }
                     }
-                    if (callback) {
-                        callback(result);
-                    }
+
                 })
             } catch (e) {
                 isSuccess = false;

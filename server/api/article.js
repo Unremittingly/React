@@ -96,7 +96,7 @@ const getArticleForId = (app) => {
             sqlOptions.operationData(sql, function (data) {
                 res.send({
                     isOk: true,
-                    data: data[0]
+                    data: data
                 });
                 next();
             })
