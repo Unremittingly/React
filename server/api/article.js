@@ -7,19 +7,27 @@ const article = (app) => {
         //加载页面
         //todo 数据库操作获取数据
 
-        let sql = 'SELECT * from article';
-        let r = res;
-        sqlOptions.operationData(sql, function (result) {
-            // console.log('res',res);
-            r.send(
-                {
-                    test: 'test测试',
-                    data: result,
-                    isOk: true
-                });
-            next();
-        });
+        try {
 
+
+            let sql = 'SELECT * from article';
+            let r = res;
+            sqlOptions.operationData(sql, function (result) {
+                // console.log('res',res);
+                r.send(
+                    {
+                        test: 'test测试',
+                        data: result,
+                        isOk: true
+                    });
+                next();
+            });
+        } catch (e) {
+            r.send({
+                isOk: false,
+                message: e
+            })
+        }
 
     })
 };
@@ -143,15 +151,22 @@ const getRecent = (app) => {
         // 近三天的文章
         let time = new Date().getTime() / 1000 - 60 * 60 * 24 * 3;
 
-        let sql = 'SELECT * from article where time >' + time;
-        sqlOptions.operationData(sql, function (result) {
+        try {
+            let sql = 'SELECT * from article where time >' + time;
+            sqlOptions.operationData(sql, function (result) {
+                res.send({
+                    isOk: true,
+                    data: result
+                });
+                next();
+            })
+        } catch (e) {
             res.send({
-                isOk: true,
-                data: result
+                isOk: false,
+                message: e
             });
             next();
-        })
-
+        }
     })
 };
 
