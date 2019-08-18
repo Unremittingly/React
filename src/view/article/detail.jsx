@@ -23,7 +23,7 @@ class Detail extends Component {
         getArticleForId('/getArticle', {id},
             (data) => {
                 this.setState({
-                    data
+                    data:data[0]
                 });
             });
     }
@@ -37,7 +37,7 @@ class Detail extends Component {
         getArticleForId('/getArticle', {id: id},
             (data) => {
                 this.setState({
-                    data
+                    data:data[0]
                 });
             });
         this.setState({

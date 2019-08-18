@@ -23,7 +23,7 @@ const article = (app) => {
                 next();
             });
         } catch (e) {
-            r.send({
+            res.send({
                 isOk: false,
                 message: e
             })

@@ -172,32 +172,26 @@ const operationData = async function (sql, callback) {
     if (connection) {
         let defaultSql = sql || '';
         if (defaultSql) {
-            try {
 
-                connection.query(defaultSql, function (error, result) {
-                    if (error) {
-                        console.log('数据操作失败', error);
-                        if (callback) {
-                            callback(error);
-                        }
+            connection.query(defaultSql, function (error, result) {
+                if (error) {
+                    console.log('数据操作失败', error);
+                    if (error.code ==='PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR' || error.code === 'PROTOCOL_CONNECTION_LOST'){
+                        connectMysql();
+                        operationData(sql, callback);
+                    }else {
                         isSuccess = false;
-                    } else {
-                        console.log('数据操作成功');
-                        isSuccess = true;
-                        if (callback) {
-                            callback(result);
-                        }
                     }
 
-                })
-            } catch (e) {
-                isSuccess = false;
-                if (callback) {
-                    callback({
-                        message: 'sql error!'
-                    });
+                } else {
+                    console.log('数据操作成功');
+                    isSuccess = true;
+                    if (callback) {
+                        callback(result);
+                    }
                 }
-            }
+
+            })
         }
     } else {
         connectMysql();
