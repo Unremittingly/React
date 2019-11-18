@@ -4,7 +4,7 @@ import qs from 'qs';
 // import {LOGIN_IN} from "../redux/userInfo/constant";
 
 
-const LOCAL_URL ='http://localhost:3009';
+// const LOCAL_URL ='http://localhost:3009';
 let  BASE_URL = 'http://47.240.15.130:3009';
 // BASE_URL = LOCAL_URL;
 

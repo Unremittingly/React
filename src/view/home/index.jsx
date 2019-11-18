@@ -8,6 +8,7 @@ class Home extends Component {
         name: '首页',
         code: 1,
     };
+
     render() {
         console.log('style',style);
         let state = this.state;
