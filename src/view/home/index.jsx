@@ -15,7 +15,7 @@ class Home extends Component {
         return (
             <div>
                 <Layout {...state}>
-                    <div className={style.home}>home <br/>use css module for Resolve scope conflicts</div>
+                    <div className={style.home}>home<div className="a_child">global_test</div> <br/>use css module for Resolve scope conflicts</div>
                     <div className={style.test}>test</div>
                 </Layout>
 

@@ -3,6 +3,9 @@
 .home{
   font-size: 20px;
   color: red;
+  :global .a_child{
+    color: black;
+  }
 }
 
 .test{
