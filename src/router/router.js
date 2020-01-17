@@ -6,6 +6,7 @@ import edit from '../view/article/edit'
 import test from '../view/test'
 import example from '../view/example'
 import detail from '../view/article/detail'
+import Music from '../view/music'
 
 export default {
     path: '/',
@@ -19,6 +20,7 @@ export default {
         {path: '/article/detail/:id', component: detail, auth: false,exact:true},
         {path: '/test', component: test, auth: false},
         {path: '/example', component: example, auth: false},
+        {path: '/music', component:Music, auth:false},
         {path: '*', component: notFound, auth: false}
     ]
 }

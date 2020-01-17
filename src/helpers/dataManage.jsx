@@ -149,10 +149,11 @@ export const postUrl = (url, params,hint='') => {
  * @param params
  * @returns {Promise<any | never>}
  */
-export const getUrl = (url, params)=>{
-    url = dealUrl(url);
+export const getUrl = (url, params,isAllUrl = false )=>{
+    const newUrl = isAllUrl?url: dealUrl(url);
+
     return new Promise((resolve, reject) => {
-        axios.get(url, {params: params}).then(function (res) {
+        axios.get(newUrl, {params: params}).then(function (res) {
             if (res.status === 200) {
                 resolve(res.data);
             } else if (res.status === 404) {

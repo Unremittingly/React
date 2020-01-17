@@ -3,6 +3,7 @@ import Article from "../../view/article"
 import edit from '../../view/article/edit'
 import UserInfo from "../../view/userInfo"
 import Example from "../../view/example";
+import Music from '../../view/music';
 
 // import Test from '../../view/test'
 
@@ -40,6 +41,13 @@ const navList = () => {
             name: '实例',
             path: '/example',
             component: Example
+        },
+        {
+            id:5,
+            name:'音乐',
+            path:'/music',
+            component:Music,
+            auth:false
         }
     ];
 };

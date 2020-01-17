@@ -11,7 +11,6 @@ class Navigation extends Component {
     state = {};
 
     clickHandle(id) {
-        console.log('id',id);
         const {navList} = this.props;
         for (let i = 0; i < navList.length; i++) {
             let item = navList[i];

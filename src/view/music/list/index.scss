@@ -1,0 +1,30 @@
+
+
+.music-list{
+
+  padding: 1rem;
+  min-height: 10rem;
+  text-align: center;
+
+  .song-item{
+    display: flex;
+    padding: 0 1rem;
+    line-height: 3rem;
+    border-top: 1px solid #eee;
+
+
+    .song-name{
+      font-size: 1.4rem;
+    }
+
+    .song-artists{
+      margin-left: 1rem;
+
+      .artist-item{
+        color: #666;
+        font-size: .8rem;
+      }
+    }
+
+  }
+}
