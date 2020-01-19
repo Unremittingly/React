@@ -1,40 +1,68 @@
 import React from 'react';
 import './index.scss';
-import { Spin, Icon } from 'antd';
-import { getUrl } from '../../../helpers/dataManage';
+import {Spin, Icon} from 'antd';
+import axios from "axios";
 
-const MusicList = (props)=>{
+
+const MusicList = (props) => {
 
     const {data} = props;
-    const {songs,isLoading} = data;
-
-    const getSongUrl= ()=>{
-      const url = 'http://api.mtnhao.com/song/url';
-        getUrl(url,{
-            id:33894312
-        }).then((data)=>{
-            console.log('data');
-        })
+    const {songs, isLoading} = data;
+    const getSongUrl = async (id) => {
+        const url = 'http://api.mtnhao.com/song/url?id='+id;
+        return axios.get(url);
     };
 
-    if(isLoading){
-        return <div className="music-list"><Spin /></div>;
+    const downloadMp3 = (filePath,saveName) => {
+        fetch(filePath).then(res => res.blob()).then(blob => {
+            const a = document.createElement('a');
+            document.body.appendChild(a);
+            a.style.display = 'none';
+            // 使用获取到的blob对象创建的url
+            const url = window.URL.createObjectURL(blob);
+            a.href = url;
+            // 指定下载的文件名
+            a.download = saveName+'.mp3';
+            a.click();
+            document.body.removeChild(a);
+            // 移除blob对象的url
+            window.URL.revokeObjectURL(url);
+        });
+    };
+
+    if (isLoading) {
+        return <div className="music-list"><Spin/></div>;
     }
     return (<div className="music-list">
         {
 
-            songs  ? songs.map((item,index)=>{
+            songs ? songs.map((item, index) => {
                 return <div key={index} className="song-item">
                     <div className="song-name">{item.name}</div>
                     <div className="song-artists">
-                        {item.artists && item.artists.map((artist)=>{
-                            return (<span className="artist-item">{artist.name}</span>)
+                        {item.artists && item.artists.map((artist,index) => {
+                            return (<span key={index} className="artist-item">{artist.name}</span>)
                         })}
                     </div>
-                    <div className="optGroup"> <a href="http://m8.music.126.net/20200117175416/a33d2b2c18f50df71409fcec2d1ca164/ymusic/0fd6/4f65/43ed/a8772889f38dfcb91c04da915b301617.mp3" download="t.mp3">down</a><Icon type="download"/> </div>
+                    <div className="optGroup">
+                        <Icon type="download" onClick={()=>{
+                            let artistStr = '';
+                            item.artists && item.artists.forEach((artist) => {
+                                artistStr += artist.name
+                            });
+                            getSongUrl(item.id).then((res)=>{
+                                console.log('data',res);
+                                if(res.status === 200){
+                                    const src = res.data.data[0].url;
+                                    console.log('src',src);
+                                    downloadMp3(src,`${item.name} (${artistStr})`);
+                                }
+                            });
+                        }
+                        } /></div>
 
                 </div>
-            }) :<div>
+            }) : <div>
                 暂无数据
             </div>
         }

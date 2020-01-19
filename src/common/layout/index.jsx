@@ -9,7 +9,6 @@ const particlesJS = window.particlesJS;
 class Layout extends Component {
     componentDidMount() {
         /* ---- 粒子背景 ---- */
-        console.log('particlesJS,particlesJS', particlesJS);
         particlesJS("particles-js", {
             "particles": {
                 "number": {

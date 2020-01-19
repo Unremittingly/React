@@ -9,12 +9,12 @@
   .song-item{
     display: flex;
     padding: 0 1rem;
-    line-height: 3rem;
+    line-height: 3.5em;
     border-top: 1px solid #eee;
 
 
     .song-name{
-      font-size: 1.4rem;
+      font-size: 1.6rem;
     }
 
     .song-artists{
@@ -26,5 +26,10 @@
       }
     }
 
+    .optGroup{
+      margin: 0 2rem;
+      flex-direction: column;
+      justify-content: center;
+    }
   }
 }

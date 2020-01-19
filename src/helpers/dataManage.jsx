@@ -5,7 +5,7 @@ import qs from 'qs';
 
 
 // const LOCAL_URL ='http://localhost:3009';
-let  BASE_URL = 'http://47.240.15.130:3009';
+let BASE_URL = 'http://47.240.15.130:3009';
 // BASE_URL = LOCAL_URL;
 
 /********
@@ -15,13 +15,12 @@ let  BASE_URL = 'http://47.240.15.130:3009';
  * @param callBack
  */
 export const getArticles = (url, params, callBack) => {
-    getUrl(url,params).then((result)=>{
-        if(callBack){
+    getUrl(url, params).then((result) => {
+        if (callBack) {
             callBack(result)
         }
     });
 };
-
 
 
 /**********
@@ -29,13 +28,13 @@ export const getArticles = (url, params, callBack) => {
  * @param url
  * @param params
  */
-export const saveArticle = (url, params,callback) => {
+export const saveArticle = (url, params, callback) => {
     url = dealUrl(url);
     axios.post(url, qs.stringify(params)).then(function (res) {
         if (res.status === 200) {
             if (res.data.isOk) {
                 console.log('保存成功');
-                if(callback && typeof callback ==="function"){
+                if (callback && typeof callback === "function") {
                     callback();
                 }
             } else {
@@ -45,7 +44,6 @@ export const saveArticle = (url, params,callback) => {
         }
     })
 };
-
 
 
 /*******
@@ -59,8 +57,7 @@ export const login = function (url, param, dispatch) {
     url = dealUrl(url);
 
     return new Promise((resolve, reject) => {
-        axios.post(url, qs.stringify(param), {
-        }).then(function (res) {
+        axios.post(url, qs.stringify(param), {}).then(function (res) {
             if (res.status === 200) {
                 // console.log('res', res);
                 if (res.data.isOk) {
@@ -90,7 +87,7 @@ export const getTags = () => {
 
 
 function dealUrl(url) {
-    return BASE_URL+url;
+    return BASE_URL + url;
 }
 
 
@@ -102,14 +99,13 @@ function dealUrl(url) {
  * @returns {*}
  */
 export const getArticleForId = (url, params, callback) => {
-    return postUrl(url,params).then((res)=>{
-        if(callback){
+    return postUrl(url, params).then((res) => {
+        if (callback) {
             callback(res.data)
         }
     });
 
 };
-
 
 
 /********
@@ -119,28 +115,25 @@ export const getArticleForId = (url, params, callback) => {
  * @param hint
  * @returns {Promise<any | never>}
  */
-export const postUrl = (url, params,hint='') => {
-
-
+export const postUrl = (url, params, hint = '') => {
     url = dealUrl(url);
-    console.log('url',url);
     return new Promise((resolve, reject) => {
         axios.post(url, qs.stringify(params), {}).then(function (res) {
             if (res.status === 200) {
                 if (res.data.isOk) {
                     resolve(res.data)
                 } else {
-                    console.log('操作失败',hint);
+                    console.log('操作失败', hint);
                 }
-
             }
+        }).catch((e)=>{
+            console.log('未知错误', e);
         });
-    }).catch((e)=>{
-        console.log('未知错误',e);
+    }).catch((e) => {
+        console.log('未知错误', e);
     });
 
 };
-
 
 
 /*******
@@ -149,8 +142,8 @@ export const postUrl = (url, params,hint='') => {
  * @param params
  * @returns {Promise<any | never>}
  */
-export const getUrl = (url, params,isAllUrl = false )=>{
-    const newUrl = isAllUrl?url: dealUrl(url);
+export const getUrl = (url, params, isAllUrl = false) => {
+    const newUrl = isAllUrl ? url : dealUrl(url);
 
     return new Promise((resolve, reject) => {
         axios.get(newUrl, {params: params}).then(function (res) {
@@ -160,14 +153,11 @@ export const getUrl = (url, params,isAllUrl = false )=>{
                 console.log('not found');
                 reject();
             }
+        }).catch((e)=>{
+            console.log('未知错误', e);
         });
-    }).catch((e)=>{
-        console.log('未知错误',e);
+    }).catch((e) => {
+        console.log('未知错误', e);
     })
 
 };
-
-
-
-
-
