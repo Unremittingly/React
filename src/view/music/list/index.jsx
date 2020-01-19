@@ -2,6 +2,7 @@ import React from 'react';
 import './index.scss';
 import {Spin, Icon} from 'antd';
 import axios from "axios";
+import dayjs from 'dayjs';
 
 
 const MusicList = (props) => {
@@ -44,6 +45,7 @@ const MusicList = (props) => {
                             return (<span key={index} className="artist-item">{artist.name}</span>)
                         })}
                     </div>
+                    <div className="song-duration">{dayjs(item.duration).minute()}:{dayjs(item.duration).second()}</div>
                     <div className="optGroup">
                         <Icon type="download" onClick={()=>{
                             let artistStr = '';
