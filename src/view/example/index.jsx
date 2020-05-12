@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Layout from '../../common/layout'
 import Snake from './snake'
 import FireWork from './fireWorks'
+import Pdf from './pdf'
 import Item from './template/item'
 
 class Example extends Component {
@@ -16,6 +17,11 @@ class Example extends Component {
                 name: 'firework',
                 gitUrl: 'https://github.com/Unremittingly/web/tree/master/canvas/fireworks',
                 component: <FireWork/>
+            },
+            {
+                name: 'pdf',
+                gitUrl: 'https://github.com/Unremittingly/web/tree/master/canvas/fireworks',
+                component: <Pdf/>
             }
         ]
     };
