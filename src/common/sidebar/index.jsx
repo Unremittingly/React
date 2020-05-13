@@ -3,9 +3,9 @@ import "./index..scss"
 import avator from '../../image/avator.jpg'
 import ClassifyItem from './ClassifyItem'
 import {postUrl} from "../../helpers/dataManage";
-
 import {Tag} from "antd";
 
+let url = '/getRecent';//获取近期文章的api
 class Sidebar extends Component {
 
 
@@ -33,7 +33,6 @@ class Sidebar extends Component {
 
     componentDidMount() {
 
-        let url = '/getRecent';
         postUrl(url, {
             test: 'test'
         }).then((result) => {
