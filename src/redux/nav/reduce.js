@@ -47,7 +47,7 @@ const navList = () => {
             name:'音乐',
             path:'/music',
             component:Music,
-            auth:false
+            auth:true
         }
     ];
 };
