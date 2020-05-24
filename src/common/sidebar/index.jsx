@@ -35,7 +35,6 @@ class Sidebar extends Component {
 
     componentDidMount() {
 
-        console.log('1111',this.props);
         const {articleData,dispatch} = this.props;
         if(!articleData){
             postUrl(url, {
@@ -47,7 +46,6 @@ class Sidebar extends Component {
                         title: '最新文章'
                     }
                 });
-                console.log('result.data',result.data);
                 dispatch(update(result.data))
             })
         }else {
