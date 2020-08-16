@@ -20,7 +20,7 @@ export default {
         {path: '/article/detail/:id', component: detail, auth: false,exact:true},
         {path: '/test', component: test, auth: false},
         {path: '/example', component: example, auth: false},
-        {path: '/music', component:Music, auth:true},
+        {path: '/music', component:Music, auth:false},
         {path: '*', component: notFound, auth: false}
     ]
 }
