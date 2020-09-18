@@ -11,6 +11,7 @@ const Music = ()=>{
 
 
     const [musicData, setMusicData] = useState({
+        songs:[],
         isLoading:false
     });
 
