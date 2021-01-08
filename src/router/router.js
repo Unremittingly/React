@@ -7,7 +7,7 @@ import test from '../view/test'
 import example from '../view/example'
 import detail from '../view/article/detail'
 import Music from '../view/music'
-import FlightChoose from "../view/test1";
+// import FlightChoose from "../view/test1";
 
 export default {
     path: '/',
@@ -22,7 +22,7 @@ export default {
         {path: '/test', component: test, auth: false},
         {path: '/example', component: example, auth: false},
         {path: '/music', component:Music, auth:false},
-        {path:'/test1',component:FlightChoose,auth:false},
+        // {path:'/test1',component:FlightChoose,auth:false},
         {path: '*', component: notFound, auth: false}
     ]
 }
