@@ -1,19 +1,30 @@
 const mysql = require('mysql');
 let connection = null;
 
+//本地数据库配置
+const localConf = {
+    host:'localhost',
+    port:'3306',
+    user:'root',
+    password: '123456Zq',//
+    database: 'personage'
+};
+//远程数据库配置
+const serverConf = {
+    host: '47.240.15.130',
+    port: '3306',
+    user: 'root',
+    password: 'root',
+    database: 'personage'
+};
+
 /****
  * 连接数据库  初始化
  * @param option
  * @returns {Connection}
  */
 const connectMysql = function (option) {
-    let opt = {
-        host: '47.240.15.130',
-        port: '3306',
-        user: 'root',
-        password: 'root',
-        database: 'personage'
-    };
+    let opt = localConf;
     opt = Object.assign(opt, option);
     connection = mysql.createConnection(opt);
     connection.connect();
