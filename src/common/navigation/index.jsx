@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import {Link} from "react-router-dom"
 import Login from '../component/login'
-
-
 import './index..scss'
+import {childRoutes} from "../../router/router";
 
 class Navigation extends Component {
 
@@ -24,18 +23,17 @@ class Navigation extends Component {
     }
 
     render() {
-        const {navList, isLogin} = this.props;
-        const listItems = navList.map((item) => {
+        const {isLogin} = this.props;
+        const listItems = childRoutes.map((item) => {
 
-            if (!item.auth) {
-                return <Link className={item.active?'active':''} onClick={()=>this.clickHandle(item.id)} to={item.path} key={item.id}>{item.name}</Link>;
-            } else {
-                //需要login权限的
-                if (isLogin) {
+            if (item.isNav) {
+                if(!item.auth){
+                    return <Link className={item.active?'active':''} onClick={()=>this.clickHandle(item.id)} to={item.path} key={item.id}>{item.name}</Link>;
+                }else{
                     return <Link className={item.active?'active':''} to={item.path} key={item.id}>{item.name}</Link>;
-                } else {
-                    return '';
                 }
+            } else {
+                return '';
             }
 
         });

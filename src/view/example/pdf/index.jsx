@@ -1,8 +1,8 @@
-import React, {createRef} from 'react';
+import React, {createRef, useState} from 'react';
 import JsPDF from 'jspdf';
 import html2Canvas from 'html2canvas';
 import dayjs from 'dayjs';
-import {Button} from "antd";
+
 import './index.scss';
 
 //595px  a4纸宽度
@@ -73,7 +73,14 @@ const Pdf = () => {
         );
     };
 
+    const [a,seta] = useState(1);
 
+    function onclicks(){
+        seta(2);
+        setTimeout(()=>{
+            console.log('aaa',a);
+        },2000)
+    }
     return (<div className="pdf">
         <div id="pdf-con" className="pdf-con">
             test
@@ -81,10 +88,11 @@ const Pdf = () => {
         <div className="pdf-con" ref={pdfs} style={{width: '595px', position: 'fixed', top: '-4444px', left: '-4999px'}}>
             test
         </div>
-
+        <div onClick={onclicks
+        }>点击</div>
         <div>
-            <Button htmlType="" onClick={() => handlePrint(false)}>下载</Button>
-            <Button htmlType="" onClick={() => handlePrint(true)}>打印</Button>
+            {/*<Button htmlType="" onClick={() => handlePrint(false)}>下载</Button>*/}
+            {/*<Button htmlType="" onClick={() => handlePrint(true)}>打印</Button>*/}
         </div>
 
     </div>)
