@@ -7,8 +7,8 @@ import dayjs from 'dayjs';
 
 const MusicList = (props) => {
 
-    const {data} = props;
-    const {songs, isLoading} = data;
+    const {data, isLoading} = props;
+    const {songs} = data;
     const getSongUrl = async (id) => {
         const url = 'http://api.mtnhao.com/song/url?id='+id;
         return axios.get(url);

@@ -12,29 +12,23 @@ const Music = ()=>{
 
     const [musicData, setMusicData] = useState({
         songs:[],
-        isLoading:false
     });
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const search = (value)=>{
         const url = 'http://api.mtnhao.com/search';
-        setMusicData({
-            songs:[],
-            isLoading:true
-        });
+        setIsLoading(true);
         getUrl(url,{
             keywords: value,
             limit:10
         },true).then((res)=>{
           const data = {
-              songs:res.result.songs,
-              isLoading:false,
+              songs:res.result.songs
           };
           setMusicData(data);
-
-        }).catch(()=>{
-            setMusicData({
-                isLoading:false
-            })
+        }).finally(()=>{
+            setIsLoading(false);
         })
     };
 
@@ -45,7 +39,7 @@ const Music = ()=>{
                 onSearch={value => search(value)}
                 style={{ width: 200 }}
             />
-            <MusicList data={musicData}/>
+            <MusicList isLoading={isLoading} data={musicData}/>
         </Layout>
 
     </div>)

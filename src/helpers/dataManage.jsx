@@ -1,8 +1,6 @@
 import axios from 'axios'
 import {loginIn} from "../redux/userInfo/action";
 import qs from 'qs';
-// import {LOGIN_IN} from "../redux/userInfo/constant";
-
 
 const LOCAL_URL ='http://localhost:3009';
 // let BASE_URL = 'http://47.240.15.130:3009';
@@ -128,9 +126,11 @@ export const postUrl = (url, params, hint = '') => {
             }
         }).catch((e)=>{
             console.log('未知错误', e);
+            // showInfoModal('未知网络错误');
         });
     }).catch((e) => {
         console.log('未知错误', e);
+        // showInfoModal('未知网络错误');
     });
 
 };
@@ -140,6 +140,7 @@ export const postUrl = (url, params, hint = '') => {
  * 公共get请求封装
  * @param url
  * @param params
+ * @param isAllUrl
  * @returns {Promise<any | never>}
  */
 export const getUrl = (url, params, isAllUrl = false) => {
@@ -155,9 +156,43 @@ export const getUrl = (url, params, isAllUrl = false) => {
             }
         }).catch((e)=>{
             console.log('未知错误', e);
+            // showInfoModal('未知网络错误');
+            reject(e);
         });
     }).catch((e) => {
         console.log('未知错误', e);
+        // showInfoModal('未知网络错误');
+        return Promise.reject(e);
     })
 
 };
+
+
+
+axios.defaults.timeout = 1000 * 200;
+axios.defaults.headers = {};
+axios.defaults.withCredentials = true;
+
+/** 设置请求拦截 **/
+
+axios.interceptors.request.use(
+    (config) => {
+
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    },
+);
+
+/** 设置响应拦截 **/
+
+axios.interceptors.response.use(
+    (response) => {
+        // console.log('resss',response);
+        return response.data || response;
+    },
+    (error) => {
+        return Promise.reject(error);
+    },
+);
