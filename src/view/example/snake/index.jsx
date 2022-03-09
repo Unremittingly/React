@@ -1,6 +1,7 @@
 import React, {Component} from "react"
 import './index..scss'
 import {Button} from "antd";
+import Layout from "../../../common/layout";
 
 
 class Snake_0 extends Component {
@@ -368,6 +369,7 @@ class Snake_0 extends Component {
     render() {
         return (
             <div className="snake">
+                <Layout>
                 <canvas id="snake" width="800" height="600"/>
                 <div >
                     <Button htmlType="button" type="primary" onClick={() => {
@@ -377,6 +379,7 @@ class Snake_0 extends Component {
                     <span id="score">{this.state.score}</span>
                 </span>
                 </div>
+                </Layout>
             </div>
         )
     }

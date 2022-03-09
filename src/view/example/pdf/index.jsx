@@ -1,9 +1,11 @@
-import React, {createRef, useState} from 'react';
+import React, {createRef} from 'react';
+import {Button} from 'antd';
 import JsPDF from 'jspdf';
 import html2Canvas from 'html2canvas';
 import dayjs from 'dayjs';
 
 import './index.scss';
+import Layout from "../../../common/layout";
 
 //595px  a4纸宽度
 const Pdf = () => {
@@ -73,6 +75,7 @@ const Pdf = () => {
         );
     };
     return (<div className="pdf">
+        <Layout>
         <div id="pdf-con" className="pdf-con">
             test
         </div>
@@ -83,6 +86,7 @@ const Pdf = () => {
             <Button htmlType="" onClick={() => handlePrint(false)}>下载</Button>
             <Button htmlType="" onClick={() => handlePrint(true)}>打印</Button>
         </div>
+        </Layout>
 
     </div>)
 };

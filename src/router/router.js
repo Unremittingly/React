@@ -8,6 +8,9 @@ import example from '../view/example'
 import detail from '../view/article/detail'
 import Music from '../view/music'
 import Novel from "../view/novel";
+import Pdf from '../view/example/pdf'
+import Snake from '../view/example/snake'
+import FireWork from "../view/example/fireWorks";
 // import FlightChoose from "../view/test1";
 
 
@@ -83,6 +86,30 @@ export const childRoutes = [
         component: Novel,
         auth: false,
         isNav:true,
+    },
+    {
+        id: 10,
+        path: '/example/pdf',
+        name: '打印pdf',
+        component: Pdf,
+        auth: false,
+        isNav:false
+    },
+    {
+        id: 11,
+        path: '/example/snake',
+        name: '贪吃蛇',
+        component: Snake,
+        auth: false,
+        isNav:false
+    },
+    {
+        id: 12,
+        path: '/example/fireWork',
+        name: '火花',
+        component: FireWork,
+        auth: false,
+        isNav:false
     },
     // {path:'/test1',component:FlightChoose,auth:false},
     {

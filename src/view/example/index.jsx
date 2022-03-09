@@ -9,19 +9,22 @@ class Example extends Component {
     state = {
         list: [
             {
-                name: 'snake',
+                name: '贪吃蛇',
                 gitUrl: 'https://github.com/Unremittingly/web/tree/master/canvas/snake',
-                component: <Snake/>
+                component: <Snake/>,
+                url: '/example/snake'
             },
             {
-                name: 'firework',
+                name: '火花',
                 gitUrl: 'https://github.com/Unremittingly/web/tree/master/canvas/fireworks',
-                component: <FireWork/>
+                component: <FireWork/>,
+                url: '/example/fireWork'
             },
             {
-                name: 'pdf',
+                name: '打印pdf',
                 gitUrl: 'https://github.com/Unremittingly/web/tree/master/canvas/fireworks',
-                component: <Pdf/>
+                component: <Pdf/>,
+                url: '/example/pdf'
             }
         ]
     };
@@ -32,7 +35,7 @@ class Example extends Component {
             <div className="example">
                 <Layout>
                     {list.map((item) => {
-                        return <Item key={item.name} name={item.name} gitUrl={item.gitUrl}>{item.component}</Item>;
+                        return <Item key={item.name} name={item.name} gitUrl={item.gitUrl} url={item.url}>{item.component}</Item>;
                     })}
                 </Layout>
 
