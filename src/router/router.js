@@ -11,6 +11,7 @@ import Novel from "../view/novel";
 import Pdf from '../view/example/pdf'
 import Snake from '../view/example/snake'
 import FireWork from "../view/example/fireWorks";
+import EchartsMap from "../view/example/echartsMap";
 // import FlightChoose from "../view/test1";
 
 
@@ -108,6 +109,14 @@ export const childRoutes = [
         path: '/example/fireWork',
         name: '火花',
         component: FireWork,
+        auth: false,
+        isNav:false
+    },
+    {
+        id: 13,
+        path: '/example/echartsMap',
+        name: '地图',
+        component: EchartsMap,
         auth: false,
         isNav:false
     },

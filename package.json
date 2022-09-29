@@ -92,6 +92,7 @@
   ],
   "devDependencies": {
     "babel-loader": "^8.0.5",
+    "echarts": "^5.4.0",
     "redux-devtools-extension": "^2.13.8"
   },
   "jest": {

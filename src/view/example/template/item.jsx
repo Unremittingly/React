@@ -8,11 +8,10 @@ class Item extends Component{
         const {name,children,gitUrl, url} = this.props;
         return (
             <div className="example-item">
-                <div className="item-tit"> <Link to={url}>{name}</Link><span className="git">git地址：
+                <div className="item-tit"> <Link to={url}>{name}</Link> {gitUrl &&<span className="git">git地址：
                     <a href={gitUrl} target="_Blank" rel="noopener noreferrer">戳这里</a>
-                </span>
+                </span>}
                 </div>
-
                 {/*<div className="item-con">{children}</div>*/}
             </div>
         )
