@@ -12,6 +12,7 @@ import Pdf from '../view/example/pdf'
 import Snake from '../view/example/snake'
 import FireWork from "../view/example/fireWorks";
 import EchartsMap from "../view/example/echartsMap";
+import Time1 from "../view/example/time1";
 // import FlightChoose from "../view/test1";
 
 
@@ -117,6 +118,14 @@ export const childRoutes = [
         path: '/example/echartsMap',
         name: '地图',
         component: EchartsMap,
+        auth: false,
+        isNav:false
+    },
+    {
+        id: 14,
+        path: '/example/time',
+        name: '时间',
+        component: Time1,
         auth: false,
         isNav:false
     },

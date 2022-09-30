@@ -5,6 +5,7 @@ import FireWork from './fireWorks'
 import Pdf from './pdf'
 import Item from './template/item'
 import EchartsMap from "./echartsMap";
+import Time1 from "./time1";
 
 class Example extends Component {
     state = {
@@ -32,6 +33,12 @@ class Example extends Component {
                 // gitUrl: 'https://github.com/Unremittingly/web/tree/master/canvas/fireworks',
                 component: <EchartsMap/>,
                 url: '/example/echartsMap'
+            },
+            {
+                name: '时间',
+                // gitUrl: 'https://github.com/Unremittingly/web/tree/master/canvas/fireworks',
+                component: <Time1/>,
+                url: '/example/time'
             }
         ]
     };
