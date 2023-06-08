@@ -5,7 +5,7 @@ import FireWork from './fireWorks'
 import Pdf from './pdf'
 import Item from './template/item'
 import EchartsMap from "./echartsMap";
-import Time1 from "./time1";
+import TextGame from "@/view/example/textGame";
 
 class Example extends Component {
     state = {
@@ -35,10 +35,10 @@ class Example extends Component {
                 url: '/example/echartsMap'
             },
             {
-                name: '时间',
+                name: '文字游戏',
                 // gitUrl: 'https://github.com/Unremittingly/web/tree/master/canvas/fireworks',
-                component: <Time1/>,
-                url: '/example/time'
+                component: <TextGame />,
+                url: '/example/textGame'
             }
         ]
     };

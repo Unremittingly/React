@@ -12,7 +12,7 @@ import Pdf from '../view/example/pdf'
 import Snake from '../view/example/snake'
 import FireWork from "../view/example/fireWorks";
 import EchartsMap from "../view/example/echartsMap";
-import Time1 from "../view/example/time1";
+import TextGame from "@/view/example/textGame";
 // import FlightChoose from "../view/test1";
 
 
@@ -122,10 +122,10 @@ export const childRoutes = [
         isNav:false
     },
     {
-        id: 14,
-        path: '/example/time',
-        name: '时间',
-        component: Time1,
+        id: 13,
+        path: '/example/textGame',
+        name: '文字游戏',
+        component: TextGame,
         auth: false,
         isNav:false
     },
