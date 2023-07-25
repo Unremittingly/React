@@ -1,6 +1,5 @@
 import React from 'react';
 import Layout from "@/common/layout";
-import Item from "@/view/example/template/item";
 
 const TextGame = ()=>{
 

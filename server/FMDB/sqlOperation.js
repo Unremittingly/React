@@ -6,7 +6,7 @@ const localConf = {
     host:'localhost',
     port:'3306',
     user:'root',
-    password: '123456Zq',//
+    password: '123456zQ',//
     database: 'personage'
 };
 //远程数据库配置
@@ -14,7 +14,7 @@ const serverConf = {
     host: '47.240.15.130',
     port: '3306',
     user: 'root',
-    password: 'root',
+    password: '123456zQ',
     database: 'personage'
 };
 
