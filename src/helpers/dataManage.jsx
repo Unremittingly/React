@@ -3,8 +3,9 @@ import {loginIn} from "../redux/userInfo/action";
 import qs from 'qs';
 
 const LOCAL_URL ='http://localhost:3009';
-// let BASE_URL = 'http://47.240.15.130:3009';
 let BASE_URL = LOCAL_URL;
+// let BASE_URL = 'http://47.240.15.130:3009';
+
 
 /********
  * 获取文章列表
