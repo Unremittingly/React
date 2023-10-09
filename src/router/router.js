@@ -13,6 +13,7 @@ import Snake from '../view/example/snake'
 import FireWork from "../view/example/fireWorks";
 import EchartsMap from "../view/example/echartsMap";
 import TextGame from "@/view/example/textGame";
+import DualColouredBall from "@/view/example/dualColouredBall";
 // import FlightChoose from "../view/test1";
 
 
@@ -122,10 +123,18 @@ export const childRoutes = [
         isNav:false
     },
     {
-        id: 13,
+        id: 14,
         path: '/example/textGame',
         name: '文字游戏',
         component: TextGame,
+        auth: false,
+        isNav:false
+    },
+    {
+        id: 15,
+        path: '/example/dualColouredBall',
+        name: '双色球',
+        component: DualColouredBall,
         auth: false,
         isNav:false
     },

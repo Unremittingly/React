@@ -6,6 +6,7 @@ import Pdf from './pdf'
 import Item from './template/item'
 import EchartsMap from "./echartsMap";
 import TextGame from "@/view/example/textGame";
+import DualColouredBall from "@/view/example/dualColouredBall";
 
 class Example extends Component {
     state = {
@@ -39,6 +40,11 @@ class Example extends Component {
                 // gitUrl: 'https://github.com/Unremittingly/web/tree/master/canvas/fireworks',
                 component: <TextGame />,
                 url: '/example/textGame'
+            },
+            {
+                name: '双色球',
+                component: <DualColouredBall />,
+                url: '/example/dualColouredBall'
             }
         ]
     };
