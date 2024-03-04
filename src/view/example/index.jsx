@@ -7,6 +7,7 @@ import Item from './template/item'
 import EchartsMap from "./echartsMap";
 import TextGame from "@/view/example/textGame";
 import DualColouredBall from "@/view/example/dualColouredBall";
+import AudioJitter from "@/view/example/audioJitter";
 
 class Example extends Component {
     state = {
@@ -45,7 +46,13 @@ class Example extends Component {
                 name: '双色球',
                 component: <DualColouredBall />,
                 url: '/example/dualColouredBall'
+            },
+            {
+                name: '音频跳动',
+                component: <AudioJitter />,
+                url: '/example/audioJitter'
             }
+
         ]
     };
 

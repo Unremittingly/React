@@ -14,6 +14,7 @@ import FireWork from "../view/example/fireWorks";
 import EchartsMap from "../view/example/echartsMap";
 import TextGame from "@/view/example/textGame";
 import DualColouredBall from "@/view/example/dualColouredBall";
+import AudioJitter from "@/view/example/audioJitter";
 // import FlightChoose from "../view/test1";
 
 
@@ -135,6 +136,14 @@ export const childRoutes = [
         path: '/example/dualColouredBall',
         name: '双色球',
         component: DualColouredBall,
+        auth: false,
+        isNav:false
+    },
+    {
+        id: 15,
+        path: '/example/audioJitter',
+        name: '音频跳动',
+        component: AudioJitter,
         auth: false,
         isNav:false
     },
