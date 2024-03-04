@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.scss';
 import {Button} from "antd";
-const remindSrc = require('@/view/example/audioJitter/abc.mp3')
+const remindSrc = require('@/view/example/audioJitter/宁夏-梁静茹.mp3')
 
 let isStop = false;
 const onDraw = (oAudio)=>{
