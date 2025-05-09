@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>图片转Base64转换器</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #preview {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+        .btn-group {
+            margin: 15px 0;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background: #218838;
+        }
+        #result {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>图片转Base64转换器</h2>
+
+    <!-- 文件选择区域 -->
+    <input type="file" id="fileInput" accept="image/*">
+
+    <!-- 预览区域 -->
+    <img id="preview" class="hidden" alt="图片预览"/>
+
+    <!-- 按钮组 -->
+    <div class="btn-group">
+        <button onclick="convertToBase64()">转换为Base64</button>
+        <button onclick="copyToClipboard()">复制结果</button>
+    </div>
+
+    <!-- 结果显示 -->
+    <textarea id="result" readonly placeholder="Base64结果显示区域"></textarea>
+</div>
+
+<script>
+    let currentFile = null;
+
+    // 文件选择监听
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        currentFile = file;
+        previewImage(file);
+    });
+
+    // 图片预览
+    function previewImage(file) {
+        const reader = new FileReader();
+        const preview = document.getElementById('preview');
+
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.classList.remove('hidden');
+        }
+
+        reader.readAsDataURL(file);
+    }
+
+    // 转换核心方法
+    function convertToBase64() {
+        if (!currentFile) {
+            alert('请先选择图片');
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const base64 = e.target.result;
+            document.getElementById('result').value = base64;
+        };
+
+        reader.onerror = function(error) {
+            console.error('转换失败:', error);
+            alert('文件读取失败，请重试');
+        };
+
+        reader.readAsDataURL(currentFile);
+    }
+
+    // 复制到剪贴板
+    function copyToClipboard() {
+        const result = document.getElementById('result');
+        if (!result.value) {
+            alert('没有可复制的内容');
+            return;
+        }
+
+        result.select();
+        document.execCommand('copy');
+        alert('已复制到剪贴板');
+    }
+</script>
+</body>
+</html>
