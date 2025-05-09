@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Base64图片转换器</title>
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    #preview {
+      max-width: 100%;
+      margin-top: 20px;
+      border: 1px solid #ddd;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      margin: 10px 0;
+      padding: 10px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Base64图片转换器</h2>
+  <textarea
+          id="base64Input"
+          placeholder="请输入完整的Base64字符串（以data:image/...开头）"
+          oninput="previewImage()"
+  ></textarea>
+  <button onclick="downloadImage()">下载图片</button>
+  <div id="imageContainer">
+    <img id="preview" alt="图片预览区域"/>
+  </div>
+</div>
+
+<script>
+  // Base64转Blob对象
+  function base64ToBlob(base64) {
+    const [header, data] = base64.split(',');
+    const mime = header.match(/:(.*?);/)[1];
+    const byteStr = atob(data);
+    const arrayBuffer = new ArrayBuffer(byteStr.length);
+    const uint8Array = new Uint8Array(arrayBuffer);
+
+    for(let i = 0; i < byteStr.length; i++) {
+      uint8Array[i] = byteStr.charCodeAt(i);
+    }
+    return new Blob([arrayBuffer], { type: mime });
+  }
+
+  // 实时预览图片
+  function previewImage() {
+    const base64 = document.getElementById('base64Input').value.trim();
+    const preview = document.getElementById('preview');
+
+    if(base64.startsWith('data:image')) {
+      preview.src = base64;
+      preview.style.display = 'block';
+    } else {
+      preview.style.display = 'none';
+    }
+  }
+
+  // 下载图片
+  function downloadImage() {
+    const base64 = document.getElementById('base64Input').value.trim();
+
+    if(!base64) {
+      alert('请输入Base64字符串');
+      return;
+    }
+
+    try {
+      const blob = base64ToBlob(base64);
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+
+      link.href = url;
+      link.download = `image_${Date.now()}.${blob.type.split('/')[1]}`;
+      document.body.appendChild(link);
+      link.click();
+
+      // 清理资源
+      setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }, 100);
+    } catch(e) {
+      alert('无效的Base64字符串: ' + e.message);
+    }
+  }
+</script>
+</body>
+</html>

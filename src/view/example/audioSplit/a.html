@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>人声背景声分离</title>
+  <style>
+    .color-bg1{
+      width:200px ;
+      height:40px;
+      background: rgba(0,255,255,0.3);
+    }
+    .color-bg2{
+      width:200px ;
+      height:40px;
+      background: rgba(42, 128, 128,0.8);
+    }
+    .color-bg3{
+      width:200px ;
+      height:40px;
+      background: rgb(224, 255, 255);
+    }
+    .color-bg4{
+      width:200px ;
+      height:40px;
+      background: rgb(0, 139, 139);
+    }
+    .color-bg5{
+      width:200px ;
+      height:40px;
+      background: rgba(173, 216, 230,1);
+    }
+    .color-bg6{
+      width:200px ;
+      height:40px;
+      background: #A5F3F3;
+    }
+    .color-bg7{
+      width:200px ;
+      height:40px;
+      background: rgba(0, 255, 255,1);
+    }
+    .color-bg8{
+      width:200px ;
+      height:40px;
+      background: #00e09e;
+    }
+    .color-bg9{
+      width:200px ;
+      height:40px;
+      background: rgba(135,175,155,1);
+    }
+    .color-bg10{
+      width:200px ;
+      height:40px;
+      background: #b6c8bd;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@webaudio/web-audio@latest/dist/web-audio.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/spleeter.js@latest/dist/spleeter.min.js"></script>
+</head>
+<body>
+<input type="file" id="audioFile" accept="audio/*">
+<div id="controls">
+  <button id="processButton">处理音频</button>
+  <button id="playVocalsButton">播放人声</button>
+  <button id="playBackgroundButton">播放背景音乐</button>
+  <div class="color-bg">
+    <div class="color-bg1">
+      rgba(0,255,255,0.3);
+    </div>
+    <div class="color-bg2">
+      rgba(42, 128, 128,0.8)
+    </div>
+    <div class="color-bg3">
+      rgb(224, 255, 255)
+    </div>
+    <div class="color-bg4">
+      rgb(0, 139, 139)
+    </div>
+    <div class="color-bg5">
+      rgba(173, 216, 230,1)
+    </div>
+    <div class="color-bg6">
+      #A5F3F3
+    </div>
+    <div class="color-bg7">
+      rgba(0, 255, 255,1)
+    </div>
+    <div class="color-bg8">
+      #00e09e
+    </div>
+    <div class="color-bg9">
+      rgba(135,175,155,1)
+    </div>
+    <div class="color-bg10">
+      #b6c8bd
+    </div>
+  </div>
+
+</div>
+<audio id="vocalsAudio" controls></audio>
+<audio id="backgroundAudio" controls></audio>
+
+
+<script>
+  const audioFile = document.getElementById('audioFile');
+  const processButton = document.getElementById('processButton');
+  const playVocalsButton = document.getElementById('playVocalsButton');
+  const playBackgroundButton = document.getElementById('playBackgroundButton');
+  const vocalsAudio = document.getElementById('vocalsAudio');
+  const backgroundAudio = document.getElementById('backgroundAudio');
+
+  let audioContext;
+  let spleeterProcessor;
+
+  processButton.addEventListener('click', async () => {
+    if (!audioFile.files[0]) return;
+
+    const audioBuffer = await loadAudioFile(audioFile.files[0]);
+    const [vocals, accompaniment] = await separateAudio(audioBuffer);
+
+    createAndPlayStream(vocals, vocalsAudio);
+    createAndPlayStream(accompaniment, backgroundAudio);
+  });
+
+  playVocalsButton.addEventListener('click', () => {
+    if (vocalsAudio.paused) {
+      vocalsAudio.play();
+    } else {
+      vocalsAudio.pause();
+    }
+  });
+
+  playBackgroundButton.addEventListener('click', () => {
+    if (backgroundAudio.paused) {
+      backgroundAudio.play();
+    } else {
+      backgroundAudio.pause();
+    }
+  });
+
+  async function loadAudioFile(file) {
+    audioContext = new AudioContext();
+    const audioBuffer = await audioContext.decodeAudioData(await file.arrayBuffer());
+    return audioBuffer;
+  }
+
+  async function separateAudio(audioBuffer) {
+    if (!spleeterProcessor) {
+      spleeterProcessor = new SpleeterProcessor();
+      await spleeterProcessor.init();
+    }
+
+    const [vocals, accompaniment] = await spleeterProcessor.process(audioBuffer);
+    return [vocals, accompaniment];
+  }
+
+  function createAndPlayStream(audioBuffer, audioElement) {
+    const audioSource = audioContext.createMediaStreamSource(audioBuffer);
+    audioSource.connect(audioContext.destination);
+    audioElement.srcObject = audioSource.stream;
+  }
+</script>
+</body>
+</html>
